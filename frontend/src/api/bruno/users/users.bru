@@ -1,0 +1,22 @@
+meta {
+  name: users
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5000/users
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "email": "toto@gmail.com",
+      "password_hash": "dsfsdfsdf",
+      "name": "toto",
+      "role": "administrateur"
+    }
+  ]
+}
