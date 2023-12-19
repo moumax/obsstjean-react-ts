@@ -20,7 +20,7 @@ function Administration() {
   if (isLoadingUsers) return "chargement en cours..."
 
   return (
-    <Tabs defaultValue="utilisateurs" className="h-screen">
+    <Tabs defaultValue="utilisateurs" className="h-full">
       <TabsList>
         <TabsTrigger value="utilisateurs">Utilisateurs</TabsTrigger>
         <TabsTrigger value="evènements">Evènements</TabsTrigger>

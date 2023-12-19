@@ -1,4 +1,5 @@
 import DeleteUsers from "@/components/modals/DeleteUsers.tsx";
+import EditUsers from "@/components/modals/EditUsers.tsx";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card.tsx";
 
 interface Data {
@@ -6,9 +7,10 @@ interface Data {
   email: string;
   name: string;
   role: string;
+  password_hash: string;
 }
 
-function CardUser({ data: {email, name, role, id} }: { data: Data }) {
+function CardUser({ data: {email, name, role, id, password_hash} }: { data: Data }) {
   if (!email) return null;
   return (
     <div className="mb-2">
@@ -22,6 +24,7 @@ function CardUser({ data: {email, name, role, id} }: { data: Data }) {
         </CardContent>
         <CardFooter>
           <div className="w-full flex justify-end gap-2">
+            <EditUsers id={id} email={email} name={name} role={role} password={password_hash}/>
             <DeleteUsers id={id} name={name}/>
           </div>
         </CardFooter>

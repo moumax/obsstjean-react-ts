@@ -48,8 +48,8 @@ const UsersController = {
     const userToUpdate = {
       email: req.body.email,
       name: req.body.name,
-      password: req.body.password,
       role: req.body.role,
+      password_hash: req.body.password,
     };
 
     try {
