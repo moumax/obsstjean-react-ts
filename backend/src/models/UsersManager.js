@@ -1,37 +1,57 @@
-const dbPool = require("../services/db")
+import dbPool from "../services/db.js";
 
-const UsersManager = {
-  getAll: () => {
-    return dbPool
-      .query("SELECT * FROM users")
-      .then(([rows]) => rows)
-      .catch((err) => {
-        throw err
-      });
+const userManager = {
+  async getAll() {
+    try {
+      const [result] = await dbPool.query("SELECT * FROM users");
+      return result;
+    } catch (err) {
+      console.error(
+        "Erreur lors de la récupération des utilisateurs :",
+        err.message,
+      );
+      throw err;
+    }
   },
 
-  create: (user) => {
-    return dbPool
-      .query("INSERT INTO users SET ?", user)
-      .then(([result]) => ({ id: result.insertId, ...user}))
-      .catch((err) => {
-        throw err
-      });
+  async create(user) {
+    try {
+      const [result] = await dbPool.query("INSERT INTO users SET ?", user);
+      return { id: result.insertId, ...user };
+    } catch (err) {
+      console.error(
+        "Erreur lors de la création de l'utilisateur :",
+        err.message,
+      );
+      throw err;
+    }
   },
 
-  update: (user, id) => {
-    return dbPool
-      .query("UPDATE users SET ? WHERE id = ?", [user, id])
+  async update(user, id) {
+    try {
+      const [result] = await dbPool.query("UPDATE users SET ? WHERE id = ?", [
+        user,
+        id,
+      ]);
+      return result;
+    } catch (err) {
+      console.error(
+        "Erreur lors de la mise à jour de l'utilisateur :",
+        err.message,
+      );
+      throw err;
+    }
   },
 
-  delete: (id) => {
-    return dbPool
-      .query("DELETE FROM users WHERE id = ?", id)
-      .then(([result]) => result.affectedRows)
-      .catch((err) => {
-        throw err
-      });
-  }
-}
+  async delete(id) {
+    try {
+      const [result] = await dbPool.query("DELETE FROM users WHERE id = ?", id);
+      return result.affectedRows;
+    } catch (err) {
+      console.error("Erreur lors de la jour de l'utilisateur :", err.message);
+      throw err;
+    }
+  },
+};
 
-module.exports = UsersManager
+export default userManager;
