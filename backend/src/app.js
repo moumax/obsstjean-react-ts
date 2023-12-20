@@ -1,14 +1,15 @@
-const fs = require("node:fs");
-const path = require("node:path");
-const express = require("express");
-const eventsRouter = require("./routes/EventsRouter");
-const usersRouter = require("./routes/UsersRouter");
-const router = express.Router();
+import fs from "node:fs";
+import path from "node:path";
+import express, { Router } from "express";
+import eventsRouter from "./routes/EventsRouter.js";
+import usersRouter from "./routes/UsersRouter.js";
+
+const router = Router();
 
 const app = express();
 app.use(express.json());
 
-const cors = require("cors");
+import cors from "cors";
 
 app.use(
   cors({
@@ -22,10 +23,15 @@ router.use("/users", usersRouter);
 router.use("/events", eventsRouter);
 app.use(router);
 
-app.use(express.static(path.join(__dirname, "../public")));
+// Utilisez import.meta.url pour obtenir l'URL du module actuel
+const currentModuleURL = new URL(import.meta.url);
+// Utilisez path.dirname pour extraire le chemin du répertoire
+const currentDirectory = path.dirname(currentModuleURL.pathname);
+
+app.use(express.static(path.join(currentDirectory, "../public")));
 
 const reactIndexFile = path.join(
-  __dirname,
+  currentDirectory,
   "..",
   "..",
   "frontend",
@@ -34,11 +40,13 @@ const reactIndexFile = path.join(
 );
 
 if (fs.existsSync(reactIndexFile)) {
-  app.use(express.static(path.join(__dirname, "..", "..", "frontend", "dist")));
+  app.use(
+    express.static(path.join(currentDirectory, "..", "..", "frontend", "dist")),
+  );
 
   app.get("*", (req, res) => {
     res.sendFile(reactIndexFile);
   });
 }
 
-module.exports = app;
+export default app;
