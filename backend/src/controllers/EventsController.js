@@ -1,7 +1,7 @@
-const EventsManager = require("../models/EventsManager");
+import EventsManager from "../models/EventsManager.js";
 
 const EventsController = {
-  getAllEvents: async (req, res) => {
+  async getAllEvents(req, res) {
     try {
       const events = await EventsManager.getAll();
       res.status(200).json(events);
@@ -13,7 +13,7 @@ const EventsController = {
     }
   },
 
-  createEvent: async (req, res) => {
+  async createEvent(req, res) {
     const newEvent = {
       title: req.body.title,
       description: req.body.description,
@@ -28,7 +28,7 @@ const EventsController = {
     }
   },
 
-  editEvent: async (req, res) => {
+  async editEvent(req, res) {
     const eventToUpdate = {
       title: req.body.title,
       description: req.body.description,
@@ -39,7 +39,7 @@ const EventsController = {
     try {
       const updatedEvent = await EventsManager.update(
         eventToUpdate,
-        req.params.id
+        req.params.id,
       );
       res.status(200).json(updatedEvent);
     } catch (error) {
@@ -50,7 +50,7 @@ const EventsController = {
     }
   },
 
-  deleteEvent: async (req, res) => {
+  async deleteEvent(req, res) {
     try {
       const events = await EventsManager.delete(req.params.id);
       res.status(204).json(events);
@@ -61,4 +61,4 @@ const EventsController = {
   },
 };
 
-module.exports = EventsController;
+export default EventsController;
