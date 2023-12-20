@@ -1,8 +1,8 @@
-const UsersManager = require("../models/UsersManager");
-const { hashPassword } = require("../helpers/argonHelper.ts");
+import UsersManager from "../models/UsersManager.js";
+import { hashPassword } from "../helpers/argonHelper.js";
 
 const UsersController = {
-  getAllUsers: async (req, res) => {
+  async getAllUsers(req, res) {
     try {
       const users = await UsersManager.getAll();
       res.status(200).json(users);
@@ -14,7 +14,7 @@ const UsersController = {
     }
   },
 
-  createUser: async (req, res) => {
+  async createUser(req, res) {
     const newUser = {
       email: req.body.email,
       name: req.body.name,
@@ -37,14 +37,14 @@ const UsersController = {
 
       res.status(201).json(createdUser);
     } catch (error) {
-      console.error("Erreur lors de la création de l'utilisateur", error)
+      console.error("Erreur lors de la création de l'utilisateur", error);
       res
         .status(500)
         .send("Erreur serveur lors de la création de l'utilisateur");
     }
   },
 
-  editUser: async (req, res) => {
+  async editUser(req, res) {
     const userToUpdate = {
       email: req.body.email,
       name: req.body.name,
@@ -55,7 +55,7 @@ const UsersController = {
     try {
       const updatedUser = await UsersManager.update(
         userToUpdate,
-        req.params.id
+        req.params.id,
       );
       res.status(200).json(updatedUser);
     } catch (error) {
@@ -66,7 +66,7 @@ const UsersController = {
     }
   },
 
-  deleteUser: async (req, res) => {
+  async deleteUser(req, res) {
     try {
       const users = await UsersManager.delete(req.params.id);
       res.status(204).json(users);
@@ -77,4 +77,4 @@ const UsersController = {
   },
 };
 
-module.exports = UsersController;
+export default UsersController;
