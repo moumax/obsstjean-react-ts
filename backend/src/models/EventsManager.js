@@ -1,37 +1,50 @@
-const dbPool = require("../services/db")
+import dbPool from "../services/db.js";
 
 const EventsManager = {
-  getAll: () => {
-    return dbPool
-      .query("SELECT * FROM events")
-      .then(([rows]) => rows)
-      .catch((err) => {
-        throw err
-      });
+  async getAll() {
+    try {
+      const [result] = await dbPool.query("SELECT * FROM events");
+      return result;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  create: (event) => {
-    return dbPool
-      .query("INSERT INTO events SET ?", event)
-      .then(([result]) => ({ id: result.insertId, ...event }))
-      .catch((err) => {
-        throw err
-      });
+  async create(eventData) {
+    try {
+      const [result] = await dbPool.query(
+        "INSERT INTO events SET ?",
+        eventData,
+      );
+      return { id: result.insertId, ...eventData };
+    } catch (err) {
+      throw err;
+    }
   },
 
-  update: (event, id) => {
-    return dbPool
-      .query("UPDATE events SET ? WHERE id = ?", [event, id])
+  async update(event, id) {
+    try {
+      const [result] = await dbPool.query("UPDATE events SET ? WHERE id = ?", [
+        event,
+        id,
+      ]);
+      return result;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  delete: (id) => {
-    return dbPool
-      .query("DELETE FROM events WHERE id = ?", id)
-      .then(([result]) => result.affectedRows)
-      .catch((err) => {
-        throw err
-      });
-  }
-}
+  async delete(id) {
+    try {
+      const [result] = await dbPool.query(
+        "DELETE FROM events WHERE id = ?",
+        id,
+      );
+      return result.affectedRows;
+    } catch (err) {
+      throw err;
+    }
+  },
+};
 
-module.exports = EventsManager
+export default EventsManager;
