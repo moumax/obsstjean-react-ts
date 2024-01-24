@@ -3,6 +3,7 @@ import path from "node:path";
 import express, { Router } from "express";
 import eventsRouter from "./routes/EventsRouter.js";
 import usersRouter from "./routes/UsersRouter.js";
+import membersRouter from "./routes/MembersRouter.js";
 
 const router = Router();
 
@@ -21,6 +22,7 @@ app.use(
 
 router.use("/users", usersRouter);
 router.use("/events", eventsRouter);
+router.use("/members", membersRouter);
 app.use(router);
 
 // Utilisez import.meta.url pour obtenir l'URL du module actuel
