@@ -1,27 +1,102 @@
-import { Button } from "@/components/ui/button.tsx"
-import { Input } from "@/components/ui/input.tsx"
+import { Button } from "@/components/ui/button.tsx";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input.tsx";
+import { useToast } from "@/components/ui/use-toast";
+import loginSchema from "@/datas/validationLoginSchema.ts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import * as z from "zod";
 
 function Login() {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  interface FormData {
+    email: string;
+    password: string;
+   }
+
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  })
+
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    try {
+      await sendDataToDatabase(values);
+      toast({
+        description: "Tu es maintenant connecté !",
+      })
+      navigate("/");
+    } catch (error) {
+      console.error("Erreur dans le formulaire:", error);
+    }
+  }
+
+  const sendDataToDatabase = async (form: FormData) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      toast({
+        description: "Erreur dans le formulaire",
+      })
+      throw new Error('Erreur dans le formulaire');
+    }
+    const data = await response.json();
+    return data;
+  };
 
   return (
     <section className="flex flex-col h-screen justify-center gap-3">
-      <h2 className="text-xl text-center text-white mb-10">Page de connexion</h2>
-      <Input type="text" placeholder="Email@email.com" />
-      <Input type="text" placeholder="Mot de passe" />
-      <Button className="bg-green-600">Se connecter</Button>
-      <Button className="bg-red-600" type="submit" onClick={() => navigate("/signup")}>
-        Créer un compte
-      </Button>
-      <Button
-        className="mt-10"
-        type="submit"
-        onClick={() => navigate("/")}
-        >
-          Retour
-      </Button>
-    </section>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-screen flex flex-col justify-center items-center" >
+          <h1 className="text-white text-xl">Page de connexion</h1>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Ton email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Ton mot de passe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+          <Button
+            className="mt-10"
+            type="button"
+            onClick={() => navigate("/")}
+          >
+            Retour
+          </Button>
+        </form>
+      </Form>
+    </section >
   )
 }
 

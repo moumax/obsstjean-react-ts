@@ -1,19 +1,26 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx"
 import { useToast } from "@/components/ui/use-toast"
 import signUpSchema from "@/datas/validationUsersSchema.ts"
-import { useSWRConfig } from "swr"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx"
+import { useSWRConfig } from "swr"
+import * as z from "zod"
 
 export default function Signup() {
   const { mutate } = useSWRConfig()
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  interface FormData {
+    email: string;
+    name: string;
+    password: string;
+    role: string;
+  }
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -38,7 +45,7 @@ export default function Signup() {
     }
   }
 
-  const sendDataToDatabase = async (form) => {
+  const sendDataToDatabase = async (form: FormData) => {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/`, {
       method: 'POST',
       headers: {

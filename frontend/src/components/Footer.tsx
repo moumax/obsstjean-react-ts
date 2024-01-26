@@ -1,10 +1,30 @@
-import { Button } from "@/components/ui/button.tsx"
-import { useNavigate } from "react-router-dom"
-import { BiLogoJavascript, BiLogoReact } from "react-icons/bi"
-import { SiMysql } from "react-icons/si"
+import { Button } from "@/components/ui/button.tsx";
+import { toast } from "@/components/ui/use-toast.ts";
+import { BiLogoJavascript, BiLogoReact } from "react-icons/bi";
+import { SiMysql } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
   const navigate = useNavigate();
+
+const  handleDisconnection = async () => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/logout/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+        if (!response.ok) {
+      toast({
+        description: "Logout impossible",
+      })
+      throw new Error('Erreur dans la fonction logout');
+    }
+      toast({
+        description: "Tu es déconnecté !",
+      })
+  }
 
   return (
     <footer className="flex flex-col">
@@ -25,7 +45,7 @@ function Footer() {
         >
           Login
         </Button>
-        <Button>Logout</Button>
+        <Button type="submit" onClick={handleDisconnection}>Logout</Button>
         <Button
           type="submit"
           onClick={() => navigate("/administration")}

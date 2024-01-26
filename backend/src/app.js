@@ -1,14 +1,17 @@
+import cookieParser from "cookie-parser";
+import express, { Router } from "express";
 import fs from "node:fs";
 import path from "node:path";
-import express, { Router } from "express";
+import authRouter from "./routes/AuthRouter.js";
 import eventsRouter from "./routes/EventsRouter.js";
-import usersRouter from "./routes/UsersRouter.js";
 import membersRouter from "./routes/MembersRouter.js";
+import usersRouter from "./routes/UsersRouter.js";
 
 const router = Router();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 import cors from "cors";
 
@@ -17,12 +20,14 @@ app.use(
     origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
     credentials: true,
     optionsSuccessStatus: 200,
-  }),
+  })
 );
 
 router.use("/users", usersRouter);
 router.use("/events", eventsRouter);
 router.use("/members", membersRouter);
+router.use("/auth", authRouter);
+
 app.use(router);
 
 // Utilisez import.meta.url pour obtenir l'URL du module actuel
@@ -38,12 +43,12 @@ const reactIndexFile = path.join(
   "..",
   "frontend",
   "dist",
-  "index.html",
+  "index.html"
 );
 
 if (fs.existsSync(reactIndexFile)) {
   app.use(
-    express.static(path.join(currentDirectory, "..", "..", "frontend", "dist")),
+    express.static(path.join(currentDirectory, "..", "..", "frontend", "dist"))
   );
 
   app.get("*", (req, res) => {

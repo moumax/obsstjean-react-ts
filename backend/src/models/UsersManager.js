@@ -14,6 +14,19 @@ const userManager = {
     }
   },
 
+  async getUserByEmail(email) {
+    try {
+      const [result] = await dbPool.query("SELECT * FROM users WHERE email = ?", email);
+      return result
+    } catch (err) {
+      console.error(
+        "Erreur lors de la récupération d'un utilisateur par son email :",
+        err.message,
+      );
+      throw err;
+    }
+  },
+
   async create(user) {
     try {
       const [result] = await dbPool.query("INSERT INTO users SET ?", user);
