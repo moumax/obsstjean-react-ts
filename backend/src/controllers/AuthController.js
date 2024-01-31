@@ -9,7 +9,7 @@ const AuthController = {
     try {
       const user = await UsersManager.getUserByEmail(email);
       if (!user) {
-        return res.status(401).json({ message: "Utilisateur invalide" });
+        return res.status(401).json({ message: "" });
       }
       const passwordMatch = await verifyPassword(
         password,
@@ -26,10 +26,10 @@ const AuthController = {
         role: user[0].role,
       });
 
-      res.cookie("token", token, {
+      res.cookie("access_token", token, {
         httpOnly: true,
         secure: false,
-        SameSite: "True",
+        SameSite: "strict",
       });
       res.status(200).json({ name: user[0].name, role: user[0].role });
     } catch (err) {
@@ -38,7 +38,7 @@ const AuthController = {
     }
   },
   async logout(req, res) {
-    res.clearCookie("token", { path: "/" }).status(200).send("Ok.");
+    res.clearCookie("access_token", { path: "/" }).status(200).send("Ok.");
   },
 };
 

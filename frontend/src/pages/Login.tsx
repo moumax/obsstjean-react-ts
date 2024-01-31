@@ -33,12 +33,12 @@ function Login() {
       })
       navigate("/");
     } catch (error) {
-      console.error("Erreur dans le formulaire:", error);
+      console.error("Erreur dans le form:", error);
     }
   }
 
   const sendDataToDatabase = async (form: FormData) => {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login/`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

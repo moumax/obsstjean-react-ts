@@ -8,7 +8,7 @@ function Footer() {
   const navigate = useNavigate();
 
 const  handleDisconnection = async () => {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/logout/`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

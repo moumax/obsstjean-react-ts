@@ -34,3 +34,4 @@
 ## Todo list
 
 - Add a role checker in backend with a middleware
+- Add a 404 page
