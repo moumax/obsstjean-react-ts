@@ -1,4 +1,5 @@
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import express, { Router } from "express";
 import fs from "node:fs";
 import path from "node:path";
@@ -11,8 +12,8 @@ import usersRouter from "./routes/UsersRouter.js";
 const router = Router();
 
 const app = express();
-
-import cors from "cors";
+app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -22,15 +23,12 @@ app.use(
   })
 );
 
-app.use(express.json());
-
-router.use("/users", usersRouter);
+router.use("/auth", authRouter);
+router.use("/users", authorization, usersRouter);
 router.use("/events", eventsRouter);
 router.use("/members", authorization, membersRouter);
-router.use("/auth", authRouter);
 
 app.use("/api", router);
-app.use(cookieParser());
 
 // Utilisez import.meta.url pour obtenir l'URL du module actuel
 const currentModuleURL = new URL(import.meta.url);

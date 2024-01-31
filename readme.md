@@ -35,3 +35,4 @@
 
 - Add a role checker in backend with a middleware
 - Add a 404 page
+- See what to put in the user cookie (email, role, name...)

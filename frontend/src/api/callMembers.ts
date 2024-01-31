@@ -1,3 +1,6 @@
-const callMembers = (url: RequestInfo | URL) => fetch(url).then((res) => res.json())
+const callMembers = (url: RequestInfo | URL) =>
+  fetch(url, {
+    credentials: "include",
+  }).then((res) => res.json());
 
 export default callMembers;

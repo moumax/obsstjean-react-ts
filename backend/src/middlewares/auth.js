@@ -1,7 +1,9 @@
 import { decodeJwt } from "../helpers/jwtHelper.js";
 
 const authorization = (req, res, next) => {
-  const { token } = req.cookies.access_token;
+  const token = req.cookies.access_token;
+  const toktok = req.cookies;
+  console.log("Toktok", toktok);
 
   console.log("Token", token);
   if (!token) {
