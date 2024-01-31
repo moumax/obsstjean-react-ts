@@ -1,16 +1,18 @@
 import { Button } from "@/components/ui/button.tsx"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog.tsx"
-import { Input } from "@/components/ui/input.tsx"
-import { FileEdit } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form.tsx"
-import { mutate } from "swr"
+import { Input } from "@/components/ui/input.tsx"
 import { useToast } from "@/components/ui/use-toast.ts"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { FileEdit } from "lucide-react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { mutate } from "swr"
+import * as z from "zod"
 
 function EditMembers(props) {
   const {toast} = useToast()
+  const [open, setOpen] = useState(false)
 
   const formSchema = z.object({
     member: z.string().max(100, {
@@ -31,25 +33,27 @@ function EditMembers(props) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/members/${props.id}`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/members/${props.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
+        credentials: "include",
       });
       toast({
-        description: `Le membre ${props.member} a bien été modifié`,
+        description: `Modification effectuée avec succès !`,
 
       })
-      mutate(`${import.meta.env.VITE_BACKEND_URL}/members/`);
+      setOpen(false)
+      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/members/`);
     } catch (error) {
       console.error("Erreur lors de la modification du membre", error)
     }
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="bg-transparent text-green-600">
         <Button><FileEdit /></Button>
       </DialogTrigger>
