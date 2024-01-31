@@ -1,6 +1,7 @@
 import callEvents from "@/api/callEvents.ts"
 import callMembers from "@/api/callMembers"
 import callUsers from "@/api/callUsers.ts"
+import AddMembers from "@/components/modals/AddMember.tsx"
 import CardEvent from "@/components/ui/CardEvent.tsx"
 import CardMember from "@/components/ui/CardMember.tsx"
 import CardUser from "@/components/ui/CardUser.tsx"
@@ -64,6 +65,7 @@ function Administration() {
       </TabsContent>
       <TabsContent value="membres">
         <div>
+          <AddMembers />
           {dataMembers.map((member) => (
             <div key={member.id}>
               <CardMember data={member} />
