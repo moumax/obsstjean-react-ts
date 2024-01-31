@@ -1,5 +1,5 @@
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog.tsx"
-import { Trash2 } from "lucide-react"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog.tsx";
+import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
 import { useToast } from "../ui/use-toast";
 
@@ -8,13 +8,14 @@ function DeleteMembers(props) {
 
   const handleDelete = async (memberId: number) => {
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/members/${memberId}`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/members/${memberId}`, {
         method: "DELETE",
+        credentials: "include",
       });
       toast({
-        description: `Le membre ${props.member} a bien été supprimé`,
+        description: `Membre correctement supprimé de la base de données !`,
       })
-      mutate(`${import.meta.env.VITE_BACKEND_URL}/members/`);
+      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/members/`);
     } catch (error) {
       console.error("Erreur lors de la suppression du membre ", error)
     }
