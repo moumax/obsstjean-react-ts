@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.6.12-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.6.16-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: obsstjeandb
 -- ------------------------------------------------------
--- Server version	10.6.12-MariaDB-0ubuntu0.22.04.1
+-- Server version	10.6.16-MariaDB-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,6 +46,31 @@ INSERT INTO `events` VALUES (1,'Fête de la science','C\'est la fête de la scie
 UNLOCK TABLES;
 
 --
+-- Table structure for table `members`
+--
+
+DROP TABLE IF EXISTS `members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `member` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `members`
+--
+
+LOCK TABLES `members` WRITE;
+/*!40000 ALTER TABLE `members` DISABLE KEYS */;
+INSERT INTO `members` VALUES (1,'Muriel DECLECK','muriel@gmail.com'),(7,'toutou','tititiit@gmail.com');
+/*!40000 ALTER TABLE `members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -61,7 +86,7 @@ CREATE TABLE `users` (
   `name` varchar(100) NOT NULL,
   `role` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +95,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'toto@gmail.com','dsfsdfsdf','2023-12-07 23:00:24','2023-12-08 00:02:16','toto','administrateur'),(35,'mlan@duck.com','sdfsdfsdfsdf','2023-12-12 14:31:00','2023-12-12 14:31:00','dsfsdfsdf','sdfsdfsdfdf'),(36,'tontpon@gmail.com','sdfsdfsfsf','2023-12-12 14:31:58','2023-12-12 14:31:58','dsfsdfsdfsdf','sfdsfsdfsdf'),(37,'tontpon@gmail.com','sdfsdfsdfsf','2023-12-12 14:33:18','2023-12-12 14:33:18','dsfsdfsdf','sdfsdfsdf');
+INSERT INTO `users` VALUES (39,'marc.lantol@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$TEu/j1lLCrQKGys3ljzcaw$BFsN9254HDBh8wywTI2eMx5vljdFQQhMKbZzm8NiFDA','2023-12-19 06:15:54','2023-12-19 06:15:54','Marco','Administrateur'),(40,'richard@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$+0LIymDJCVTCQWVdabfMKA$OPqni6X5JsePdUNIt4GBYfheAg7arLu+xE8PCaks/1g','2023-12-19 06:19:31','2023-12-19 06:19:31','Richard','Photographe'),(41,'hubert@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$PzJF1wmz1PK+MNo1u1ZhXA$LOGDQ/cMVVvBhbwhmQS6gTBknmmx89N8dz1guOHjVBM','2023-12-19 06:20:01','2023-12-19 06:20:01','Hubert','Rédacteur-Photographe'),(42,'serge@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$iFSCQO2fKzrpnBn+0R8MXA$ULBfyuLcGlCJl6RtH+rGCz01VfFEqNWqicyJRazMWrE','2023-12-19 06:20:40','2023-12-22 11:50:05','Serge','Rédacteur-Photographe');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-15 12:00:05
+-- Dump completed on 2024-02-02 13:23:18
