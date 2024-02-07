@@ -1,6 +1,6 @@
-const callUsers = (url: RequestInfo | URL) =>
+const callAPI = (url: RequestInfo | URL) =>
   fetch(url, {
     credentials: "include",
   }).then((res) => res.json());
 
-export default callUsers;
+export default callAPI;

@@ -5,13 +5,13 @@ import Administration from "@/pages/Administration.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import Signup from "@/pages/Signup.tsx";
 import useSWR from "swr";
-import callAuth from "./api/callAuth";
+import callAPI from "./api/callAPI";
 import { Button } from "./components/ui/button";
 
 function App() {
   const { data: dataSession } = useSWR(
     `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAuth,
+    callAPI,
   );
   const navigate = useNavigate();
 

@@ -1,7 +1,4 @@
-import callAuth from "@/api/callAuth";
-import callEvents from "@/api/callEvents.ts";
-import callMembers from "@/api/callMembers";
-import callUsers from "@/api/callUsers.ts";
+import callAPI from "@/api/callAPI";
 import AddMembers from "@/components/modals/AddMember.tsx";
 import CardEvent from "@/components/ui/CardEvent.tsx";
 import CardMember from "@/components/ui/CardMember.tsx";
@@ -19,28 +16,28 @@ import useSWR from "swr";
 function Administration() {
   const { data: dataSession } = useSWR(
     `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAuth,
+    callAPI,
   );
-  console.log(dataSession.role);
-  const { data, error, isLoading } = useSWR(
-    `${import.meta.env.VITE_BACKEND_URL}/api/events/`,
-    callEvents,
-  );
+  const {
+    data: dataEvents,
+    error: errorEvents,
+    isLoading: isLoadingEvents,
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callAPI);
   const {
     data: dataUsers,
     error: errorUsers,
     isLoading: isLoadingUsers,
-  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/users/`, callUsers);
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/users/`, callAPI);
   const {
     data: dataMembers,
     error: errorMembers,
     isLoading: isLoadingMembers,
-  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/members/`, callMembers);
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/members/`, callAPI);
 
   const navigate = useNavigate();
 
-  if (error) return `Erreur lors du chargement : ${error.message}`;
-  if (isLoading) return "chargement en cours...";
+  if (errorEvents) return `Erreur lors du chargement : ${errorEvents.message}`;
+  if (isLoadingEvents) return "chargement en cours...";
 
   if (errorUsers) return `Erreur lors du chargement : ${errorUsers.message}`;
   if (isLoadingUsers) return "chargement en cours...";
@@ -105,7 +102,7 @@ function Administration() {
         (dataSession.role === "Administrateur" ||
           dataSession.role === "Rédacteur-Photographe") ? (
           <div>
-            {data.map((event) => (
+            {dataEvents.map((event) => (
               <div key={event.id}>
                 <CardEvent data={event} />
               </div>

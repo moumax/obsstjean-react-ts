@@ -1,15 +1,15 @@
-import callAuth from "@/api/callAuth";
 import { Button } from "@/components/ui/button.tsx";
 import { toast } from "@/components/ui/use-toast.ts";
 import { BiLogoJavascript, BiLogoReact } from "react-icons/bi";
 import { SiMysql } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
+import callAPI from "@/api/callAPI";
 
 function Footer() {
-  const { data } = useSWR(
+  const { data: dataSession } = useSWR(
     `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAuth,
+    callAPI,
   );
   const navigate = useNavigate();
   const handleDisconnection = async () => {
@@ -51,17 +51,17 @@ function Footer() {
         </div>
       </div>
       <div className="mt-5 self-end">
-        {!data && (
+        {!dataSession && (
           <Button type="submit" onClick={() => navigate("/login")}>
             Login
           </Button>
         )}
-        {data && (
+        {dataSession && (
           <Button type="submit" onClick={handleDisconnection}>
             Logout
           </Button>
         )}
-        {data && (
+        {dataSession && (
           <Button type="submit" onClick={() => navigate("/administration")}>
             Administration
           </Button>
