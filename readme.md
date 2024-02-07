@@ -33,6 +33,10 @@
 
 ## Todo list
 
-- Add a role checker in backend with a middleware
-- Add a 404 page
-- See what to put in the user cookie (email, role, name...)
+[x] Add a role checker in backend with a middleware
+[] Add a 404 page
+[x] See what to put in the user cookie (email, role, name...)
+[] Add a loader on sun images when not displayed
+[] Add function add user in administration
+[] Add function add event in administration
+[] Add Uploading photos and administration
