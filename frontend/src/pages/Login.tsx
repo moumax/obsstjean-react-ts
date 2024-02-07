@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button.tsx";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input.tsx";
 import { useToast } from "@/components/ui/use-toast";
 import loginSchema from "@/datas/validationLoginSchema.ts";
@@ -15,7 +21,7 @@ function Login() {
   interface FormData {
     email: string;
     password: string;
-   }
+  }
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -23,14 +29,14 @@ function Login() {
       email: "",
       password: "",
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     try {
       await sendDataToDatabase(values);
       toast({
         description: "Tu es maintenant connecté !",
-      })
+      });
       navigate("/");
     } catch (error) {
       console.error("Erreur dans le form:", error);
@@ -38,30 +44,36 @@ function Login() {
   }
 
   const sendDataToDatabase = async (form: FormData) => {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+        credentials: "include",
       },
-      body: JSON.stringify(form),
-      credentials: 'include',
-    });
+    );
 
     if (!response.ok) {
       toast({
         description: "Erreur dans le formulaire",
-      })
-      throw new Error('Erreur dans le formulaire');
+      });
+      throw new Error("Erreur dans le formulaire");
     }
     const data = await response.json();
     return data;
   };
 
   return (
-    <section className="flex flex-col h-screen justify-center gap-3">
+    <section className="flex h-screen flex-col justify-center gap-3">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-screen flex flex-col justify-center items-center" >
-          <h1 className="text-white text-xl">Page de connexion</h1>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex h-screen flex-col items-center justify-center space-y-8"
+        >
+          <h1 className="text-xl text-white">Formulaire de connexion</h1>
           <FormField
             control={form.control}
             name="email"
@@ -87,17 +99,13 @@ function Login() {
             )}
           />
           <Button type="submit">Submit</Button>
-          <Button
-            className="mt-10"
-            type="button"
-            onClick={() => navigate("/")}
-          >
+          <Button className="mt-10" type="button" onClick={() => navigate("/")}>
             Retour
           </Button>
         </form>
       </Form>
-    </section >
-  )
+    </section>
+  );
 }
 
-export default Login
+export default Login;

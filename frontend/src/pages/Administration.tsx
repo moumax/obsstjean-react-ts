@@ -1,30 +1,47 @@
-import callEvents from "@/api/callEvents.ts"
-import callMembers from "@/api/callMembers"
-import callUsers from "@/api/callUsers.ts"
-import AddMembers from "@/components/modals/AddMember.tsx"
-import CardEvent from "@/components/ui/CardEvent.tsx"
-import CardMember from "@/components/ui/CardMember.tsx"
-import CardUser from "@/components/ui/CardUser.tsx"
-import { Button } from "@/components/ui/button.tsx"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs.tsx"
-import { useNavigate } from "react-router-dom"
-import useSWR from "swr"
+import callEvents from "@/api/callEvents.ts";
+import callMembers from "@/api/callMembers";
+import callUsers from "@/api/callUsers.ts";
+import AddMembers from "@/components/modals/AddMember.tsx";
+import CardEvent from "@/components/ui/CardEvent.tsx";
+import CardMember from "@/components/ui/CardMember.tsx";
+import CardUser from "@/components/ui/CardUser.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs.tsx";
+import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
 
 function Administration() {
-  const { data, error, isLoading } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callEvents)
-  const { data: dataUsers, error: errorUsers, isLoading: isLoadingUsers } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/users/`, callUsers)
-  const { data: dataMembers, error: errorMembers, isLoading: isLoadingMembers} = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/members/`, callMembers)
+  const { data, error, isLoading } = useSWR(
+    `${import.meta.env.VITE_BACKEND_URL}/api/events/`,
+    callEvents,
+  );
+  const {
+    data: dataUsers,
+    error: errorUsers,
+    isLoading: isLoadingUsers,
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/users/`, callUsers);
+  const {
+    data: dataMembers,
+    error: errorMembers,
+    isLoading: isLoadingMembers,
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/members/`, callMembers);
 
   const navigate = useNavigate();
 
-  if (error) return `Erreur lors du chargement : ${error.message}`
-  if (isLoading) return "chargement en cours..."
+  if (error) return `Erreur lors du chargement : ${error.message}`;
+  if (isLoading) return "chargement en cours...";
 
-  if (errorUsers) return `Erreur lors du chargement : ${errorUsers.message}`
-  if (isLoadingUsers) return "chargement en cours..."
+  if (errorUsers) return `Erreur lors du chargement : ${errorUsers.message}`;
+  if (isLoadingUsers) return "chargement en cours...";
 
-  if (errorMembers) return `Erreur lors du chargement : ${errorMembers.message}`
-  if (isLoadingMembers) return "chargement en cours..."
+  if (errorMembers)
+    return `Erreur lors du chargement : ${errorMembers.message}`;
+  if (isLoadingMembers) return "chargement en cours...";
 
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
@@ -40,14 +57,11 @@ function Administration() {
               <CardUser data={user} />
             </div>
           ))}
-          <Button
-            type="submit"
-            onClick={() => navigate("/")}
-          >
+          <Button type="submit" onClick={() => navigate("/")}>
             Retour
           </Button>
         </div>
-</TabsContent>
+      </TabsContent>
       <TabsContent value="evènements">
         <div>
           {data.map((event) => (
@@ -55,10 +69,7 @@ function Administration() {
               <CardEvent data={event} />
             </div>
           ))}
-          <Button
-            type="submit"
-            onClick={() => navigate("/")}
-          >
+          <Button type="submit" onClick={() => navigate("/")}>
             Retour
           </Button>
         </div>
@@ -71,16 +82,13 @@ function Administration() {
               <CardMember data={member} />
             </div>
           ))}
-          <Button
-            type="submit"
-            onClick={() => navigate("/")}
-          >
+          <Button type="submit" onClick={() => navigate("/")}>
             Retour
           </Button>
         </div>
-</TabsContent>
+      </TabsContent>
     </Tabs>
-  )
+  );
 }
 
-export default Administration
+export default Administration;

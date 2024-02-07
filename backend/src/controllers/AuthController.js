@@ -13,7 +13,7 @@ const AuthController = {
       }
       const passwordMatch = await verifyPassword(
         password,
-        user[0].password_hash
+        user[0].password_hash,
       );
 
       if (!passwordMatch) {
