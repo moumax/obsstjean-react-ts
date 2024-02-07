@@ -40,3 +40,5 @@
 [] Add function add user in administration
 [] Add function add event in administration
 [] Add Uploading photos and administration
+[] Update members's list in administration
+[] Add new section in member list (cotisations...)
