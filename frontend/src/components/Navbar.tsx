@@ -1,25 +1,41 @@
-import { Home, HelpCircle, CalendarDays, HeartHandshake } from "lucide-react"
+import { Home, HelpCircle, CalendarDays, HeartHandshake } from "lucide-react";
+import callAPI from "@/api/callAPI";
+import useSWR from "swr";
 
 function Navbar() {
+  const { data: dataSession } = useSWR(
+    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
+    callAPI,
+  );
   return (
-    <nav className="right-0 mr-2 fixed z-50">
-      <ul className="bg-white/20 rounded mt-1 p-1 flex flex-row gap-1">
+    <nav className="fixed right-0 z-50 mr-2">
+      <ul className="mt-1 flex flex-row gap-1 rounded bg-white/20 p-1">
         <li>
-          <a href="#home"><Home strokeWidth={1} color="orange" /></a>
+          <a href="#home">
+            <Home strokeWidth={1} color="orange" />
+          </a>
         </li>
         <li>
-          <a href="#about"><HelpCircle strokeWidth={1} color="orange" /></a>
+          <a href="#about">
+            <HelpCircle strokeWidth={1} color="orange" />
+          </a>
         </li>
         <li>
-          <a href="#calendar"><CalendarDays strokeWidth={1} color="orange" /></a>
+          <a href="#calendar">
+            <CalendarDays strokeWidth={1} color="orange" />
+          </a>
         </li>
         <li>
-          <a href="#contact"><HeartHandshake strokeWidth={1} color="orange" /></a>
+          <a href="#contact">
+            <HeartHandshake strokeWidth={1} color="orange" />
+          </a>
         </li>
       </ul>
-      <p className="text-xs text-center text-white">Bienvenue <b>Marco</b></p>
+      <p className="text-center text-xs text-white">
+        Bienvenue <b>{dataSession ? dataSession.name : "visiteur"} !</b>
+      </p>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
