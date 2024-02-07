@@ -20,7 +20,7 @@ app.use(
     origin: process.env.FRONTEND_URL,
     credentials: true,
     optionsSuccessStatus: 200,
-  })
+  }),
 );
 
 router.use("/auth", authRouter);
@@ -29,6 +29,14 @@ router.use("/events", eventsRouter);
 router.use("/members", authorization, membersRouter);
 
 app.use("/api", router);
+
+// Endpoint pour récupérer les informations de session de l'utilisateur
+app.get("/api/session", authorization, (req, res) => {
+  res.json({
+    name: req.userName,
+    role: req.userRole,
+  });
+});
 
 // Utilisez import.meta.url pour obtenir l'URL du module actuel
 const currentModuleURL = new URL(import.meta.url);
@@ -43,12 +51,12 @@ const reactIndexFile = path.join(
   "..",
   "frontend",
   "dist",
-  "index.html"
+  "index.html",
 );
 
 if (fs.existsSync(reactIndexFile)) {
   app.use(
-    express.static(path.join(currentDirectory, "..", "..", "frontend", "dist"))
+    express.static(path.join(currentDirectory, "..", "..", "frontend", "dist")),
   );
 
   app.get("*", (req, res) => {
