@@ -1,3 +1,4 @@
+import callAuth from "@/api/callAuth";
 import callEvents from "@/api/callEvents.ts";
 import callMembers from "@/api/callMembers";
 import callUsers from "@/api/callUsers.ts";
@@ -16,6 +17,11 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 function Administration() {
+  const { data: dataSession } = useSWR(
+    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
+    callAuth,
+  );
+  console.log(dataSession.role);
   const { data, error, isLoading } = useSWR(
     `${import.meta.env.VITE_BACKEND_URL}/api/events/`,
     callEvents,
@@ -46,46 +52,90 @@ function Administration() {
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
       <TabsList>
-        <TabsTrigger value="utilisateurs">Utilisateurs</TabsTrigger>
-        <TabsTrigger value="evènements">Evènements</TabsTrigger>
-        <TabsTrigger value="membres">Membres</TabsTrigger>
+        {dataSession && (
+          <div>
+            <TabsTrigger value="utilisateurs">Utilisateurs</TabsTrigger>
+            <TabsTrigger value="membres">Membres</TabsTrigger>
+            <TabsTrigger value="evènements">Evènements</TabsTrigger>
+            <TabsTrigger value="photos">Photos</TabsTrigger>
+          </div>
+        )}
       </TabsList>
       <TabsContent value="utilisateurs">
-        <div>
-          {dataUsers.map((user) => (
-            <div key={user.id}>
-              <CardUser data={user} />
+        {dataSession &&
+          (dataSession.role === "Administrateur" ? (
+            <div>
+              {dataUsers.map((user) => (
+                <div key={user.id}>
+                  <CardUser data={user} />
+                </div>
+              ))}
+              <Button type="submit" onClick={() => navigate("/")}>
+                Retour
+              </Button>
+            </div>
+          ) : (
+            <div className="flex h-screen items-center justify-center text-2xl text-white">
+              Tu n'as pas accès à cette section
             </div>
           ))}
-          <Button type="submit" onClick={() => navigate("/")}>
-            Retour
-          </Button>
-        </div>
-      </TabsContent>
-      <TabsContent value="evènements">
-        <div>
-          {data.map((event) => (
-            <div key={event.id}>
-              <CardEvent data={event} />
-            </div>
-          ))}
-          <Button type="submit" onClick={() => navigate("/")}>
-            Retour
-          </Button>
-        </div>
       </TabsContent>
       <TabsContent value="membres">
-        <div>
-          <AddMembers />
-          {dataMembers.map((member) => (
-            <div key={member.id}>
-              <CardMember data={member} />
+        {dataSession &&
+          (dataSession.role === "Administrateur" ? (
+            <div>
+              <AddMembers />
+              {dataMembers.map((member) => (
+                <div key={member.id}>
+                  <CardMember data={member} />
+                </div>
+              ))}
+              <Button type="submit" onClick={() => navigate("/")}>
+                Retour
+              </Button>
+            </div>
+          ) : (
+            <div className="flex h-screen items-center justify-center text-2xl text-white">
+              Tu n'as pas accès à cette section
             </div>
           ))}
-          <Button type="submit" onClick={() => navigate("/")}>
-            Retour
-          </Button>
-        </div>
+      </TabsContent>
+      <TabsContent value="evènements">
+        {dataSession &&
+        (dataSession.role === "Administrateur" ||
+          dataSession.role === "Rédacteur-Photographe") ? (
+          <div>
+            {data.map((event) => (
+              <div key={event.id}>
+                <CardEvent data={event} />
+              </div>
+            ))}
+            <Button type="submit" onClick={() => navigate("/")}>
+              Retour
+            </Button>
+          </div>
+        ) : (
+          <div className="flex h-screen items-center justify-center text-2xl text-white">
+            Tu n'as pas accès à cette section
+          </div>
+        )}
+      </TabsContent>{" "}
+      <TabsContent value="photos">
+        {dataSession &&
+        (dataSession.role === "Administrateur" ||
+          dataSession.role === "Rédacteur-Photographe" ||
+          dataSession.role === "Photographe") ? (
+          <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
+            Photos des membres
+            <Button type="submit" onClick={() => navigate("/")}>
+              Retour
+            </Button>
+          </div>
+        ) : (
+          <div className="flex h-screen items-center justify-center text-2xl text-white">
+            Tu n'as pas accès à cette section
+          </div>
+        )}
       </TabsContent>
     </Tabs>
   );

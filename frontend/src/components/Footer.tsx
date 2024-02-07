@@ -1,10 +1,16 @@
+import callAuth from "@/api/callAuth";
 import { Button } from "@/components/ui/button.tsx";
 import { toast } from "@/components/ui/use-toast.ts";
 import { BiLogoJavascript, BiLogoReact } from "react-icons/bi";
 import { SiMysql } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
 
 function Footer() {
+  const { data } = useSWR(
+    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
+    callAuth,
+  );
   const navigate = useNavigate();
   const handleDisconnection = async () => {
     const response = await fetch(
@@ -45,15 +51,21 @@ function Footer() {
         </div>
       </div>
       <div className="mt-5 self-end">
-        <Button type="submit" onClick={() => navigate("/login")}>
-          Login
-        </Button>
-        <Button type="submit" onClick={handleDisconnection}>
-          Logout
-        </Button>
-        <Button type="submit" onClick={() => navigate("/administration")}>
-          Administration
-        </Button>
+        {!data && (
+          <Button type="submit" onClick={() => navigate("/login")}>
+            Login
+          </Button>
+        )}
+        {data && (
+          <Button type="submit" onClick={handleDisconnection}>
+            Logout
+          </Button>
+        )}
+        {data && (
+          <Button type="submit" onClick={() => navigate("/administration")}>
+            Administration
+          </Button>
+        )}
       </div>
     </footer>
   );
