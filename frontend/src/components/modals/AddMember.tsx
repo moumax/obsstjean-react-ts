@@ -14,6 +14,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
@@ -24,6 +25,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { mutate } from "swr";
 import * as z from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  SelectTrigger,
+} from "@/components/ui/select";
 
 function AddMembers(props) {
   const { toast } = useToast();
@@ -33,31 +41,45 @@ function AddMembers(props) {
     member: z.string().max(100, {
       message: "Le nom du membre ne doit pas dépasser 100 caractères",
     }),
-    email: z.string().min(5).max(75, {
+    email: z.string().email().min(5).max(75, {
       message: "L'email doit contenir entre 5 et 75 caractères",
     }),
+    subscriptionDate: z.string().max(100, {
+      message: "La date doit être au format 01 janvier 1900",
+    }),
+    memberType: z.string().max(50, {
+      message: "Le type de membre ne doit pas dépasser 50 caractères",
+    }),
   });
+  const defaultValues = {
+    member: props.member || "",
+    email: props.email || "",
+    subscriptionDate: props.subscriptionDate || "",
+    memberType: props.memberType || "",
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      member: props.member,
-      email: props.email,
-    },
+    defaultValues: defaultValues,
   });
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      // Extraire la valeur de memberType de values
+      const { memberType, ...data } = values;
+
+      // Créer un objet à envoyer dans la requête
+      const requestData = { ...data, memberType };
+
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/members/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(requestData), // Utiliser requestData au lieu de values
         credentials: "include",
       });
       toast({
-        description: `Membre créee avec succès !`,
+        description: `Membre créé avec succès !`,
       });
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/members/`);
@@ -88,7 +110,7 @@ function AddMembers(props) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.member} {...field} />
+                    <Input placeholder="Prénom et nom du membre" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -100,9 +122,48 @@ function AddMembers(props) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.email} {...field} />
+                    <Input placeholder="Email du membre" {...field} />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="subscriptionDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="1er janvier 1900" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="memberType"
+              render={({ field }) => (
+                <FormItem>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Type de membre ?" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Membre">Membre</SelectItem>
+                      <SelectItem value="Membre bienfaiteur">
+                        Membre bienfaiteur
+                      </SelectItem>
+                      <SelectItem value="Ancien membre">
+                        Ancien membre
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />

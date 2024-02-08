@@ -11,20 +11,40 @@ interface Data {
   id: number;
   member: string;
   email: string;
+  subscriptionDate: string;
+  memberType: string;
 }
 
-function CardMember({ data: { member, email, id } }: { data: Data }) {
+function CardMember({
+  data: { member, email, id, subscriptionDate, memberType },
+}: {
+  data: Data;
+}) {
   if (!member) return null;
   return (
     <div className="mb-2">
       <Card className="bg-transparent">
-        <EditMembers id={id} member={member} email={email} />
+        <EditMembers
+          id={id}
+          member={member}
+          email={email}
+          subscriptionDate={subscriptionDate}
+          memberType={memberType}
+        />
         <DeleteMembers id={id} member={member} />
         <CardHeader className="items-center p-0">
-          <CardTitle className="text-yellow-400 text-base">{member}</CardTitle>
+          <CardTitle className="text-base text-yellow-400">{member}</CardTitle>
         </CardHeader>
-        <CardContent className="p-0 text-center text-gray-500">{email}</CardContent>
-        <div className="w-full flex justify-end gap-2"></div>
+        <CardContent className="p-0 text-center text-gray-500">
+          {email}
+        </CardContent>
+        <CardContent className="p-0 text-center text-gray-500">
+          {subscriptionDate}
+        </CardContent>
+        <CardContent className="p-0 text-center text-gray-500">
+          {memberType}
+        </CardContent>
+        <div className="flex w-full justify-end gap-2"></div>
       </Card>
     </div>
   );
