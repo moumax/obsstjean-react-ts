@@ -14,7 +14,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
@@ -33,7 +32,14 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 
-function AddMembers(props) {
+interface AddMembersProps {
+  member?: string;
+  email?: string;
+  subscriptionDate?: string;
+  memberType?: string;
+}
+
+function AddMembers(props: AddMembersProps) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
@@ -62,6 +68,7 @@ function AddMembers(props) {
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       // Extraire la valeur de memberType de values
