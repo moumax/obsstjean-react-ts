@@ -13,7 +13,12 @@ import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
 import { useToast } from "../ui/use-toast";
 
-function DeleteEvents(props) {
+interface DeleteEventsProps {
+  id: number;
+  title: string;
+}
+
+function DeleteEvents(props: DeleteEventsProps) {
   const { toast } = useToast();
 
   const handleDelete = async (eventId: number) => {

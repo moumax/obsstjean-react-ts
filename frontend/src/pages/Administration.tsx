@@ -14,6 +14,30 @@ import {
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
+type MemberData = {
+  id: number;
+  member: string;
+  email: string;
+  subscriptionDate: string;
+  memberType: string;
+};
+
+type EventData = {
+  id: number;
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+};
+
+type UserData = {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+  password_hash: string;
+};
+
 function Administration() {
   const { data: dataSession } = useSWR(
     `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
@@ -63,7 +87,7 @@ function Administration() {
         {dataSession &&
           (dataSession.role === "Administrateur" ? (
             <div>
-              {dataUsers.map((user) => (
+              {dataUsers.map((user: UserData) => (
                 <div key={user.id}>
                   <CardUser data={user} />
                 </div>
@@ -83,7 +107,7 @@ function Administration() {
           (dataSession.role === "Administrateur" ? (
             <div>
               <AddMembers />
-              {dataMembers.map((member) => (
+              {dataMembers.map((member: MemberData) => (
                 <div key={member.id}>
                   <CardMember data={member} />
                 </div>
@@ -104,7 +128,7 @@ function Administration() {
           dataSession.role === "Rédacteur-Photographe") ? (
           <div>
             <AddEvent />
-            {dataEvents.map((event) => (
+            {dataEvents.map((event: EventData) => (
               <div key={event.id}>
                 <CardEvent data={event} />
               </div>

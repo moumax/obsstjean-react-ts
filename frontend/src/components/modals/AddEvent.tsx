@@ -33,7 +33,15 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
-function AddEvent(props) {
+interface AddEventProps {
+  id?: number;
+  title?: string;
+  description?: string;
+  date?: Date;
+  location?: string;
+}
+
+function AddEvent(props: AddEventProps) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 

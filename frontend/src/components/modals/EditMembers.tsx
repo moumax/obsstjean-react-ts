@@ -32,7 +32,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function EditMembers(props) {
+interface EditMembersProps {
+  id: number;
+  member: string;
+  email: string;
+  subscriptionDate: string;
+  memberType: string;
+}
+
+function EditMembers(props: EditMembersProps) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
