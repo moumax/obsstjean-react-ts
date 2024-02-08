@@ -33,15 +33,27 @@
 
 ## Todo list
 
-[x] Add a role checker in backend with a middleware
+- 404 page
 [] Add a 404 page
-[x] See what to put in the user cookie (email, role, name...)
+
+- Sun section
 [] Add a loader on sun images when not displayed
-[x] Add function add event in administration
+
+- Photo section
 [] Add Uploading photos and administration
+
+- Members
 [x] Update members's list in administration
 [x] Add new section in member list (cotisations...)
 [] Hydrate member's list
-[] Add a function for users to modify email and password
-[] Add a new status for users by default "member"
+
+- Events
+[x] Add function add event in administration
 [] Add hours to events
+
+- Users
+[x] See what to put in the user cookie (email, role, name...)
+[x] Add a role checker in backend with a middleware
+[] Provide a way to send emails for inscription with a dynamic link if possible
+[] Add a new status for users by default "member"
+[] Add a function for users to modify email and password
