@@ -49,7 +49,7 @@
 
 - Events
 [x] Add function add event in administration
-[] Fix events display in frontend
+[x] Fix events date display in frontend
 [] Remove in home the modifiers buttons
 [] Add hours to events
 
