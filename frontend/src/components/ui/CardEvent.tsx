@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.tsx";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Data {
   id: number;
@@ -23,6 +24,10 @@ function CardEvent({
   data: Data;
 }) {
   if (!title) return null;
+
+  const { isLoggedIn } = useAuth();
+
+  const currentPage = window.location.pathname;
 
   const formattedDate = new Date(date).toLocaleDateString("fr-FR", {
     year: "numeric",
@@ -48,14 +53,18 @@ function CardEvent({
         </CardContent>
         <CardFooter>
           <div className="flex w-full justify-end gap-2">
-            <EditEvents
-              title={title}
-              description={description}
-              date={date}
-              location={location}
-              id={id}
-            />
-            <DeleteEvents id={id} title={title} />
+            {isLoggedIn && currentPage !== "/" && (
+              <>
+                <EditEvents
+                  title={title}
+                  description={description}
+                  date={date}
+                  location={location}
+                  id={id}
+                />
+                <DeleteEvents id={id} title={title} />
+              </>
+            )}
           </div>
         </CardFooter>
       </Card>

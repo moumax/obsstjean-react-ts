@@ -51,7 +51,7 @@
 - Events
 [x] Add function add event in administration
 [x] Fix events date display in frontend
-[] Remove in home the modifiers buttons
+[x] Remove in home the modifiers buttons
 [] Add hours to events
 [] Event should display from futur to past
 [] Event should display with a red or green color if it's past or futur
