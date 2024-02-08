@@ -1,4 +1,5 @@
 import callAPI from "@/api/callAPI";
+import AddEvent from "@/components/modals/AddEvent";
 import AddMembers from "@/components/modals/AddMember.tsx";
 import CardEvent from "@/components/ui/CardEvent.tsx";
 import CardMember from "@/components/ui/CardMember.tsx";
@@ -102,6 +103,7 @@ function Administration() {
         (dataSession.role === "Administrateur" ||
           dataSession.role === "Rédacteur-Photographe") ? (
           <div>
+            <AddEvent />
             {dataEvents.map((event) => (
               <div key={event.id}>
                 <CardEvent data={event} />

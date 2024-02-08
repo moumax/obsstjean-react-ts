@@ -37,10 +37,11 @@
 [] Add a 404 page
 [x] See what to put in the user cookie (email, role, name...)
 [] Add a loader on sun images when not displayed
-[] Add function add event in administration
+[x] Add function add event in administration
 [] Add Uploading photos and administration
 [x] Update members's list in administration
 [x] Add new section in member list (cotisations...)
 [] Hydrate member's list
 [] Add a function for users to modify email and password
 [] Add a new status for users by default "member"
+[] Add hours to events
