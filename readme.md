@@ -37,7 +37,7 @@
 [] Add a 404 page
 
 - Sun section
-[] Add a loader on sun images when not displayed
+[x] Add a loader on sun images when not displayed
 
 - Photo section
 [] Add Uploading photos and administration
@@ -46,12 +46,15 @@
 [x] Update members's list in administration
 [x] Add new section in member list (cotisations...)
 [] Hydrate member's list
+[] Add a calendar when adding or editing a member
 
 - Events
 [x] Add function add event in administration
 [x] Fix events date display in frontend
 [] Remove in home the modifiers buttons
 [] Add hours to events
+[] Event should display from futur to past
+[] Event should display with a red or green color if it's past or futur
 
 - Users
 [x] See what to put in the user cookie (email, role, name...)
@@ -59,3 +62,5 @@
 [] Provide a way to send emails for inscription with a dynamic link if possible
 [] Add a new status for users by default "member"
 [] Add a function for users to modify email and password
+[] In case of logout, refresh the site
+[] In case of login, refresh the site
