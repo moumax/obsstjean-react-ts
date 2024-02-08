@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/tabs.tsx";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
+import { useAuth } from "@/contexts/AuthContext";
 
 type MemberData = {
   id: number;
@@ -39,10 +40,7 @@ type UserData = {
 };
 
 function Administration() {
-  const { data: dataSession } = useSWR(
-    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAPI,
-  );
+  const { isLoggedIn, userRole } = useAuth();
   const {
     data: dataEvents,
     error: errorEvents,
@@ -74,7 +72,7 @@ function Administration() {
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
       <TabsList>
-        {dataSession && (
+        {isLoggedIn && (
           <div>
             <TabsTrigger value="utilisateurs">Utilisateurs</TabsTrigger>
             <TabsTrigger value="membres">Membres</TabsTrigger>
@@ -84,8 +82,8 @@ function Administration() {
         )}
       </TabsList>
       <TabsContent value="utilisateurs">
-        {dataSession &&
-          (dataSession.role === "Administrateur" ? (
+        {isLoggedIn &&
+          (userRole === "Administrateur" ? (
             <div>
               {dataUsers.map((user: UserData) => (
                 <div key={user.id}>
@@ -103,8 +101,8 @@ function Administration() {
           ))}
       </TabsContent>
       <TabsContent value="membres">
-        {dataSession &&
-          (dataSession.role === "Administrateur" ? (
+        {isLoggedIn &&
+          (userRole === "Administrateur" ? (
             <div>
               <AddMembers />
               {dataMembers.map((member: MemberData) => (
@@ -123,9 +121,9 @@ function Administration() {
           ))}
       </TabsContent>
       <TabsContent value="evènements">
-        {dataSession &&
-        (dataSession.role === "Administrateur" ||
-          dataSession.role === "Rédacteur-Photographe") ? (
+        {isLoggedIn &&
+        (userRole === "Administrateur" ||
+          userRole === "Rédacteur-Photographe") ? (
           <div>
             <AddEvent />
             {dataEvents.map((event: EventData) => (
@@ -144,10 +142,10 @@ function Administration() {
         )}
       </TabsContent>{" "}
       <TabsContent value="photos">
-        {dataSession &&
-        (dataSession.role === "Administrateur" ||
-          dataSession.role === "Rédacteur-Photographe" ||
-          dataSession.role === "Photographe") ? (
+        {isLoggedIn &&
+        (userRole === "Administrateur" ||
+          userRole === "Rédacteur-Photographe" ||
+          userRole === "Photographe") ? (
           <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
             Photos des membres
             <Button type="submit" onClick={() => navigate("/")}>

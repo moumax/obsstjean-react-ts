@@ -1,12 +1,9 @@
 import { Home, HelpCircle, CalendarDays, HeartHandshake } from "lucide-react";
-import callAPI from "@/api/callAPI";
-import useSWR from "swr";
+import { useAuth } from "@/contexts/AuthContext";
 
 function Navbar() {
-  const { data: dataSession } = useSWR(
-    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAPI,
-  );
+  const { isLoggedIn, userName } = useAuth();
+
   return (
     <nav className="fixed right-0 z-50 mr-2">
       <ul className="mt-1 flex flex-row gap-1 rounded bg-white/20 p-1">
@@ -32,7 +29,7 @@ function Navbar() {
         </li>
       </ul>
       <p className="text-center text-xs text-white">
-        Bienvenue <b>{dataSession ? dataSession.name : "visiteur"} !</b>
+        Bienvenue <b>{isLoggedIn ? userName : "visiteur"} !</b>
       </p>
     </nav>
   );

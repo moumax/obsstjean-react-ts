@@ -7,12 +7,11 @@ import Signup from "@/pages/Signup.tsx";
 import useSWR from "swr";
 import callAPI from "./api/callAPI";
 import { Button } from "./components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 function App() {
-  const { data: dataSession } = useSWR(
-    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAPI,
-  );
+  const { isLoggedIn } = useAuth();
+
   const navigate = useNavigate();
 
   return (
@@ -26,7 +25,7 @@ function App() {
           <Route
             path="/administration"
             element={
-              dataSession ? (
+              isLoggedIn ? (
                 <Administration />
               ) : (
                 <div className="flex h-screen flex-col items-center justify-center gap-10 text-center text-white">

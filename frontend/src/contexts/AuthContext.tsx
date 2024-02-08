@@ -5,11 +5,13 @@ import callAPI from "@/api/callAPI";
 interface UserData {
   isAuthenticated: boolean;
   role: string;
+  name: string;
 }
 
 interface AuthContextType {
   isLoggedIn: boolean;
   userRole: string;
+  userName: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,13 +26,14 @@ export const AuthProvider: React.FC = ({ children }) => {
       ? dataSession.isAuthenticated
       : false;
   const userRole = dataSession?.role || "";
+  const userName = dataSession?.name || "";
 
   if (!children) {
     throw new Error("AuthProvider must have children components");
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userRole }}>
+    <AuthContext.Provider value={{ isLoggedIn, userRole, userName }}>
       {children}
     </AuthContext.Provider>
   );
