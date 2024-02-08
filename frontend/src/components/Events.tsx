@@ -2,6 +2,14 @@ import callAPI from "@/api/callAPI";
 import CardEvent from "@/components/ui/CardEvent.tsx";
 import useSWR from "swr";
 
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+}
+
 function Events() {
   const {
     data: dataEvents,
@@ -14,7 +22,7 @@ function Events() {
 
   return (
     <div id="calendar">
-      {dataEvents.map((event) => (
+      {dataEvents.map((event: Event) => (
         <div key={event.id}>
           <CardEvent data={event} />
         </div>
