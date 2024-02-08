@@ -62,5 +62,5 @@
 [] Provide a way to send emails for inscription with a dynamic link if possible
 [] Add a new status for users by default "member"
 [] Add a function for users to modify email and password
-[] In case of logout, refresh the site
-[] In case of login, refresh the site
+[x] In case of logout, refresh the site
+[x] In case of login, refresh the site

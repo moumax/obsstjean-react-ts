@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
+import { mutate } from "swr";
 
 function Login() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function Login() {
         description: "Tu es maintenant connecté !",
       });
       navigate("/");
+      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/session/`);
     } catch (error) {
       console.error("Erreur dans le form:", error);
     }

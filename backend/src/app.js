@@ -35,6 +35,7 @@ app.get("/api/session", authorization, (req, res) => {
   res.json({
     name: req.userName,
     role: req.userRole,
+    isAuthenticated: true,
   });
 });
 

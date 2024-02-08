@@ -3,35 +3,42 @@ import { toast } from "@/components/ui/use-toast.ts";
 import { BiLogoJavascript, BiLogoReact } from "react-icons/bi";
 import { SiMysql } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
-import useSWR from "swr";
-import callAPI from "@/api/callAPI";
+import { useAuth } from "@/contexts/AuthContext";
+
+function refreshPage() {
+  window.location.reload();
+}
 
 function Footer() {
-  const { data: dataSession } = useSWR(
-    `${import.meta.env.VITE_BACKEND_URL}/api/session/`,
-    callAPI,
-  );
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
+
   const handleDisconnection = async () => {
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
-      },
-    );
-    if (!response.ok) {
+      );
+      if (!response.ok) {
+        toast({
+          description: "Logout impossible",
+        });
+        throw new Error("Erreur dans la fonction logout");
+      }
+
       toast({
-        description: "Logout impossible",
+        description: "Tu es déconnecté !",
       });
-      throw new Error("Erreur dans la fonction logout");
+      refreshPage();
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error);
     }
-    toast({
-      description: "Tu es déconnecté !",
-    });
   };
 
   return (
@@ -51,17 +58,17 @@ function Footer() {
         </div>
       </div>
       <div className="mt-5 self-end">
-        {!dataSession && (
+        {!isLoggedIn && (
           <Button type="submit" onClick={() => navigate("/login")}>
             Login
           </Button>
         )}
-        {dataSession && (
+        {isLoggedIn && (
           <Button type="submit" onClick={handleDisconnection}>
             Logout
           </Button>
         )}
-        {dataSession && (
+        {isLoggedIn && (
           <Button type="submit" onClick={() => navigate("/administration")}>
             Administration
           </Button>

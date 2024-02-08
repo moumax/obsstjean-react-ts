@@ -29,12 +29,17 @@ const AuthController = {
       res.cookie("access_token", token, {
         httpOnly: true,
         secure: false,
-        SameSite: "strict",
+        sameSite: "strict",
       });
-      res.status(200).json({ name: user[0].name, role: user[0].role });
+
+      res.status(200).json({
+        isAuthenticated: true,
+        name: user[0].name,
+        role: user[0].role,
+      });
     } catch (err) {
       console.error("Erreur de connexion", err);
-      res.status(500).send("Erreur interne du server");
+      res.status(500).send("Erreur interne du serveur");
     }
   },
   async logout(req, res) {
