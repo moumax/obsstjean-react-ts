@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -29,7 +30,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar.tsx";
 import { format } from "date-fns";
-import { useRef } from "react";
+import { fr } from "date-fns/locale";    
 import { toast } from "@/components/ui/use-toast.ts";
 import { mutate } from "swr";
 
@@ -42,6 +43,8 @@ interface EditEventsProps {
 }
 
 function EditEvents(props: EditEventsProps) {
+  const [open, setOpen] = useState(false);
+
   const formSchema = z.object({
     title: z.string().min(5).max(75, {
       message: "Le titre doit contenir entre 5 et 75 caractères",
@@ -57,40 +60,60 @@ function EditEvents(props: EditEventsProps) {
     }),
   });
 
+  const defaultValues = {
+    title: props.title || "",
+    description: props.description || "",
+    date: props.date ? new Date(props.date) : undefined,
+    location: props.location || "",
+  };
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: props.title,
-      description: props.description,
-      location: props.location,
-      date: props.date ? new Date(props.date) : undefined,
-    },
+    defaultValues: defaultValues,
   });
 
   const selectedDateRef = useRef(props.date ? new Date(props.date) : undefined);
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Mettez à jour les valeurs dans le formulaire
-    form.setValue("date", selectedDateRef.current);
+async function onSubmit(values: z.infer<typeof formSchema>) {
+  if (selectedDateRef.current) {
+    const year = selectedDateRef.current.getFullYear();
+    const month = selectedDateRef.current.getMonth() + 1;
+    const day = selectedDateRef.current.getDate();
+    const hours = selectedDateRef.current.getHours();
+    const minutes = selectedDateRef.current.getMinutes();
+    const seconds = selectedDateRef.current.getSeconds();
+
+    // Créez une date en utilisant la date et l'heure locales
+    const localDate = new Date(year, month - 1, day + 1, hours, minutes, seconds);
+
+    // Convertissez la date locale en ISO format
+    const isoDate = localDate.toISOString().slice(0, 19).replace("T", " ");
+
+    const requestData = { ...values, date: isoDate };
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/events/${props.id}`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/${props.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values), // Envoyer les données du formulaire
+        body: JSON.stringify(requestData),
+        credentials: "include",
       });
       toast({
         description: `L'évènement ${props.title} a bien été modifié`,
       });
-      mutate(`${import.meta.env.VITE_BACKEND_URL}/events/`);
+      setOpen(false);
+      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/events/`);
     } catch (error) {
       console.error("Erreur lors de la modification de l'évènement", error);
     }
+  } else {
+    console.error("La date sélectionnée est indéfinie");
   }
+}
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="bg-transparent text-green-600">
         <Button>
           <FileEdit />
@@ -170,16 +193,15 @@ function EditEvents(props: EditEventsProps) {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
+                        locale={fr}
                         selected={selectedDateRef.current}
                         onSelect={(date) => {
-                          // Mettez à jour la référence lorsqu'une nouvelle date est sélectionnée
-                          selectedDateRef.current = date;
-                          // Mettez également à jour le champ du formulaire
-                          form.setValue("date", date);
+                          if (date instanceof Date) {
+                            selectedDateRef.current = date;
+                            form.setValue("date", date);
+                          }
                         }}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
+                        disabled={(date) => date < new Date("1900-01-01")}
                         initialFocus
                       />
                     </PopoverContent>
@@ -203,3 +225,4 @@ function EditEvents(props: EditEventsProps) {
 }
 
 export default EditEvents;
+

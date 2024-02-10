@@ -32,6 +32,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { Textarea } from "../ui/textarea";
 
 interface AddEventProps {
   id?: number;
@@ -76,11 +77,18 @@ function AddEvent(props: AddEventProps) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (selectedDateRef.current) {
-      // Convert date to ISO format without Z
-      const isoDate = selectedDateRef.current
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " ");
+    const year = selectedDateRef.current.getFullYear();
+    const month = selectedDateRef.current.getMonth() + 1;
+    const day = selectedDateRef.current.getDate();
+    const hours = selectedDateRef.current.getHours();
+    const minutes = selectedDateRef.current.getMinutes();
+    const seconds = selectedDateRef.current.getSeconds();
+
+    // Créez une date en utilisant la date et l'heure locales
+    const localDate = new Date(year, month - 1, day + 1, hours, minutes, seconds);
+
+    // Convertissez la date locale en ISO format
+    const isoDate = localDate.toISOString().slice(0, 19).replace("T", " ");
 
       const requestData = { ...values, date: isoDate };
       try {
@@ -139,7 +147,7 @@ function AddEvent(props: AddEventProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
+                    <Textarea
                       placeholder="Description de l'évènement"
                       {...field}
                     />
