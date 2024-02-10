@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { useAuth } from "@/contexts/AuthContext";
+import { CalendarDays, Camera, UserCheck, Users } from "lucide-react";
 
 type MemberData = {
   id: number;
@@ -71,13 +72,13 @@ function Administration() {
 
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
-      <TabsList>
+      <TabsList className="flex align-middle w-full">
         {isLoggedIn && (
           <div>
-            <TabsTrigger value="utilisateurs">Utilisateurs</TabsTrigger>
-            <TabsTrigger value="membres">Membres</TabsTrigger>
-            <TabsTrigger value="evènements">Evènements</TabsTrigger>
-            <TabsTrigger value="photos">Photos</TabsTrigger>
+            <TabsTrigger className="text-xs" value="utilisateurs"><Users /></TabsTrigger>
+            <TabsTrigger className="text-xs" value="membres"><UserCheck /></TabsTrigger>
+            <TabsTrigger className="text-xs" value="evènements"><CalendarDays /></TabsTrigger>
+            <TabsTrigger className="text-md" value="photos"><Camera /></TabsTrigger>
           </div>
         )}
       </TabsList>
