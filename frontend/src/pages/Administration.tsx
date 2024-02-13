@@ -72,7 +72,7 @@ function Administration() {
 
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
-      <TabsList className="flex align-middle w-full">
+      <TabsList className="flex align-middle w-full bg-transparent text-yellow-300">
         {isLoggedIn && (
           <div>
             <TabsTrigger className="text-xs" value="utilisateurs"><Users /></TabsTrigger>
@@ -82,7 +82,7 @@ function Administration() {
           </div>
         )}
       </TabsList>
-      <TabsContent value="utilisateurs">
+      <TabsContent value="utilisateurs" className="h-screen mt-10">
         {isLoggedIn &&
           (userRole === "Administrateur" ? (
             <div>

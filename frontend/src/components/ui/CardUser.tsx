@@ -1,6 +1,6 @@
 import DeleteUsers from "@/components/modals/DeleteUsers.tsx";
 import EditUsers from "@/components/modals/EditUsers.tsx";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx";
 
 interface Data {
   id: number;
@@ -13,21 +13,17 @@ interface Data {
 function CardUser({ data: {email, name, role, id, password_hash} }: { data: Data }) {
   if (!email) return null;
   return (
-    <div className="mb-2">
+    <div>
       <Card className="bg-transparent">
-        <CardHeader>
-          <CardTitle className="text-yellow-400 text-base">{email}</CardTitle>
-          <CardDescription className="text-white opacity-50">{name}</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-center gap-4 p-0">
+          <CardTitle className="text-yellow-400 text-xs">{email}</CardTitle>
+          <CardTitle className="text-white text-xs">{name}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex items-center justify-center">
               <p className="text-white opacity-70">{role}</p>
-        </CardContent>
-        <CardFooter>
-          <div className="w-full flex justify-end gap-2">
             <EditUsers id={id} email={email} name={name} role={role} password={password_hash}/>
             <DeleteUsers id={id} name={name}/>
-          </div>
-        </CardFooter>
+        </CardContent>
       </Card>
     </div>
   )
