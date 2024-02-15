@@ -4,8 +4,6 @@ import Login from "@/pages/Login.tsx";
 import Administration from "@/pages/Administration.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import Signup from "@/pages/Signup.tsx";
-import useSWR from "swr";
-import callAPI from "./api/callAPI";
 import { Button } from "./components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
