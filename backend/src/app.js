@@ -8,6 +8,8 @@ import authRouter from "./routes/AuthRouter.js";
 import eventsRouter from "./routes/EventsRouter.js";
 import membersRouter from "./routes/MembersRouter.js";
 import usersRouter from "./routes/UsersRouter.js";
+import CamerasRouter from "./routes/CamerasRouter.js"
+import RefractorsRouter from "./routes/RefractorsRouter.js"
 
 const router = Router();
 
@@ -27,6 +29,8 @@ router.use("/auth", authRouter);
 router.use("/users", authorization, usersRouter);
 router.use("/events", eventsRouter);
 router.use("/members", authorization, membersRouter);
+router.use("/cameras", CamerasRouter);
+router.use("/refractors", RefractorsRouter)
 
 app.use("/api", router);
 

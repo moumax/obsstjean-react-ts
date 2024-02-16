@@ -5,6 +5,7 @@ import Footer from "@/components/Footer.tsx";
 import Header from "@/components/Header.tsx";
 import Navbar from "@/components/Navbar.tsx";
 import Observatory from "@/components/Observatory.tsx";
+import Sampling from "@/components/Sampling";
 
 function Home() {
   return (
@@ -16,6 +17,7 @@ function Home() {
       <Observatory />
       <About />
       <Selector />
+      <Sampling />
       <Contact />
       <Footer />
     </section>
