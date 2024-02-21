@@ -224,11 +224,13 @@ function Sampling() {
   return (
     <Dialog>
       <DialogTrigger className="bg-white">Calculateur de focale</DialogTrigger>
-      <DialogContent className="z-50">
+      <DialogContent className="z-50 bg-[#072449]">
         <DialogHeader>
-          <DialogTitle>Calculateur d'échantillonage</DialogTitle>
+          <DialogTitle className="text-center text-yellow-400">
+            Calculateur d'échantillonage
+          </DialogTitle>
           <DialogDescription>
-            <h2 className="pb-6 pt-6">
+            <h2 className="pb-6 pt-6 text-gray-400">
               Sélectionne une monture puis une caméra pour savoir si la
               configuration est adéquate.
             </h2>
@@ -246,7 +248,7 @@ function Sampling() {
                     <>
                       <SelectLabel>{camera.brand}</SelectLabel>
                       <SelectItem key={camera.id} value={camera}>
-                        {camera.model}
+                        {camera.brand} - {camera.model}
                       </SelectItem>
                     </>
                   ))}
@@ -254,10 +256,7 @@ function Sampling() {
               </SelectContent>
             </Select>
             {selectedCamera && (
-              <div className="pb-6 pt-6">
-                <p>
-                  {selectedCamera.brand} {selectedCamera.model}
-                </p>
+              <div className="pb-6 pt-6 text-gray-400">
                 <p>
                   Capteur : {selectedCamera.sensor} Type de capteur :{" "}
                   {selectedCamera.sensor_type}
@@ -282,7 +281,7 @@ function Sampling() {
                     <>
                       <SelectLabel>{refractor.brand}</SelectLabel>
                       <SelectItem key={refractor.id} value={refractor}>
-                        {refractor.model}
+                        {refractor.brand} - {refractor.model}
                       </SelectItem>
                     </>
                   ))}
@@ -290,10 +289,7 @@ function Sampling() {
               </SelectContent>
             </Select>
             {selectedRefractor && (
-              <div className="pb-6 pt-6">
-                <p>
-                  {selectedRefractor.brand} {selectedRefractor.model}
-                </p>
+              <div className="pb-6 pt-6 text-gray-400">
                 <p>
                   Diametre:{" "}
                   <span className="font-bold">
@@ -302,7 +298,7 @@ function Sampling() {
                 </p>
                 <p>
                   {barlowSize > 1 ? (
-                    <p className="text-blue-600">
+                    <p className="text-green-600">
                       Focale avec barlow * {barlowSize} :{" "}
                       {selectedRefractor.focal * barlowSize}
                     </p>
@@ -312,7 +308,7 @@ function Sampling() {
                 </p>
                 <p>
                   {barlowSize > 1 ? (
-                    <p className="text-blue-600">
+                    <p className="text-green-600">
                       Rapport F/D avec barlow * {barlowSize} :{" "}
                       {selectedRefractor.focal_ratio * barlowSize}
                     </p>
@@ -326,8 +322,8 @@ function Sampling() {
                 </p>
               </div>
             )}
-            <div className="flex justify-between gap-1">
-              <div className="flex flex-col items-center">
+            <div className="mb-5 flex justify-between gap-1">
+              <div className="flex flex-col items-center gap-y-2">
                 <Label className="text-black-400">Filtre</Label>
                 <Select
                   onValueChange={(value) =>
@@ -353,7 +349,7 @@ function Sampling() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center gap-y-2">
                 <Label className="text-black-400">Turbulence</Label>
                 <Input
                   className="w-[90px] placeholder:text-center"
@@ -363,7 +359,7 @@ function Sampling() {
                   placeholder="1.0"
                 />
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center gap-y-2">
                 <Label className="text-black-400">Barlow</Label>
                 <Input
                   className="w-[90px] placeholder:text-center"
@@ -379,13 +375,13 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Largeur '
                       </TableHead>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Hauteur '
                       </TableHead>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Diagonale '
                       </TableHead>
                     </TableRow>
@@ -401,13 +397,13 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Largeur "
                       </TableHead>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Hauteur "
                       </TableHead>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Diagonale "
                       </TableHead>
                     </TableRow>
@@ -423,35 +419,25 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Echantillonage (" / pixel)
                       </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow className="text-center font-bold">
-                      <TableCell>{sampleCalculationResult}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Echantillonage idéal
                       </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     <TableRow className="text-center font-bold">
+                      <TableCell>{sampleCalculationResult}</TableCell>
                       <TableCell>{idealSample()}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
-                <Table>
+                <Table className="mt-10 flex justify-around rounded-md bg-white/20">
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-gray-400">
+                      <TableHead className="text-center text-yellow-400">
                         Echantillonage actuel
                       </TableHead>
                     </TableRow>
