@@ -19,8 +19,6 @@ export const resolutionCalculationWithBarlow = (
   selectedWavelength: WavelengthData | null,
   selectedRefractor: RefractorData | null,
 ) => {
-  console.log("selectedWaveLength", selectedWavelength);
-  console.log("selectedRefractor", selectedRefractor);
   if (selectedWavelength && selectedWavelength.value && selectedRefractor) {
     const resolution: number = +(
       (0.25164 * selectedWavelength.value) /

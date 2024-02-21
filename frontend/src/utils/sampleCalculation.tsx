@@ -10,7 +10,6 @@ export const sampleCalculation = (
       (selectedCamera.photosites * 206.26) / selectedRefractor.focal;
 
     const sampleBarlow = sample / barlowSize;
-    console.log("sample", sampleBarlow.toFixed(2));
     return sampleBarlow.toFixed(2);
   } else {
     return (
