@@ -10,6 +10,7 @@ import membersRouter from "./routes/MembersRouter.js";
 import usersRouter from "./routes/UsersRouter.js";
 import CamerasRouter from "./routes/CamerasRouter.js"
 import RefractorsRouter from "./routes/RefractorsRouter.js"
+import WavelengthRouter from "./routes/WavelengthRouter.js"
 
 const router = Router();
 
@@ -31,6 +32,7 @@ router.use("/events", eventsRouter);
 router.use("/members", authorization, membersRouter);
 router.use("/cameras", CamerasRouter);
 router.use("/refractors", RefractorsRouter)
+router.use("/wavelength", WavelengthRouter)
 
 app.use("/api", router);
 
