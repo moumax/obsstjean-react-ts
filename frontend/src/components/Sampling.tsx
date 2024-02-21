@@ -43,6 +43,7 @@ import {
   resolutionCalculationWithBarlow,
 } from "@/utils/resolutionCalculation";
 import { CameraData, RefractorData, WavelengthData } from "@/types/types";
+import { Label } from "./ui/label";
 
 function Sampling() {
   const [turbulence, setTurbulence] = useState(1);
@@ -325,44 +326,51 @@ function Sampling() {
                 </p>
               </div>
             )}
-            <div className="flex">
-              <Select
-                onValueChange={(value) =>
-                  handleWavelengthSelection(value as unknown as WavelengthData)
-                }
-                defaultValue={() => setSelectedWavelength(dataWavelength[3])}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="vert - 550" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {dataWavelength.map((wavelength: WavelengthData) => (
-                      <>
-                        <SelectItem key={wavelength.id} value={wavelength}>
-                          {wavelength.color} - {wavelength.value}
-                        </SelectItem>
-                      </>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <div>
+            <div className="flex justify-between gap-1">
+              <div className="flex flex-col items-center">
+                <Label className="text-black-400">Filtre</Label>
+                <Select
+                  onValueChange={(value) =>
+                    handleWavelengthSelection(
+                      value as unknown as WavelengthData,
+                    )
+                  }
+                  defaultValue={() => setSelectedWavelength(dataWavelength[3])}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="vert - 550" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {dataWavelength.map((wavelength: WavelengthData) => (
+                        <>
+                          <SelectItem key={wavelength.id} value={wavelength}>
+                            {wavelength.color} - {wavelength.value}
+                          </SelectItem>
+                        </>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col items-center">
+                <Label className="text-black-400">Turbulence</Label>
                 <Input
-                  className="w-[90px]"
+                  className="w-[90px] placeholder:text-center"
                   onChange={handleTurbulence}
                   type="text"
                   id="turbulence"
-                  placeholder="Turbu 1.0"
+                  placeholder="1.0"
                 />
               </div>
-              <div>
+              <div className="flex flex-col items-center">
+                <Label className="text-black-400">Barlow</Label>
                 <Input
-                  className="w-[90px]"
+                  className="w-[90px] placeholder:text-center"
                   onChange={handleBarlowSize}
                   type="text"
                   id="barlow"
-                  placeholder="Barlow 1.0"
+                  placeholder="1.0"
                 />
               </div>
             </div>
@@ -371,13 +379,13 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Largeur '
                       </TableHead>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Hauteur '
                       </TableHead>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Diagonale '
                       </TableHead>
                     </TableRow>
@@ -393,13 +401,13 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Largeur "
                       </TableHead>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Hauteur "
                       </TableHead>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Diagonale "
                       </TableHead>
                     </TableRow>
@@ -415,7 +423,7 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Echantillonage (" / pixel)
                       </TableHead>
                     </TableRow>
@@ -429,7 +437,7 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Echantillonage idéal
                       </TableHead>
                     </TableRow>
@@ -443,7 +451,7 @@ function Sampling() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center text-red-400">
+                      <TableHead className="text-center text-gray-400">
                         Echantillonage actuel
                       </TableHead>
                     </TableRow>
