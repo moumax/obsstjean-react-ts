@@ -19,11 +19,11 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="flex h-screen w-[90%] flex-col items-center"
+      className="z-50 flex h-screen w-[90%] flex-col items-center"
     >
       <h1 className="mb-4 text-2xl text-white">Nous contacter</h1>
       <MapContainer
-        className="mb-8 h-56 w-4/5 overflow-hidden rounded-xl"
+        className="rounded-xl0 mb-8 h-56 w-4/5 overflow-hidden"
         center={position}
         zoom={17}
         scrollWheelZoom={false}
