@@ -9,24 +9,6 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import callAPI from "@/api/callAPI";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table.tsx";
-import { Input } from "./ui/input";
 import { sampleCalculation } from "@/utils/sampleCalculation";
 import {
   widthMinuteCalculation,
@@ -42,8 +24,22 @@ import {
   resolutionCalculation,
   resolutionCalculationWithBarlow,
 } from "@/utils/resolutionCalculation";
-import { CameraData, RefractorData, WavelengthData } from "@/types/types";
-import { Label } from "./ui/label";
+import {
+  CameraData,
+  RefractorData,
+  WavelengthData,
+  SkyObjectData,
+} from "@/types/types";
+import { CameraSelector } from "./sampler/CameraSelector";
+import { RefractorSelector } from "./sampler/RefractorSelector";
+import { MinuteCalculator } from "./sampler/MinuteCalculator";
+import { SecondCalculator } from "./sampler/SecondCalculator";
+import { SkyObjectsSelector } from "./sampler/SkyObjectsSelector";
+import { ActualSamplingCalculator } from "./sampler/ActualSamplingCalculator";
+import { IdealSamplingCalculator } from "./sampler/IdealSamplingCalculator";
+import { WavelengthSelector } from "./sampler/WavelengthSelector";
+import { TurbulenceInput } from "./sampler/TurbulenceInput";
+import { BarlowSizeInput } from "./sampler/BarlowSizeInput";
 
 function Sampling() {
   const [turbulence, setTurbulence] = useState(1);
@@ -53,6 +49,8 @@ function Sampling() {
     useState<RefractorData | null>(null);
   const [selectedWavelength, setSelectedWavelength] =
     useState<WavelengthData | null>(null);
+  const [selectedSkyObjects, setSelectedSkyObjects] =
+    useState<SkyObjectData | null>(null);
 
   const {
     data: dataCameras,
@@ -72,6 +70,12 @@ function Sampling() {
     isLoading: isLoadingWavelength,
   } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/wavelength/`, callAPI);
 
+  const {
+    data: dataSkyObjects,
+    error: errorSkyObjects,
+    isLoading: isLoadingSkyObjects,
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/skyobjects/`, callAPI);
+
   const handleCameraSelection = (camera: CameraData) => {
     setSelectedCamera(camera);
   };
@@ -82,6 +86,10 @@ function Sampling() {
 
   const handleWavelengthSelection = (wavelength: WavelengthData) => {
     setSelectedWavelength(wavelength);
+  };
+
+  const handleSkyObjectsSelection = (objects: SkyObjectData) => {
+    setSelectedSkyObjects(objects);
   };
 
   if (errorCameras)
@@ -95,6 +103,10 @@ function Sampling() {
   if (errorWavelength)
     return `Erreur lors du chargement : ${errorWavelength.message}`;
   if (isLoadingWavelength) return "chargement en cours...";
+
+  if (errorSkyObjects)
+    return `Erreur lors du chargement : ${errorSkyObjects.message}`;
+  if (isLoadingSkyObjects) return "chargement en cours...";
 
   const widthSecondCalculationResult = widthSecondCalculation(
     selectedRefractor,
@@ -141,6 +153,13 @@ function Sampling() {
     selectedCamera,
     barlowSize,
   );
+
+  const pixelObjectSize =
+    selectedSkyObjects &&
+    typeof selectedSkyObjects.angle === "number" &&
+    sampleCalculationResult !== 0
+      ? (selectedSkyObjects.angle / sampleCalculationResult).toFixed(0)
+      : "";
 
   const resolution = resolutionCalculationResult;
   const resolutionWithBarlow = resolutionCalculationWithBarlowResult;
@@ -229,225 +248,62 @@ function Sampling() {
           <DialogTitle className="text-center text-yellow-400">
             Calculateur d'échantillonage
           </DialogTitle>
-          <DialogDescription>
-            <h2 className="pb-6 pt-6 text-gray-400">
-              Sélectionne une monture puis une caméra pour savoir si la
-              configuration est adéquate.
-            </h2>
-            <Select
-              onValueChange={(value) =>
-                handleCameraSelection(value as unknown as CameraData)
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Sélectionnez votre caméra" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {dataCameras.map((camera: CameraData) => (
-                    <>
-                      <SelectLabel>{camera.brand}</SelectLabel>
-                      <SelectItem key={camera.id} value={camera}>
-                        {camera.brand} - {camera.model}
-                      </SelectItem>
-                    </>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {selectedCamera && (
-              <div className="pb-6 pt-6 text-gray-400">
-                <p>
-                  Capteur : {selectedCamera.sensor} Type de capteur :{" "}
-                  {selectedCamera.sensor_type}
-                </p>
-                <p>
-                  Fps : {selectedCamera.fps} Taille des pixels:{" "}
-                  {selectedCamera.photosites}
-                </p>
-              </div>
-            )}
-            <Select
-              onValueChange={(value) =>
-                handleRefractorSelection(value as unknown as RefractorData)
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Sélectionnez votre tube" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {dataRefractors.map((refractor: RefractorData) => (
-                    <>
-                      <SelectLabel>{refractor.brand}</SelectLabel>
-                      <SelectItem key={refractor.id} value={refractor}>
-                        {refractor.brand} - {refractor.model}
-                      </SelectItem>
-                    </>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {selectedRefractor && (
-              <div className="pb-6 pt-6 text-gray-400">
-                <p>
-                  Diametre:{" "}
-                  <span className="font-bold">
-                    {selectedRefractor.diameter}
-                  </span>
-                </p>
-                <p>
-                  {barlowSize > 1 ? (
-                    <p className="text-green-600">
-                      Focale avec barlow * {barlowSize} :{" "}
-                      {selectedRefractor.focal * barlowSize}
-                    </p>
-                  ) : (
-                    `Focale : ${selectedRefractor.focal}`
-                  )}
-                </p>
-                <p>
-                  {barlowSize > 1 ? (
-                    <p className="text-green-600">
-                      Rapport F/D avec barlow * {barlowSize} :{" "}
-                      {selectedRefractor.focal_ratio * barlowSize}
-                    </p>
-                  ) : (
-                    `Rapport F/D : ${selectedRefractor.focal_ratio}`
-                  )}
-                </p>
-                <p>
-                  Resolution du tube :{" "}
-                  <span className="font-bold">{resolution}</span>
-                </p>
-              </div>
-            )}
+          <DialogDescription className="text-gray-400">
+            Sélectionne une monture puis une caméra pour savoir si la
+            configuration est adéquate.
+            <CameraSelector
+              dataCameras={dataCameras}
+              selectedCamera={selectedCamera}
+              handleCameraSelection={handleCameraSelection}
+            />
+            <RefractorSelector
+              dataRefractors={dataRefractors}
+              selectedRefractor={selectedRefractor}
+              handleRefractorSelection={handleRefractorSelection}
+              barlowSize={barlowSize}
+              resolution={resolution}
+            />
             <div className="mb-5 flex justify-between gap-1">
               <div className="flex flex-col items-center gap-y-2">
-                <Label className="text-black-400">Filtre</Label>
-                <Select
-                  onValueChange={(value) =>
-                    handleWavelengthSelection(
-                      value as unknown as WavelengthData,
-                    )
-                  }
-                  defaultValue={() => setSelectedWavelength(dataWavelength[3])}
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="vert - 550" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {dataWavelength.map((wavelength: WavelengthData) => (
-                        <>
-                          <SelectItem key={wavelength.id} value={wavelength}>
-                            {wavelength.color} - {wavelength.value}
-                          </SelectItem>
-                        </>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col items-center gap-y-2">
-                <Label className="text-black-400">Turbulence</Label>
-                <Input
-                  className="w-[90px] placeholder:text-center"
-                  onChange={handleTurbulence}
-                  type="text"
-                  id="turbulence"
-                  placeholder="1.0"
+                <WavelengthSelector
+                  dataWavelength={dataWavelength}
+                  setSelectedWavelength={setSelectedWavelength}
+                  handleWavelengthSelection={handleWavelengthSelection}
                 />
               </div>
-              <div className="flex flex-col items-center gap-y-2">
-                <Label className="text-black-400">Barlow</Label>
-                <Input
-                  className="w-[90px] placeholder:text-center"
-                  onChange={handleBarlowSize}
-                  type="text"
-                  id="barlow"
-                  placeholder="1.0"
-                />
-              </div>
+              <TurbulenceInput handleTurbulence={handleTurbulence} />
+              <BarlowSizeInput
+                handleBarlowSize={handleBarlowSize}
+                barlowSize={barlowSize}
+              />
             </div>
             {selectedRefractor && selectedCamera && (
               <>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center text-yellow-400">
-                        Largeur '
-                      </TableHead>
-                      <TableHead className="text-center text-yellow-400">
-                        Hauteur '
-                      </TableHead>
-                      <TableHead className="text-center text-yellow-400">
-                        Diagonale '
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow className="text-center font-bold">
-                      <TableCell>{widthMinuteCalculationResult}</TableCell>
-                      <TableCell>{heightMinuteCalculationResult}</TableCell>
-                      <TableCell>{diagonalMinuteCalculationResult}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center text-yellow-400">
-                        Largeur "
-                      </TableHead>
-                      <TableHead className="text-center text-yellow-400">
-                        Hauteur "
-                      </TableHead>
-                      <TableHead className="text-center text-yellow-400">
-                        Diagonale "
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow className="text-center font-bold">
-                      <TableCell>{widthSecondCalculationResult}</TableCell>
-                      <TableCell>{heightSecondCalculationResult}</TableCell>
-                      <TableCell>{diagonalSecondCalculationResult}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center text-yellow-400">
-                        Echantillonage (" / pixel)
-                      </TableHead>
-                      <TableHead className="text-center text-yellow-400">
-                        Echantillonage idéal
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow className="text-center font-bold">
-                      <TableCell>{sampleCalculationResult}</TableCell>
-                      <TableCell>{idealSample()}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-                <Table className="mt-10 flex justify-around rounded-md bg-white/20">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center text-yellow-400">
-                        Echantillonage actuel
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow className="text-center font-bold">
-                      <TableCell>{resultSampling()}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <MinuteCalculator
+                  widthMinuteCalculationResult={widthMinuteCalculationResult}
+                  heightMinuteCalculationResult={heightMinuteCalculationResult}
+                  diagonalMinuteCalculationResult={
+                    diagonalMinuteCalculationResult
+                  }
+                />
+                <SecondCalculator
+                  widthSecondCalculationResult={widthSecondCalculationResult}
+                  heightSecondCalculationResult={heightSecondCalculationResult}
+                  diagonalSecondCalculationResult={
+                    diagonalSecondCalculationResult
+                  }
+                />
+                <IdealSamplingCalculator
+                  sampleCalculationResult={sampleCalculationResult}
+                  idealSample={idealSample}
+                />
+                <ActualSamplingCalculator resultSampling={resultSampling} />
+                <SkyObjectsSelector
+                  dataSkyObjects={dataSkyObjects}
+                  selectedSkyObjects={selectedSkyObjects}
+                  handleSkyObjectsSelection={handleSkyObjectsSelection}
+                  pixelObjectSize={pixelObjectSize}
+                />
               </>
             )}
           </DialogDescription>
