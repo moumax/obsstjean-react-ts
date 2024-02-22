@@ -8,9 +8,10 @@ import authRouter from "./routes/AuthRouter.js";
 import eventsRouter from "./routes/EventsRouter.js";
 import membersRouter from "./routes/MembersRouter.js";
 import usersRouter from "./routes/UsersRouter.js";
-import CamerasRouter from "./routes/CamerasRouter.js"
-import RefractorsRouter from "./routes/RefractorsRouter.js"
-import WavelengthRouter from "./routes/WavelengthRouter.js"
+import CamerasRouter from "./routes/CamerasRouter.js";
+import RefractorsRouter from "./routes/RefractorsRouter.js";
+import WavelengthRouter from "./routes/WavelengthRouter.js";
+import SkyObjectsRouter from "./routes/SkyObjectsRouter.js";
 
 const router = Router();
 
@@ -31,8 +32,9 @@ router.use("/users", authorization, usersRouter);
 router.use("/events", eventsRouter);
 router.use("/members", authorization, membersRouter);
 router.use("/cameras", CamerasRouter);
-router.use("/refractors", RefractorsRouter)
-router.use("/wavelength", WavelengthRouter)
+router.use("/refractors", RefractorsRouter);
+router.use("/wavelength", WavelengthRouter);
+router.use("/skyobjects", SkyObjectsRouter);
 
 app.use("/api", router);
 
