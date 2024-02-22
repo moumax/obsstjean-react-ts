@@ -10,7 +10,7 @@ export const sampleCalculation = (
       (selectedCamera.photosites * 206.26) / selectedRefractor.focal;
 
     const sampleBarlow = sample / barlowSize;
-    return sampleBarlow.toFixed(2);
+    return sampleBarlow.toFixed(4);
   } else {
     return (
       <div className="pb-10 pt-10">
