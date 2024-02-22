@@ -32,3 +32,10 @@ export type WavelengthData = {
   color: string;
   value: number;
 };
+
+export type SkyObjectData = {
+  id: number;
+  object: string;
+  size: number;
+  angle: number;
+};
