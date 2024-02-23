@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.6.16-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19-11.2.3-MariaDB, for osx10.19 (arm64)
 --
 -- Host: localhost    Database: obsstjeandb
 -- ------------------------------------------------------
--- Server version	10.6.16-MariaDB-0ubuntu0.22.04.1
+-- Server version	11.2.3-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,260 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cameras`
+--
+
+DROP TABLE IF EXISTS `cameras`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cameras` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  `sensor` varchar(100) DEFAULT NULL,
+  `sensor_type` varchar(10) NOT NULL,
+  `sensor_width_mm` float NOT NULL,
+  `sensor_height_mm` float NOT NULL,
+  `sensor_width_pixel` int(11) NOT NULL,
+  `sensor_height_pixel` int(11) NOT NULL,
+  `photosites` float NOT NULL,
+  `megapixels` float DEFAULT NULL,
+  `fps` int(11) DEFAULT NULL,
+  `dynamic` varchar(10) DEFAULT NULL,
+  `bits` varchar(20) DEFAULT NULL,
+  `pixel_capacity` varchar(30) DEFAULT NULL,
+  `cooler` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cameras`
+--
+
+LOCK TABLES `cameras` WRITE;
+/*!40000 ALTER TABLE `cameras` DISABLE KEYS */;
+INSERT INTO `cameras` VALUES
+(1,'ALTAIR','Hypercam 178M','Sony IMX 178','CMOS',7.43,4.992,3096,2080,2.4,6.4,60,'','14','15000 e-',''),
+(2,'ALTAIR','Hypercam 183M','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-',''),
+(3,'ALTAIR','Hypercam 183C','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-',''),
+(4,'ATIK','314L','Sony ICX 285AL','CCD',8.9784,6.708,1392,1040,6.45,1.4,NULL,'','16','','ΔT - 25°C'),
+(5,'ATIK','320E','Sony ICX 274AL','CCD',7.128,5.368,1620,1220,4.4,2,NULL,'','16','','ΔT - 25°C'),
+(6,'ATIK','383L+','Kodak KAF-8300','CCD',17.9604,13.5216,3326,2504,5.4,8.3,NULL,'','16','','ΔT - 40°C'),
+(7,'ATIK','4000','Kodak KAI-4022','CCD',15.1552,15.1552,2048,2048,7.4,4.2,NULL,'','16','40000 e-','ΔT - 40°C'),
+(8,'ATIK','4000LE','Kodak KAI-4022','CCD',15.1552,15.1552,2048,2048,7.4,4.2,NULL,'','16','40000 e-','ΔT - 33°C'),
+(9,'ATIK','11000','Kodak KAI 11002','CCD',36.072,24.048,4008,2672,9,10.7,NULL,'','16','60000 e-','ΔT - 38°C'),
+(10,'ATIK','Titan','Sony ICX 424','CCD',4.8766,3.6556,659,494,7.4,0.3,NULL,'','16','','ΔT - 20°C'),
+(11,'BASLER','acA640-100gm','Sony ICX 618','CCD',3.6904,2.7664,659,494,5.6,0.3,102,'10,6 bits','8 ou 12','',''),
+(12,'BASLER','acA1300-30gm','Sony ICX 445','CCD',4.86,3.6225,1296,966,3.75,1.3,32,'9,5 bits','9 ou 12','',''),
+(13,'BASLER','acA1600-20gm','Sony ICX 274','CCD',7.1632,5.4384,1628,1236,4.4,2,17,'10,1 bits','10 ou 12','',''),
+(14,'CANON','EOS 1000D','APS-C','CMOS',22.2,14.8,3888,2592,5.7,10.1,NULL,'','','',''),
+(15,'CANON','EOS 1100D','APS-C','CMOS',22.2,14.8,4272,2848,5.2,12.2,NULL,'','','',''),
+(16,'CANON','EOS 1300D','APS-C','CMOS',22.3,14.9,5184,3456,4.3,17.9,NULL,'','','',''),
+(17,'CANON','EOS 300D','','CMOS',22.7,15.1,3072,2048,7.4,6.3,NULL,'','','',''),
+(18,'CANON','EOS 350D','','CMOS',22.2,14.8,3456,2304,6.4,8,NULL,'','','',''),
+(19,'CANON','EOS 400D','','CMOS',22.2,14.8,3888,2592,5.7,10.1,NULL,'','','',''),
+(20,'CANON','EOS 450D','','CMOS',22.2,14.8,4272,2848,5.2,12.2,NULL,'','','',''),
+(21,'CANON','EOS 500D','','CMOS',22.3,14.9,4752,3168,4.7,15.1,NULL,'','','',''),
+(22,'CANON','EOS 550D','','CMOS',22.3,14.9,5184,3456,4.3,17.9,NULL,'','','',''),
+(23,'CANON','EOS 600D','','CMOS',22.3,14.9,5184,3456,4.3,17.9,NULL,'','','',''),
+(24,'CANON','EOS 10D','','CMOS',22.7,15.1,3072,2048,7.4,6.3,NULL,'','','',''),
+(25,'CANON','EOS 20D','','CMOS',22.5,15,3504,2336,6.4,8.2,NULL,'','','',''),
+(26,'CANON','EOS 30D','','CMOS',22.5,15,3504,2336,6.4,8.2,NULL,'','','',''),
+(27,'CANON','EOS 40D','','CMOS',22.2,14.8,3888,2592,5.7,10.1,NULL,'','','',''),
+(28,'CANON','EOS 50D','','CMOS',22.2,14.8,4752,3168,4.7,15.1,NULL,'','','',''),
+(29,'CANON','EOS 60D','','CMOS',22.3,14.9,5184,3456,4.3,17.9,NULL,'','','',''),
+(30,'CANON','EOS 7D','','CMOS',22.2,14.8,5184,3456,4.3,17.9,NULL,'','','',''),
+(31,'CANON','EOS 5D','','CMOS',35.8,23.9,4368,2912,8.2,12.7,NULL,'','','',''),
+(32,'CANON','EOS 5D MkII','','CMOS',35.8,23.9,5616,3744,6.4,21,NULL,'','','',''),
+(33,'CANON','EOS 1D','','CMOS',28.7,19.1,2464,1648,11.6,4.1,NULL,'','','',''),
+(34,'CANON','EOS 1D MkII','','CMOS',28.7,19.1,3504,2336,8.2,8.2,NULL,'','','',''),
+(35,'CANON','EOS 1D MkIII','','CMOS',28.1,18.7,3888,2592,7.2,10.1,NULL,'','','',''),
+(36,'CANON','EOS 1D MkIV','','CMOS',27.9,18.6,4896,3264,5.7,16,NULL,'','','',''),
+(37,'CANON','EOS 1Ds','','CMOS',35.8,23.8,4064,2704,8.8,11,NULL,'','','',''),
+(38,'CANON','EOS 1Ds MkII','','CMOS',36,24,4992,3328,7.2,16.6,NULL,'','','',''),
+(39,'CANON','EOS 1Ds MkIII','','CMOS',36,24,5616,3744,6.4,21,NULL,'','','',''),
+(40,'LUMENERA','SKYnyx 2,0','Sony ICX 424','CCD',4.736,3.552,640,480,7.4,0.3,60,'','8 ou 12','',''),
+(41,'LUMENERA','SKYnyx 2,1','Sony ICX 205','CCD',6.4728,4.836,1392,1040,4.65,1.4,15,'','8 ou 12','',''),
+(42,'LUMENERA','SKYnyx 2,2','Sony ICX 274','CCD',7.1104,5.4208,1616,1232,4.4,2,12,'','8 ou 12','',''),
+(43,'MORAVIAN','C1-1500','Sony IMX 273','CMOS',5.0232,3.7536,1456,1088,3.45,1.6,NULL,'','8 & 12','11000 e-',''),
+(44,'MORAVIAN','C1-3000','Sony IMX 252','CMOS',7.1208,5.3268,2064,1544,3.45,3.2,NULL,'','8 & 12','11000 e-',''),
+(45,'MORAVIAN','C1-5000','Sony IMX 250','CMOS',8.5008,7.0932,2464,2056,3.45,5.1,NULL,'','8 & 12','11000 e-',''),
+(46,'MORAVIAN','C1-12000','Sony IMX 253','CMOS',14.1864,10.3776,4112,3008,3.45,12.4,NULL,'','8 & 12','11000 e-',''),
+(47,'MORAVIAN','C1-3000A','Sony IMX 265','CMOS',7.1208,5.3268,2064,1544,3.45,3.2,NULL,'','12','11000 e-',''),
+(48,'MORAVIAN','C1-5000A','Sony IMX 264','CMOS',8.5008,7.0932,2464,2056,3.45,5.1,NULL,'','12','11000 e-',''),
+(49,'MORAVIAN','C1-12000A','Sony IMX 304','CMOS',14.1864,10.3776,4112,3008,3.45,12.4,NULL,'','12','11000 e-',''),
+(50,'MORAVIAN','C1+3000','Sony IMX 252','CMOS',7.1208,5.3268,2064,1544,3.45,3.2,NULL,'','8 & 12','11000 e-','ΔT - 40°C (45)'),
+(51,'MORAVIAN','C1+5000','Sony IMX 250','CMOS',8.5008,7.0932,2464,2056,3.45,5.1,NULL,'','8 & 12','11000 e-','ΔT - 40°C (45)'),
+(52,'MORAVIAN','C1+12000','Sony IMX 253','CMOS',14.1864,10.3776,4112,3008,3.45,12.4,NULL,'','8 & 12','11000 e-','ΔT - 40°C (45)'),
+(53,'MORAVIAN','C1+7000A','Sony IMX 428','CMOS',14.472,9.936,3216,2208,4.5,7.1,NULL,'','12','26000 e-','ΔT - 40°C (45)'),
+(54,'MORAVIAN','C1x26000','Sony IMX 571','CMOS',23.5075,15.7018,6252,4176,3.76,26.1,NULL,'','16','52800 e-','ΔT - 35°C'),
+(55,'MORAVIAN','C1x61000','Sony IMX 455','CMOS',36.0058,24.0189,9576,6388,3.76,61.2,NULL,'','16','52800 e-','ΔT - 35°C'),
+(56,'MORAVIAN','C2-3000','Sony IMX 252','CMOS',7.1208,5.3268,2064,1544,3.45,3.2,NULL,'','8 & 12','11000 e-','ΔT - 42°C (45)'),
+(57,'MORAVIAN','C2-5000','Sony IMX 250','CMOS',8.5008,7.0932,2464,2056,3.45,5.1,NULL,'','8 & 12','11000 e-','ΔT - 42°C (45)'),
+(58,'MORAVIAN','C2-12000','Sony IMX 253','CMOS',14.1864,10.3776,4112,3008,3.45,12.4,NULL,'','8 & 12','11000 e-','ΔT - 42°C (45)'),
+(59,'MORAVIAN','C2-3000A','Sony IMX 252','CMOS',7.1208,5.3268,2064,1544,3.45,3.2,NULL,'','12','11000 e-','ΔT - 42°C (45)'),
+(60,'MORAVIAN','C2-5000A','Sony IMX 250','CMOS',8.5008,7.0932,2464,2056,3.45,5.1,NULL,'','12','11000 e-','ΔT - 42°C (45)'),
+(61,'MORAVIAN','C2-12000A','Sony IMX 253','CMOS',14.1864,10.3776,4112,3008,3.45,12.4,NULL,'','12','11000 e-','ΔT - 42°C (45)'),
+(62,'MORAVIAN','C2-7000A','Sony IMX 428','CMOS',14.472,9.936,3216,2208,4.5,7.1,NULL,'','12','26000 e-','ΔT - 42°C (45)'),
+(63,'MORAVIAN','C3-26000','Sony IMX 571','CMOS',23.5075,15.7018,6252,4176,3.76,26.1,NULL,'','16','52800 e-','ΔT - 40°C (43)'),
+(64,'MORAVIAN','C3-61000','Sony IMX 455','CMOS',36.0058,24.0189,9576,6388,3.76,61.2,NULL,'','16','52800 e-','ΔT - 40°C (43)'),
+(65,'MORAVIAN','C4-16000','GSENSE4040','CMOS',36.864,36.864,4096,4096,9,16.8,NULL,'','12 ou 16 HDR','','ΔT - 35°C'),
+(66,'NIKON','D40','','CCD',23.7,15.6,3008,2000,7.9,6,NULL,'','','',''),
+(67,'NIKON','D40X','','CCD',23.7,15.6,3872,2592,6.1,10,NULL,'','','',''),
+(68,'NIKON','D3000','','CCD',23.6,15.8,3872,2592,6.1,10,NULL,'','','',''),
+(69,'NIKON','D3100','','CMOS',23.1,15.4,4608,3072,5,14.2,NULL,'','','',''),
+(70,'NIKON','D50','','CCD',23.7,15.6,3008,2000,7.9,NULL,NULL,'','','',''),
+(71,'NIKON','D60','','CCD',23.6,15.8,3872,2592,6.1,NULL,NULL,'','','',''),
+(72,'NIKON','D5000','','CMOS',23.6,15.8,4288,2848,5.5,NULL,NULL,'','','',''),
+(73,'NIKON','D5100','','CMOS',23.6,15.6,4928,3264,4.8,NULL,NULL,'','','',''),
+(74,'NIKON','D70 / D70s','','CCD',23.7,15.6,3008,2000,7.9,NULL,NULL,'','','',''),
+(75,'NIKON','D80','','CCD',23.6,15.8,3872,2592,6.1,NULL,NULL,'','','',''),
+(76,'NIKON','D90','','CMOS',23.6,15.8,4928,3264,4.8,NULL,NULL,'','','',''),
+(77,'NIKON','D7000','','CMOS',23.6,15.6,4928,3264,4.8,NULL,NULL,'','','',''),
+(78,'NIKON','D100','','CCD',23.7,15.6,3008,2000,7.9,NULL,NULL,'','','',''),
+(79,'NIKON','D200','','CCD',23.7,15.6,3872,2592,6.1,NULL,NULL,'','','',''),
+(80,'NIKON','D300 / D300s','','CMOS',23.6,15.8,4288,2848,5.5,NULL,NULL,'','','',''),
+(81,'NIKON','D700','','CMOS',36,23.9,4256,2832,8.5,NULL,NULL,'','','',''),
+(82,'NIKON','D1H','','CCD',23.7,15.6,2000,1312,11.9,NULL,NULL,'','','',''),
+(83,'NIKON','D2H / D2Hs','','LBCAST',23.3,15.5,2464,1632,9.5,NULL,NULL,'','','',''),
+(84,'NIKON','D3 / D3S','','CMOS',36,23.9,4256,2832,8.5,NULL,NULL,'','','',''),
+(85,'NIKON','D1','','CCD',23.7,15.6,2000,1312,11.9,NULL,NULL,'','','',''),
+(86,'NIKON','D1x','','CCD',23.7,15.6,3008,1960,7.9,NULL,NULL,'','','',''),
+(87,'NIKON','D2x / D2Xs','Sony','CMOS',23.7,15.7,4288,2848,5.5,NULL,NULL,'','','',''),
+(88,'NIKON','D3X','','CMOS',35.9,24,6048,4032,5.9,NULL,NULL,'','','',''),
+(89,'QHY','QHY5-II-M','ON MT9M001','CMOS',6.656,5.3248,1280,1024,5.2,1.3,30,'','10','',''),
+(90,'QHY','QHY5L-II','ON MT9M034','CMOS',4.8,3.6,1280,960,3.75,1.2,30,'','12','',''),
+(91,'QHY','QHY5P-II','ON MT9P006/P031','CMOS',5.7024,4.2768,2592,1944,2.2,5,7,'','12','',''),
+(92,'QHY','QHY5R-II','ON ASX340','CMOS',4.032,3.2256,720,576,5.6,0.4,100,'','10','',''),
+(93,'QHY','QHY5III174','Sony IMX 174','CMOS',11.2512,7.032,1920,1200,5.86,2.3,138,'','12','',''),
+(94,'QHY','QHY5III178','Sony IMX 178','CMOS',7.3728,4.9152,3072,2048,2.4,6.3,50,'','14','',''),
+(95,'QHY','QHY5III224','Sony IMX 224','CMOS',4.8,3.6,1280,960,3.75,1.2,150,'','12','',''),
+(96,'QHY','QHY5III290','Sony IMX 290','CMOS',5.568,3.132,1920,1080,2.9,2.1,135,'','12','',''),
+(97,'QHY','QHY5III185','Sony IMX 185','CMOS',7.2,4.5,1920,1200,3.75,2.3,96,'','12','',''),
+(98,'QHY','QHY5III485C','Sony IMX 485','CMOS',11.2056,6.322,3864,2180,2.9,8.4,44,'','8 ou 16','',''),
+(99,'QHY','QHY600M/C','Sony IMX 455','CMOS',36.0058,24.0189,9576,6388,3.76,61.2,NULL,'','16','51000 e- / 75000 e-','ΔT -35°C'),
+(100,'QHY','QHY268M/C','Sony IMX 571','CMOS',23.6128,15.8296,6280,4210,3.76,26.4,NULL,'','16','51000 e- / 75000 e-','ΔT -35°C'),
+(101,'QHY','QHY294 C Pro','Sony IMX 294','CMOS',19.2793,12.9455,4164,2796,4.63,11.6,17,'','14','65000 e-','ΔT -35°C'),
+(102,'QHY','QHY294 M Pro','Sony IMX 492','CMOS',19.2793,12.9455,4164,2796,4.63,11.6,17,'','14','65000 e-','ΔT -35°C'),
+(103,'QHY','QHY294 M Pro UNLOCK','Sony IMX 492','CMOS',19.2988,13.0602,8340,5644,2.314,47.1,4,'','12','65000 e-','ΔT -35°C'),
+(104,'QHY','QHY410C','Sony IMX 410','CMOS',36.0677,24.0214,6072,4044,5.94,24.6,14,'','14','120000 e-','ΔT -35°C'),
+(105,'QHY','QHY367C Pro','Sony IMX 094','CMOS',35.9949,24.0974,7376,4938,4.88,36.4,3,'','14','56000 e-','ΔT -45°C'),
+(106,'QHY','QHY183M/C','Sony IMX 183','CMOS',13.3056,8.8656,5544,3694,2.4,20.5,19,'','12','15000 e-','ΔT -40°C'),
+(107,'QHY','QHY163M','Sony IMX 163','CMOS',17.6928,24.7836,4656,6522,3.8,30.4,22,'','12','20000 e-','ΔT -40°C'),
+(108,'QHY','QHY128C','Sony IMX 128','CMOS',36.0349,24.0472,6036,4028,5.97,24.3,5,'','14','74000 e-','ΔT -35°C'),
+(109,'QHY','QHY247C','Sony IMX 193','CMOS',23.5538,15.7338,6024,4024,3.91,24.2,3,'','14','54000 e-','ΔT -35°C'),
+(110,'QHY','QHY168C','Sony IMX 171','CMOS',23.7696,15.7824,4952,3288,4.8,16.3,10,'','14','46000 e-','ΔT -35°C'),
+(111,'QHY','QHY550M/C/P','Sony IMX 250','CMOS',8.5008,7.0932,2464,2056,3.45,5.1,34,'','12','11000 e-','ΔT -35°C'),
+(112,'QHY','QHY174 GPS','Sony IMX 174','CMOS',11.2512,7.032,1920,1200,5.86,2.3,138,'','12','32000 e-','ΔT -40°C'),
+(113,'QHY','QHY16200A','Kodak KAF16200','CCD',27.24,21.78,4540,3630,6,16.5,NULL,'','16','41000 e-','ΔT -40°C'),
+(114,'QHY','QHY695A','Sony ICX 695','CCD',12.5213,10.0243,2758,2208,4.54,6.1,NULL,'','16','20000 e-','ΔT -45°C'),
+(115,'QHY','QHY90A','Kodak KAF8300','CCD',18.1332,13.6944,3358,2536,5.4,8.5,NULL,'','16','25500 e-','ΔT -45°C'),
+(116,'QHY','QHY16803A','Kodak KAF16803','CCD',36.864,36.864,4096,4096,9,16.8,NULL,'','16','100000 e-','ΔT -45°C'),
+(117,'QHY','QHY09000A','Kodak KAF09000','CCD',36.672,36.672,3056,3056,12,9.3,NULL,'','16','110000 e-','ΔT -45°C'),
+(118,'QSI','583','Kodak KAF-8300','CCD',17.9604,13.5216,3326,2504,5.4,8.3,NULL,'70 dB','16','25500 e-','ΔT - 38°C'),
+(119,'QSI','540','Kodak KAI-4022','CCD',15.1552,15.1552,2048,2048,7.4,4.2,NULL,'74 dB','16','40000 e-','ΔT - 38°C'),
+(120,'QSI','532','Kodak KAF-3200','CCD',14.8512,10.0096,2184,1472,6.8,3.2,NULL,'77 dB','16','55000 e-','ΔT - 38°C'),
+(121,'QSI','520','Kodak KAI-2020','CCD',11.84,8.88,1600,1200,7.4,1.9,NULL,'74 dB','16','45000 e-','ΔT - 38°C'),
+(122,'QSI','516','Kodak KAF-1603','CCD',13.824,9.216,1536,1024,9,1.6,NULL,'76 dB','16','100000 e-','ΔT - 38°C'),
+(123,'QSI','504','Kodak KAF-0402','CCD',6.912,4.608,768,512,9,0.4,NULL,'76 dB','16','100000 e-','ΔT - 38°C'),
+(124,'SBIG','ST-402','Kodak KAF-0402ME','CCD',6.885,4.59,765,510,9,0.4,NULL,'','16','','ΔT -35°C'),
+(125,'SBIG','ST-7','Kodak KAF-0402ME','CCD',6.885,4.59,765,510,9,0.4,NULL,'','16','','ΔT -35°C'),
+(126,'SBIG','ST-8','Kodak KAF-1603ME','CCD',13.77,9.18,1530,1020,9,1.6,NULL,'','16','','ΔT -35°C'),
+(127,'SBIG','ST-9','Kodak KAF-0261E','CCD',10.24,10.24,512,512,20,0.3,NULL,'','16','','ΔT -35°C'),
+(128,'SBIG','ST-10','Kodak KAF-3200ME','CCD',14.8512,10.0096,2184,1472,6.8,3.2,NULL,'','16','','ΔT -35°C'),
+(129,'SBIG','ST-1603','Kodak KAF-1603ME','CCD',13.77,9.18,1530,1020,9,1.6,NULL,'','16','','ΔT -35°C'),
+(130,'SBIG','ST-2000','Kodak KAI-2020M','CCD',11.84,8.88,1600,1200,7.4,1.9,NULL,'','16','','ΔT -35°C'),
+(131,'SBIG','ST-3200','Kodak KAF-3200ME','CCD',14.8512,10.0096,2184,1472,6.8,3.2,NULL,'','16','','ΔT -35°C'),
+(132,'SBIG','ST-8300','Kodak KAF-8300','CCD',17.9604,13.5216,3326,2504,5.4,8.3,NULL,'','16','','ΔT -35°C'),
+(133,'SBIG','STL-1001','Kodak KAF-1001E','CCD',24.576,24.576,1024,1024,24,1,NULL,'','16','','ΔT -32°C'),
+(134,'SBIG','STL-11000','Kodak KAI-11002M','CCD',36.072,24.048,4008,2672,9,10.7,NULL,'','16','','ΔT -32°C'),
+(135,'SBIG','STL-4020','Kodak KAI-4022M','CCD',15.1552,15.1552,2048,2048,7.4,4.2,NULL,'','16','','ΔT -32°C'),
+(136,'SBIG','STL-6303','Kodak KAF-6303E','CCD',27.54,18.36,3060,2040,9,6.2,NULL,'','16','','ΔT -32°C'),
+(137,'SBIG','STX-16803','Kodak KAF-16803','CCD',36.864,36.864,4096,4096,9,16.8,NULL,'','16','','ΔT -50°C'),
+(138,'SBIG','STL Remote Guider','Kodak TC-237H','CCD',4.8618,3.663,657,495,7.4,0.3,NULL,'','16','',''),
+(139,'ASTROELEKTRONIK FISCHER','Sigma-16','Kodak KAF1603ME','CCD',13.77,9.18,1530,1020,9,1.6,NULL,'','16','100000 e-',''),
+(140,'ASTROELEKTRONIK FISCHER','Sigma-32','Kodak KAF3200ME','CCD',14.8512,10.0096,2184,1472,6.8,3.2,NULL,'','16','55000 e-',''),
+(141,'ASTROELEKTRONIK FISCHER','Sigma-63','Kodak KAF6303E','CCD',27.648,18.432,3072,2048,9,6.3,NULL,'','16','100000 e-',''),
+(142,'ASTROELEKTRONIK FISCHER','Sigma-20','Kodak KAI2020','CCD',11.84,8.88,1600,1200,7.4,1.9,NULL,'','16','40000 e-',''),
+(143,'ASTROELEKTRONIK FISCHER','Sigma-40','Kodak KAI4022','CCD',15.1552,15.1552,2048,2048,7.4,4.2,NULL,'','16','40000 e-',''),
+(144,'ASTROELEKTRONIK FISCHER','Sigma-83','Kodak KAF8300','CCD',17.9604,13.5216,3326,2504,5.4,8.3,NULL,'','16','25000 e-',''),
+(145,'STARLIGHT XPRESS','SXVF-H5','Sony ICX 424','CCD',4.884,3.6556,660,494,7.4,0.3,NULL,'','16','30000 e-','ΔT - 30°C'),
+(146,'STARLIGHT XPRESS','SXVR-H9','Sony ICX 285AL','CCD',8.9784,6.708,1392,1040,6.45,1.4,NULL,'','16','23000 e-','ΔT - 30°C'),
+(147,'STARLIGHT XPRESS','SXV-H16','Kodak KAI-4021M','CCD',15.1552,15.1552,2048,2048,7.4,4.2,NULL,'','16','40000 e-','ΔT - 40°C'),
+(148,'STARLIGHT XPRESS','SXVR-H18','Kodak KAF-8300','CCD',17.9604,13.5216,3326,2504,5.4,8.3,NULL,'','16','25000 e-','ΔT - 40°C'),
+(149,'STARLIGHT XPRESS','SXVF-H35','Kodak KAI-11002M','CCD',36.072,24.048,4008,2672,9,10.7,NULL,'','16','50000 e-','ΔT - 40°C'),
+(150,'STARLIGHT XPRESS','SXVF-H36','Kodak KAI-16000M','CCD',36.2896,24.272,4904,3280,7.4,16.1,NULL,'','16','30000 e-','ΔT - 40°C'),
+(151,'STARLIGHT XPRESS','Loadstar','Sony ICX 429AL','CCD',6.2416,4.814,752,580,8.3,0.4,NULL,'','16','50000 e-',''),
+(152,'PLAYER ONE','Apollo-M MAX','Sony IMX432 mono','CMOS',14.472,9.936,1608,1104,9,1.8,126,'79%','12','100000 e-','Solaire'),
+(153,'PLAYER ONE','Apollo-M MINI','Sony IMX429 mono','CMOS',8.748,6.624,1944,1472,4.5,2.9,84,'','12','25000 e-','Solaire'),
+(154,'PLAYER ONE','Apollo-M','Sony IMX174 mono','CMOS',11.345,7.12576,1936,1216,5.86,2.4,164,'77%','12','24800 e-','Solaire'),
+(155,'PLAYER ONE','Apollo-C','Sony IMX174 color','CMOS',11.345,7.12576,1936,1216,5.86,2.4,164,'77%','12','24800 e-','Solaire'),
+(156,'PLAYER ONE','Saturn-M SQR','Sony IMX533 mono','CMOS',11.3101,11.3101,3008,3008,3.76,9,43,'80%','14','73000 e-',''),
+(157,'PLAYER ONE','Saturn-C SQR','Sony IMX533 color','CMOS',11.3101,11.3101,3008,3008,3.76,9,43,'80%','14','73000 e-',''),
+(158,'PLAYER ONE','Uranus-C','Sony IMX585 color','CMOS',11.1824,6.322,3856,2180,2.9,8.4,47,'91%','12','38800 e-',''),
+(159,'PLAYER ONE','Neptune-CII','Sony IMX464 color','CMOS',7.8648,4.4602,2712,1538,2.9,4.2,93,'','12','12000 e-',''),
+(160,'PLAYER ONE','Neptune-M','Sony IMX178 mono','CMOS',7.4304,4.9872,3096,2078,2.4,6.4,60,'80%','14','15000 e-',''),
+(161,'PLAYER ONE','Neptune-C','Sony IMX178 color','CMOS',7.4304,4.9872,3096,2078,2.4,6.4,60,'80%','14','15000 e-',''),
+(162,'PLAYER ONE','Mars-CII','Sony IMX662 color','CMOS',5.6144,3.19,1936,1100,2.9,2.1,108,'91%','12','54000 e-',''),
+(163,'PLAYER ONE','Mars-M','Sony IMX290 mono','CMOS',5.6376,3.1784,1944,1096,2.9,2.1,136,'80%','12','14600 e-',''),
+(164,'PLAYER ONE','Mars-C','Sony IMX462 color','CMOS',5.6376,3.1784,1944,1096,2.9,2.1,136,'','12','14600 e-',''),
+(165,'PLAYER ONE','Xena-M','Sony IMX249 mono','CMOS',11.345,7.12576,1936,1216,5.86,2.4,48,'','12','32000 e-',''),
+(166,'PLAYER ONE','Sedna-M','Sony IMX178 mono','CMOS',7.4304,4.9872,3096,2078,2.4,6.4,60,'','14','15000 e-',''),
+(167,'PLAYER ONE','Ceres-M','Aptina AR0130 mono','CMOS',4.815,3.615,1284,964,3.75,1.2,65,'','12','18000 e-',''),
+(168,'PLAYER ONE','Ceres-C','Sony IMX224 color','CMOS',4.89,3.66,1304,976,3.75,1.3,154,'','12','19400 e-',''),
+(169,'PLAYER ONE','Poseidon-M','Sony IMX571','CMOS',23.492,15.702,6248,4176,3.76,26.1,3,'80%','16','50000 e-','ΔT - 40°C'),
+(170,'PLAYER ONE','Poseidon-C','Sony IMX571','CMOS',23.492,15.702,6248,4176,3.76,26.1,3,'80%','16','50000 e-','ΔT - 40°C'),
+(171,'PLAYER ONE','Zeus-M','Sony IMX455','CMOS',36.006,24.019,9576,6388,3.76,61.2,2,'91%','16','51400 e-','ΔT - 40°C'),
+(172,'PLAYER ONE','Zeus-C','Sony IMX455','CMOS',36.006,24.019,9576,6388,3.76,61.2,2,'91%','16','51400 e-','ΔT - 40°C'),
+(173,'SVBONY','SV105','OV2710','CCD',2.688,1.512,1920,1080,1.4,2.1,30,'','10','',''),
+(174,'SVBONY','SV205','Sony IMX179','CCD',4.5696,3.4832,3264,2488,1.4,8.1,102,'','10','',''),
+(175,'SVBONY','SV305','Sony ICX 290','CCD',5.568,3.132,1920,1080,2.9,2.1,135,'','10 ou 12','',''),
+(176,'SVBONY','SV305pro','Sony ICX 290','CCD',5.568,3.132,1920,1080,2.9,2.1,135,'','10 ou 12','',''),
+(177,'IMAGING SOURCE','DMK 21','Sony ICX 098','CCD',3.584,2.688,640,480,5.6,0.3,60,'','8','',''),
+(178,'IMAGING SOURCE','DMK 31','Sony ICX 204','CCD',4.7616,3.5712,1024,768,4.65,0.8,30,'','8','',''),
+(179,'IMAGING SOURCE','DMK 41','Sony ICX 205','CCD',5.952,4.464,1280,960,4.65,1.2,15,'','8','',''),
+(180,'IMAGING SOURCE','DMK 51','Sony ICX 274','CCD',7.04,5.28,1600,1200,4.4,1.9,12,'','8','',''),
+(181,'ZWO','ASI 120 MC-S','Aptina AR0130CS','CMOS',4.8,3.6,1280,960,3.75,1.2,60,'75%','12','13000 e-','ΔT - 40°C'),
+(182,'ZWO','ASI 120 MM-S','Aptina AR0130CS','CMOS',4.8,3.6,1280,960,3.75,1.2,60,'75%','12','13000 e-',''),
+(183,'ZWO','ASI 1600 GT','Panasonic MN34230','CMOS',17.693,13.376,4656,3520,3.8,16.4,23,'60%','12','20000 e-','ΔT - 45°C'),
+(184,'ZWO','ASI 1600 MM','Panasonic MN34230','CMOS',17.693,13.376,4656,3520,3.8,16.4,23,'60%','12','20000 e-',''),
+(185,'ZWO','ASI 1600 MM PRO','Panasonic MN34230','CMOS',17.693,13.376,4656,3520,3.8,16.4,23,'60%','12','20000 e-','ΔT - 45°C'),
+(186,'ZWO','ASI 071 MC PRO','Sony IMX 071','CMOS',23.632,15.698,4944,3284,4.78,16.2,10,'50%','14','46000 e-','ΔT - 40°C'),
+(187,'ZWO','ASI 174 MM Mini','Sony IMX 174','CMOS',11.345,7.126,1936,1216,5.86,2.4,164,'77%','12','32000 e-',''),
+(188,'ZWO','ASI 178 MC','Sony IMX 178','CMOS',7.43,4.992,3096,2080,2.4,6.4,60,'80%','14','15000 e-',''),
+(189,'ZWO','ASI 178 MM','Sony IMX 178','CMOS',7.43,4.992,3096,2080,2.4,6.4,60,'80%','14','15000 e-',''),
+(190,'ZWO','ASI 183 GT','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-','ΔT - 45°C'),
+(191,'ZWO','ASI 183 MC','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-',''),
+(192,'ZWO','ASI 183 MC PRO','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-','ΔT - 45°C'),
+(193,'ZWO','ASI 183 MM','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-',''),
+(194,'ZWO','ASI 183 MM PRO','Sony IMX 183','CMOS',13.19,8.813,5496,3672,2.4,20.2,19,'84%','12','15000 e-','ΔT - 45°C'),
+(195,'ZWO','ASI 224 MC','Sony IMX 224','CMOS',4.89,3.66,1304,976,3.75,1.3,150,'','12','19200 e-',''),
+(196,'ZWO','ASI 290 MC','Sony IMX 290','CMOS',5.614,3.178,1936,1096,2.9,2.1,170,'80%','12','14600 e-',''),
+(197,'ZWO','ASI 290 MM','Sony IMX 290','CMOS',5.614,3.178,1936,1096,2.9,2.1,170,'80%','12','14600 e-',''),
+(198,'ZWO','ASI 290 MM Mini','Sony IMX 290','CMOS',5.614,3.178,1936,1096,2.9,2.1,170,'80%','12','14600 e-',''),
+(199,'ZWO','ASI 294 MM BIN1','Sony IMX 294','CMOS',19.062,12.981,8288,5644,2.3,46.8,4,'90%','14','14000 e-',''),
+(200,'ZWO','ASI 294 MC PRO','Sony IMX 294','CMOS',19.187,13.066,4144,2822,4.63,11.7,19,'','14','63700 e-','ΔT - 35°C'),
+(201,'ZWO','ASI 294 MM PRO','Sony IMX 294','CMOS',19.187,13.066,4144,2822,4.63,11.7,19,'75%','14','63700 e-','ΔT - 35°C'),
+(202,'ZWO','ASI 385 MC','Sony IMX 385','CMOS',7.26,4.11,1936,1096,3.75,2.1,120,'','12','18700 e-',''),
+(203,'ZWO','ASI 432 MM','Sony IMX 432','CMOS',14.472,9.936,1608,1104,9,1.8,120,'79%','12','97000 e-',''),
+(204,'ZWO','ASI 462 MC','Sony IMX 462','CMOS',5.614,3.178,1936,1096,2.9,2.1,136,'','12','12000 e-',''),
+(205,'ZWO','ASI 482 MC','Sony IMX 482','CMOS',11.136,6.264,1920,1080,5.8,2.1,83,'85%','12','51000 e-',''),
+(206,'ZWO','ASI 485 MC','Sony IMX 485','CMOS',11.136,6.264,3840,2160,2.9,8.3,39,'85%','12','13000 e-',''),
+(207,'ZWO','ASI 585 MC','Sony IMX 585','CMOS',11.136,6.322,3840,2180,2.9,8.4,46,'91%','12','40000 e-',''),
+(208,'ZWO','ASI 662 MC','Sony IMX 662','CMOS',5.568,3.132,1920,1080,2.9,2.1,83,'91%','12','37800 e-',''),
+(209,'ZWO','ASI 678 MC','Sony IMX 678','CMOS',7.68,4.32,3840,2160,2,8.3,47,'83%','12','11270 e-',''),
+(210,'ZWO','ASI 2400 MC PRO','Sony IMX 410','CMOS',36.068,24.009,6072,4042,5.94,24.5,3,'80%','14','100000 e-','ΔT - 35°C'),
+(211,'ZWO','ASI 6200 MC PRO','Sony IMX 455','CMOS',36.006,24.019,9576,6388,3.76,61.2,2,'91%','16','51400 e-','ΔT - 35°C'),
+(212,'ZWO','ASI 6200 MM PRO','Sony IMX 455','CMOS',36.006,24.019,9576,6388,3.76,61.2,2,'91%','16','51400 e-','ΔT - 35°C'),
+(213,'ZWO','ASI 533 MC PRO','Sony IMX 533','CMOS',11.31,11.31,3008,3008,3.76,9,20,'80%','14','50000 e-','ΔT - 35°C'),
+(214,'ZWO','ASI 533 MM PRO','Sony IMX 533','CMOS',11.31,11.31,3008,3008,3.76,9,20,'80%','14','50000 e-','ΔT - 35°C'),
+(215,'ZWO','ASI 2600 MC PRO','Sony IMX 571','CMOS',23.492,15.702,6248,4176,3.76,26.1,3,'80%','16','50000 e-','ΔT - 35°C'),
+(216,'ZWO','ASI 2600 MM PRO','Sony IMX 571','CMOS',23.492,15.702,6248,4176,3.76,26.1,3,'80%','16','50000 e-','ΔT - 35°C');
+/*!40000 ALTER TABLE `cameras` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `events`
@@ -30,9 +284,8 @@ CREATE TABLE `events` (
   `date` datetime NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `role` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +294,10 @@ CREATE TABLE `events` (
 
 LOCK TABLES `events` WRITE;
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'Fête de la science','C\'est la fête de la science !!!','Observatoire de Saint Jean Le Blanc','2023-12-08 00:00:00','2023-12-06 22:31:14','2023-12-06 22:31:14',NULL),(2,'Nuit des étoiles','C\'est la nuit des étoiles, notre évènement, le plus important de l\'année','Observatoire de Saint Jean Le Blanc','2024-08-03 00:00:00','2023-12-07 21:37:52','2023-12-07 21:37:52',NULL),(3,'Rencontre du ciel et de l\'éspace','Les RCE, c\'est l\'occasion de se retrouver sur le plus grand salon dédié à l\'astronomie de France !','La villette','2024-11-14 00:00:00','2023-12-07 21:39:03','2023-12-07 21:39:03',NULL);
+INSERT INTO `events` VALUES
+(1,'Fête de la science','C\'est la fête de la science !!!','Observatoire de Saint Jean Le Blanc','2023-12-08 00:00:00','2023-12-06 22:31:14','2023-12-06 22:31:14'),
+(2,'Nuit des étoiles','C\'est la nuit des étoiles, notre évènement, le plus important de l\'année','Observatoire de Saint Jean Le Blanc','2024-08-03 00:00:00','2023-12-07 21:37:52','2023-12-07 21:37:52'),
+(3,'Rencontre du ciel et de l\'éspace','Les RCE, c\'est l\'occasion de se retrouver sur le plus grand salon dédié à l\'astronomie de France !','La villette','2024-11-14 00:00:00','2023-12-07 21:39:03','2023-12-07 21:39:03');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,8 +312,11 @@ CREATE TABLE `members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `member` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `subscriptionDate` varchar(100) DEFAULT NULL,
+  `memberType` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `members_unique` (`member`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,8 +325,385 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,'Muriel DECLECK','muriel@gmail.com'),(7,'toutou','tititiit@gmail.com');
+INSERT INTO `members` VALUES
+(35,'CALCAGNO Roberto','calcagno.roberto@neuf.fr','','Membre'),
+(36,'CAVIER Philippe','philippe.cavier01@orange.fr','1 janvier 1982','Membre'),
+(37,'CELSE Jérémy','jeremy.celse@gmail.com','1 janvier 2015','Membre'),
+(38,'CHENU Pierre','pierre.chenu@club-internet.fr','','Membre'),
+(39,'GIBERT Tatiana','tatianagibert@gmail.com','','Membre'),
+(40,'JUBIN Christophe','charlotte.jubin@wanadoo.fr','','Membre'),
+(41,'LANTOL Denis','denis.lantol@free.fr','1 janvier 2007','Membre'),
+(42,'LANTOL Marc','marc.lantol@gmail.com','1 janvier 2007','Membre'),
+(43,'MAURI Hubert','hubert.mauri@free.fr','1 janvier 2013','Membre'),
+(44,'PERRIARD Jean-Marie','annie.perriard@wanadoo.fr','','Membre'),
+(45,'PONCET Martine','denis.lantol@free.fr','','Membre'),
+(46,'THIBOEUF Patrick','p.thiboeuf@gmail.com','','Membre'),
+(47,'VASSEUR Henri','','8 octobre 1986','Ancien membre'),
+(48,'RUELLO Serge','spcl.ruello@orange.fr','','Membre'),
+(49,'PHILIPPEAU Sylvain','syl45.phil1@orange.fr','19 janvier 2019','Membre'),
+(50,'FIAULT Murielle','mfiault@free.fr','19 janvier 2019','Membre'),
+(51,'COCHOIS Richard','savage.squirel@gmail.com','1 janvier 2018','Membre'),
+(52,'HERBOULIER David','dhavid@orange.fr','','Membre'),
+(53,'DECLERCK Muriel','sq.declerck@gmail.com','21 janvier 2023','Membre bienfaiteur'),
+(54,'MAURI Christelle','christelle.mauri@free.fr','21 janvier 2023','Membre'),
+(55,'PEROT Johan','johan.perot@free.fr','20 janvier 2024','Membre'),
+(56,'CORRA Marion','marion.corra@gmail.com','20 janvier 2024','Membre'),
+(57,'LAURENT Romain','romainlaurent905@gmail.com','26 janvier 2024','Membre');
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `refractors`
+--
+
+DROP TABLE IF EXISTS `refractors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `refractors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  `diameter` int(11) NOT NULL,
+  `focal` int(11) NOT NULL,
+  `focal_ratio` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refractors`
+--
+
+LOCK TABLES `refractors` WRITE;
+/*!40000 ALTER TABLE `refractors` DISABLE KEYS */;
+INSERT INTO `refractors` VALUES
+(1,'ASA','8N-OK3',200,720,3.6),
+(2,'ASA','10N-OK3',250,900,3.6),
+(3,'ASA','12N-OK3',300,1080,3.6),
+(4,'ASA','16N-OK3',400,1440,3.6),
+(5,'ASA','20N-OK3',500,1900,3.8),
+(6,'ASKAR','80PHQ 80-600 F7.5 4-element flatfield',80,600,7.5),
+(7,'ASKAR','107PHQ 107-740 F7 4-element flatfield',107,740,6.9),
+(8,'ASKAR','SS94EDPH EDAPO 94-414 F4.4 triplet flatfield',94,414,4.4),
+(9,'ASKAR','FMA180 40-180',40,180,4.5),
+(10,'ASKAR','FMA230 50-230',50,230,4.6),
+(11,'ASKAR','FRA300 PRO 60-300 F5.5-element flatfield',60,300,5),
+(12,'ASKAR','FRA400 72-400 F5.6 quintuplet flatfield',72,400,5.6),
+(13,'ASKAR','FRA500 90-500 F5.6 quintuplet flatfield',90,500,5.6),
+(14,'ASKAR','FRA600 108-600 F5.6 quintuplet flatfield',108,600,5.6),
+(15,'ASTROPHYSICS','160-EDF',160,1200,7.5),
+(16,'ASTROPHYSICS','140-EDF',140,1050,7.5),
+(17,'ASTROPHYSICS','130-EDF \"Gran Turismo\"',130,819,6.3),
+(18,'ASTROPHYSICS','155-EDT',155,1395,9),
+(19,'ASTROPHYSICS','155-EDF',155,1085,7),
+(20,'ASTROPHYSICS','130-EDFS',130,780,6),
+(21,'ASTROPHYSICS','130-EDT',130,1040,8),
+(22,'ASTROPHYSICS','105-EDFS \"Traveller\"',105,819,7.8),
+(23,'ASTROPHYSICS','Riccardi-Honders-305mm',305,1159,3.8),
+(24,'ASTRO-TECH','AT65EDQ',65,420,6.5),
+(25,'ASTRO-TECH','AT72ED',72,430,6),
+(26,'ASTRO-TECH','AT80LE',80,480,6),
+(27,'ASTRO-TECH','AT90EDT',90,600,6.7),
+(28,'ASTRO-TECH','AT106',106,690,6.5),
+(29,'ASTRO-TECH','AT111EDT',111,777,7),
+(30,'ASTRO-TECH','AT130',130,780,6),
+(31,'ASTRO-TECH','AT RC 6\"',152,1370,9),
+(32,'ASTRO-TECH','AT RC 8\"',203,1625,8),
+(33,'ASTRO-TECH','AT RC 10\"',250,2000,8),
+(34,'BRESSER','Messier MCX-102',102,1470,14.4),
+(35,'BRESSER','Messier MCX-127',127,1900,15),
+(36,'BRESSER','Messier MC-127-1900',127,1900,15),
+(37,'BRESSER','Messier MC-152-1900',152,1900,12.5),
+(38,'BRESSER','Messier NT-130-1000',130,1000,7.7),
+(39,'BRESSER','Messier NT-150s 150-750',150,750,5),
+(40,'BRESSER','Messier NT-150L 150-1200',150,1200,8),
+(41,'BRESSER','Messier NT-203s 203-800',203,800,3.9),
+(42,'BRESSER','Messier NT-203L 203-1000',203,1000,4.9),
+(43,'CELESTRON','ONYX 80ED',80,500,6.3),
+(44,'CELESTRON','C6 XLT',150,1500,10),
+(45,'CELESTRON','C8 XLT Fastar',203,2030,10),
+(46,'CELESTRON','C9,25 XLT Fastar',235,2350,10),
+(47,'CELESTRON','C11 XLT Fastar',280,2800,10),
+(48,'CELESTRON','C14 XLT Fastar',355,3910,11),
+(49,'CELESTRON','C8 EdgeHD',203,2030,10),
+(50,'CELESTRON','C9.25 EdgeHD',235,2350,10),
+(51,'CELESTRON','C11 EdgeHD',280,2800,10),
+(52,'CELESTRON','C14 EdgeHD',355,3910,11),
+(53,'CELESTRON','C10-N',254,1200,4.7),
+(54,'CELESTRON','SC 925 EdgeHD',203,2032,10),
+(55,'CELESTRON','SC 800 EdgeHD',203,2032,10),
+(56,'CELESTRON','SC 600 Fastar',150,1500,10),
+(57,'CELESTRON','SC 1100 EdgeHD',280,2800,10),
+(58,'CELESTRON','SC 925 Fastar',235,2350,10),
+(59,'CELESTRON','SC 800 Fastar',203,2030,10),
+(60,'CELESTRON','SC 1100 Fastar',280,2800,10),
+(61,'CELESTRON','SC 1400 EdgeHD',355,3910,11),
+(62,'EXPLORE SCIENTIFIC','ED APO 80mm f6 FCD-100 Alu HEX',80,480,6),
+(63,'EXPLORE SCIENTIFIC','ED APO 102mm f7 FCD-100 Alu HEX',102,714,7),
+(64,'EXPLORE SCIENTIFIC','ED APO 102mm f7 FCD-100 CF HEX',102,714,7),
+(65,'EXPLORE SCIENTIFIC','ED APO 127mm f7.5 FCD-1 Alu 2p RP',127,952,7.5),
+(66,'EXPLORE SCIENTIFIC','ED APO 127mm f7.5 FCD-100 Alu HEX',127,952,7.5),
+(67,'EXPLORE SCIENTIFIC','ED APO 165mm f4 FPL-53 CF 3p FT',165,1155,7),
+(68,'GSO','GSO RC 6\"',152,1370,9),
+(69,'GSO','GSO RC 8\"',203,1624,8),
+(70,'GSO','GSO RC 10\"',254,2000,7.9),
+(71,'GSO','GSO RC 12\"',305,2432,8),
+(72,'LUNT','LS40THa B500',40,400,10),
+(73,'LUNT','LS50THa B600 PT',50,350,7),
+(74,'LUNT','LS60MT B600 RP',60,420,7),
+(75,'LUNT','LS80MT B1200 FT',80,560,7),
+(76,'LUNT','LS100MT B1800 FT',100,714,7.1),
+(77,'LUNT','LS130MT B1800 FT',130,910,7),
+(78,'LUNT','LS60THa FT',60,500,8.3),
+(79,'LUNT','LS80THa FT PT OTA',80,560,7),
+(80,'MEADE','Coronado PST',40,400,10),
+(81,'MEADE','LX200-8\"',203,2000,9.9),
+(82,'MEADE','LX200-10\"',254,2500,9.8),
+(83,'MEADE','LX200-12\"',305,3048,10),
+(84,'MEADE','LX200-14\"',355,3556,10),
+(85,'MEADE','LX200-16\"',406,4064,10),
+(86,'MEADE','LX90-8\"',203,2034,10),
+(87,'MEADE','LX90-10\"',254,2540,10),
+(88,'MEADE','LX90-12\"',305,3048,10),
+(89,'MEADE','LXD55-8\"',203,812,4),
+(90,'OFFICINA STELLARE','HIPER APO 80',80,480,6),
+(91,'OFFICINA STELLARE','HIPER APO 105',105,650,6.2),
+(92,'OFFICINA STELLARE','HIPER APO 115',115,805,7),
+(93,'OFFICINA STELLARE','HIPER APO 130',130,780,6),
+(94,'OFFICINA STELLARE','HIPER APO 152',152,1200,7.9),
+(95,'OFFICINA STELLARE','HIPER APO 180',180,1260,7),
+(96,'OFFICINA STELLARE','ULTRA CRC 320 ST',312,1680,5.4),
+(97,'OFFICINA STELLARE','VELOCE RH 200',200,600,3),
+(98,'OFFICINA STELLARE','VELOCE RH 300',300,900,3),
+(99,'OFFICINA STELLARE','SUPREMO 250',250,3125,12.5),
+(100,'OFFICINA STELLARE','PRO RC 250',250,2000,8),
+(101,'OFFICINA STELLARE','PRO RC 320 ST',320,2560,8),
+(102,'OFFICINA STELLARE','PRO RC 360 LT/ST',360,2880,8),
+(103,'OFFICINA STELLARE','PRO RC 400 LT/ST',400,3200,8),
+(104,'OFFICINA STELLARE','PRO RC 500 LT/ST',500,4000,8),
+(105,'OFFICINA STELLARE','PRO RC 600 LT/ST',600,4800,8),
+(106,'ORION OPTICS','CT 8 - Newton 8p F4.5',200,900,4.5),
+(107,'ORION OPTICS','CT 10 - Newton 10p F4.8',250,1200,4.8),
+(108,'ORION OPTICS','CT 10L - Newton 10p F6.3',250,1575,6.3),
+(109,'ORION OPTICS','AG 8 - Newton 8p F3.8',200,760,3.8),
+(110,'ORION OPTICS','AG 10 - Newton 10p F3.8',250,950,3.8),
+(111,'ORION','ED-80T',80,480,6),
+(112,'ORION','ED-102T',102,714,7),
+(113,'ORION','10\" F/3.9',254,1000,3.9),
+(114,'ORION','Dobson Skyquest XX12g',305,1500,4.9),
+(115,'ORION','Dobson Skyquest XX16g',406,1800,4.4),
+(116,'ORION','Mak-90',90,1250,13.9),
+(117,'ORION','Mak-102',102,1300,12.7),
+(118,'ORION','Mak-127',127,1540,12.1),
+(119,'ORION','Mak-150',150,1800,12),
+(120,'PERL','Solar Mak 90-1200 PRO',90,1200,13.3),
+(121,'PERL','Maksutov Arietis 90-1250',90,1250,13.9),
+(122,'PERL','Newton BELLATRIX 200-1000',200,1000,5),
+(123,'PERL','Newton BELLATRIX 250-1200',250,1200,4.8),
+(124,'SKY-WATCHER','SW0454 50-242 EvoGuide 50ED',50,242,4.8),
+(125,'SKY-WATCHER','Archomatique 70-500 Autoguidage',70,500,7.1),
+(126,'SKY-WATCHER','Archomatique 80-400 Autoguidage',80,400,5),
+(127,'SKY-WATCHER','Archomatique 90-900 Autoguidage',90,900,10),
+(128,'SKY-WATCHER','Newton 130-650 PDS',130,650,5),
+(129,'SKY-WATCHER','Newton 150-750 PDS',150,750,5),
+(130,'SKY-WATCHER','Newton 200-800 LP',200,800,4),
+(131,'SKY-WATCHER','Newton 200-1000 PDS',200,1000,5),
+(132,'SKY-WATCHER','Newton 250-1000 LP',250,1000,4),
+(133,'SKY-WATCHER','Newton 250-1200 PDS',254,1200,4.7),
+(134,'SKY-WATCHER','Newton 300-1200 PDS',300,1200,4),
+(135,'SKY-WATCHER','Newton 300-1500 DS',300,1500,5),
+(136,'SKY-WATCHER','Flextube 200P Collapsible Dobsonian ',203,1200,5.9),
+(137,'SKY-WATCHER','Flextube 250P Collapsible Dobsonian ',254,1200,4.7),
+(138,'SKY-WATCHER','Flextube 300P Collapsible Dobsonian ',305,1650,5.4),
+(139,'SKY-WATCHER','Flextube 350P Collapsible Dobsonian ',355,1600,4.5),
+(140,'SKY-WATCHER','Flextube 400P Collapsible Dobsonian ',406,1800,4.4),
+(141,'SKY-WATCHER','Mak 90 Black Diamond',90,1250,13.9),
+(142,'SKY-WATCHER','Skymax 102',102,1300,12.7),
+(143,'SKY-WATCHER','Mak 127-1500 Black Diamond',127,1500,11.8),
+(144,'SKY-WATCHER','Mak 150-1800 Black Diamond',150,1800,12),
+(145,'SKY-WATCHER','Mak 180-2700 Black Diamond',180,2700,15),
+(146,'SKY-WATCHER','72-ED',72,420,5.8),
+(147,'SKY-WATCHER','80-ED',80,600,7.5),
+(148,'SKY-WATCHER','100-ED',100,900,9),
+(149,'SKY-WATCHER','120-ED',120,900,7.5),
+(150,'SKY-WATCHER','150-ED',150,1200,8),
+(151,'SKY-WATCHER','Esprit 80-ED',80,400,5),
+(152,'SKY-WATCHER','Esprit 100-ED',100,550,5.5),
+(153,'SKY-WATCHER','Esprit 120-ED',120,840,7),
+(154,'SKY-WATCHER','Esprit 150-ED',150,1050,7),
+(155,'SVBONY','SV165 Lunette de Guidage 30-120',30,120,4),
+(156,'SVBONY','SV106 Lunette de Guidage 50-190',50,190,3.8),
+(157,'SVBONY','SV106 Lunette de Guidage 60-240',60,240,4),
+(158,'SVBONY','SV198 Lunette de Guidage 50-206.6',50,206,4.1),
+(159,'TAKAHASHI','FS-60',60,355,5.9),
+(160,'TAKAHASHI','Sky 90',90,500,5.6),
+(161,'TAKAHASHI','FS-102',102,820,8),
+(162,'TAKAHASHI','FS-128',128,1040,8.1),
+(163,'TAKAHASHI','FS-152',152,1216,8),
+(164,'TAKAHASHI','FSQ-85',85,450,5.3),
+(165,'TAKAHASHI','FSQ-106',106,530,5),
+(166,'TAKAHASHI','TSA-102',102,816,8),
+(167,'TAKAHASHI','TSA-120',120,900,7.5),
+(168,'TAKAHASHI','TOA-130',130,1000,7.7),
+(169,'TAKAHASHI','TOA-150',150,1100,7.3),
+(170,'TAKAHASHI','ε-130',130,430,3.3),
+(171,'TAKAHASHI','ε-160',160,530,3.3),
+(172,'TAKAHASHI','ε-180',180,500,2.8),
+(173,'TAKAHASHI','ε-200',200,800,4),
+(174,'TAKAHASHI','ε-210',210,628,3),
+(175,'TAKAHASHI','ε-250',250,854,3.4),
+(176,'TAKAHASHI','ε-300',300,1130,3.8),
+(177,'TAKAHASHI','ε-350',350,1248,3.6),
+(178,'TAKAHASHI','Epsilon 130',130,430,3.3),
+(179,'TAKAHASHI','Mewlon 180',180,2160,12),
+(180,'TAKAHASHI','Mewlon 210',210,2415,11.5),
+(181,'TAKAHASHI','Mewlon 250',250,3000,12),
+(182,'TAKAHASHI','Mewlon 300',300,3572,11.9),
+(183,'TAKAHASHI','BRC-250',250,1268,5.1),
+(184,'TAKAHASHI','CN-212',212,820,3.9),
+(185,'TEC','140-ED',140,980,7),
+(186,'TEC','160-ED',160,1280,8),
+(187,'TEC','160-Fluorite',160,1120,7),
+(188,'TEC','180-Fluorite',180,1260,7),
+(189,'TELEVUE','TV 60 / TV 60is',60,360,6),
+(190,'TELEVUE','TV 76',76,480,6.3),
+(191,'TELEVUE','TV 85',85,600,7.1),
+(192,'TELEVUE','TV 102 / TV 102is',102,880,8.6),
+(193,'TELEVUE','TV NP-101 / TV NP-101is',101,540,5.3),
+(194,'TELEVUE','TV NP127is',127,660,5.2),
+(195,'TMB','80SS',80,504,6.3),
+(196,'TMB','92SS',92,506,5.5),
+(197,'TMB','130SS',130,910,7),
+(198,'TS-OPTICS','TSSU50f4 ED 50-200 Autoguidage F4',50,200,4),
+(199,'TS-OPTICS','TSL80D ED 80-328 Autoguidage',80,328,4.1),
+(200,'TS-OPTICS','TSED70F6 ED 70-420 doublet',70,420,6),
+(201,'TS-OPTICS','TSED80F7 ED-APO 80-560 doublet',80,560,7),
+(202,'TS-OPTICS','TSED96F6 ED-APO 96-575 doublet',96,575,6),
+(203,'TS-OPTICS','TSED102F7 ED-APO 102-714 doublet',102,714,7),
+(204,'TS-OPTICS','TSR1021OTA ED-APO 102-1122 doublet',102,1122,11),
+(205,'TS-OPTICS','TSED152F5 ED-APO 152-760 FCD1 doublet',152,760,5),
+(206,'TS-OPTICS','TSAPO60F6RED ED-APO 60-360 FPL53 doublet',60,360,6),
+(207,'TS-OPTICS','TSAPO72F6 ED-APO 72-432 FPL53 doublet',72,432,6),
+(208,'TS-OPTICS','TSAPO80F7 ED-APO 80-560 FPL53 doublet',80,560,7),
+(209,'TS-OPTICS','TSAPO102F7 ED-APO 102-714 FPL53 doublet',102,714,7),
+(210,'TS-OPTICS','TSAPO125f78 ED-APO 125-975 FPL53 doublet',125,975,7.8),
+(211,'TS-OPTICS','TSAPO150F8 ED-APO 150-1200 FPL53 doublet',150,1200,8),
+(212,'TS-OPTICS','TSAPO150-37 ED-APO 150-1200 FPL53 doublet',150,1200,8),
+(213,'TS-OPTICS','TSAPO76 Photoline 76-418 triplet',76,418,5.5),
+(214,'TS-OPTICS','TLAPO804 Photoline 80-480 FPL53 Triplet',80,480,6),
+(215,'TS-OPTICS','TLAPO804-FT Photoline 80-480 FPL53 triplet',80,480,6),
+(216,'TS-OPTICS','TSAPO85 Photoline 85-510 FCD100 triplet',85,510,6),
+(217,'TS-OPTICS','TSAPO94 Photoline 94-517 triplet',94,517,5.5),
+(218,'TS-OPTICS','TSAPO96 Photoline 96-576 FCD100 triplet',96,576,6),
+(219,'TS-OPTICS','TSAPO106 Photoline 106-700 FCD100 triplet',106,700,6.6),
+(220,'TS-OPTICS','APO115F7 Photoline 115-800 triplet',115,800,7),
+(221,'TS-OPTICS','APO130F7-P Photoline 130-910 FPL53 triplet',130,910,7),
+(222,'TS-OPTICS','APO130F7-DEL Photoline 130-910 FPL53 triplet',130,910,7),
+(223,'TS-OPTICS','TSAPO140 Photoline 140-910 FPL53 supertriplet',140,910,6.5),
+(224,'TS-OPTICS','TSAPO140CF Photoline 140-910 FPL53 supertriplet',140,910,6.5),
+(225,'TS-OPTICS','TS 150-1050 PhotoLine triplet',150,1050,7),
+(226,'TS-OPTICS','TS 152-1216 PhotoLine triplet',152,1216,8),
+(227,'TS-OPTICS','TSCFAPO70 CF-APO 70-420 FPL55 Triplet',70,420,6),
+(228,'TS-OPTICS','TSCFAPO80 CF-APO 80-480 FPL55 Triplet',80,480,6),
+(229,'TS-OPTICS','TSCFAPO90 CF-APO 90-540  FPL55 Triplet',90,540,6),
+(230,'TS-OPTICS','TSCFAPO102 CF-APO 102-714 FPL55 Triplet',102,714,7),
+(231,'TS-OPTICS','TSCFAPO130 CF-APO 130-910 FPL55 Triplet',130,910,7),
+(232,'TS-OPTICS','TSAPO155F8 CF-APO 155-1240 FPL55 Triplet',155,1240,8),
+(233,'TS-OPTICS','TS61EDPH II F-APO 61-274 6-Element Flatfield',61,274,4.5),
+(234,'TS-OPTICS','TSAPO106FF F-APO 106-700 Triplet w 0.75x corrector',106,700,6.6),
+(235,'TS-OPTICS','TSED70Q F-APO 70-474 Quadruplet flatfield',70,474,6.8),
+(236,'TS-OPTICS','TSR625Q F-APO 62-520 Quadruplet flatfield',62,520,8.4),
+(237,'TS-OPTICS','TSAPO71Q F-APO 70-350 FPL53 Quadruplet flatfield',70,350,5),
+(238,'TS-OPTICS','TSAPO62Q F-APO 62-297 FPL53 Quintuplet flatfield',62,297,4.8),
+(239,'TS-OPTICS','TS76EDPH F-APO 76-342 6-Element flatfield',76,342,4.5),
+(240,'TS-OPTICS','TSAPO81Q F-APO 80-352 FPL53 6-Element flatfield ',80,352,4.4),
+(241,'TS-OPTICS','TS94EDPH F-APO 94-414 7-Element Flatfield',94,414,4.4),
+(242,'TS-OPTICS','TSAPO80Q F-APO 80-544 FPL53 Quintuplet w flatener',80,544,6.8),
+(243,'TS-OPTICS','TSAPO90F5Q F-APO 90-450 FPL53 Quintuplet flatfield',90,450,5),
+(244,'TS-OPTICS','TSAPO100Q-S F-APO 100-580 Quadruplet w flatener',100,580,5.8),
+(245,'TS-OPTICS','TSAPO100Q F-APO 100-580 Quadruplet APO w flatener',100,580,5.8),
+(246,'TS-OPTICS','TS121SDQ F-APO 121-677 FPL53 Quintuplet flatfield',121,677,5.6),
+(247,'TS-OPTICS','TS 200-800 PHOTON F4 Advanced Newton',200,800,4),
+(248,'TS-OPTICS','TS 200-800 PHOTON F4 UNC - Carbon',200,800,4),
+(249,'VIXEN OPTICS','ED80Sf',80,600,7.5),
+(250,'VIXEN OPTICS','ED81SWT',81,625,7.7),
+(251,'VIXEN OPTICS','ED100Sf',100,880,8.8),
+(252,'VIXEN OPTICS','ED103S',103,795,7.7),
+(253,'VIXEN OPTICS','ED115S',115,890,7.7),
+(254,'VIXEN OPTICS','NA140',140,800,5.7),
+(255,'VIXEN OPTICS','R130SF',130,650,5),
+(256,'VIXEN OPTICS','R200SS',200,800,4),
+(257,'VIXEN OPTICS','VMC95L',95,1050,11.1),
+(258,'VIXEN OPTICS','VMC110L',110,1035,9.4),
+(259,'VIXEN OPTICS','VMC200L',200,1950,9.8),
+(260,'VIXEN OPTICS','VC200L',200,1800,9),
+(261,'VIXEN OPTICS','VMC260L',260,3000,11.5),
+(262,'VIXEN OPTICS','VMC330L',330,4320,13.1),
+(263,'WILLIAM OPTICS','Megrez 72',72,432,6),
+(264,'WILLIAM OPTICS','Megrez 90 APO',90,558,6.2),
+(265,'WILLIAM OPTICS','Megrez 120',120,900,7.5),
+(266,'WILLIAM OPTICS','Zenithstar 80 APO',80,545,6.8),
+(267,'WILLIAM OPTICS','Triplet APO 80-480',80,480,6),
+(268,'WILLIAM OPTICS','FLT98 APO',98,618,6.3),
+(269,'WILLIAM OPTICS','FLT110 (Optique TMB)',110,770,7),
+(270,'WILLIAM OPTICS','FLT 132',132,924,7),
+(271,'WILLIAM OPTICS','GT 81',81,478,5.9),
+(272,'WILLIAM OPTICS','GT 102 APO',102,703,6.9),
+(273,'WILLIAM OPTICS','A-F132 APO',132,925,7),
+(274,'ZWO','ZW30F4 30/120 Autoguidage F/4 mini',30,120,4),
+(275,'CANON','300#4',75,300,4),
+(276,'CANON','200#2,8',71,200,2.8),
+(277,'CANON','100#2,9',36,100,2.8),
+(278,'CANON','24-70#2,8 (24)',9,24,2.8),
+(279,'CANON','24-70#2,8 (70)',25,70,2.8);
+/*!40000 ALTER TABLE `refractors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sky_objects`
+--
+
+DROP TABLE IF EXISTS `sky_objects`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sky_objects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `object` varchar(100) NOT NULL,
+  `size` float NOT NULL,
+  `angle` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sky_objects`
+--
+
+LOCK TABLES `sky_objects` WRITE;
+/*!40000 ALTER TABLE `sky_objects` DISABLE KEYS */;
+INSERT INTO `sky_objects` VALUES
+(1,'Soleil / Lune',33.6,2016),
+(2,'Venus',1,60),
+(3,'Jupiter',0.83,50),
+(4,'Mars',0.42,25),
+(5,'Saturne',0.33,20),
+(6,'Mercure',0.2,12),
+(7,'Uranus',0.07,4),
+(8,'Neptune',0.04,2.4),
+(9,'Satellites Jovien',0.03,1.5),
+(10,'Titan',0.02,1),
+(11,'Triton',0,0.1),
+(12,'Pluton',0,0.1),
+(13,'M31',189.1,11346),
+(14,'M8',90,5400),
+(15,'M42',66,3960),
+(16,'M33',68.7,4122),
+(17,'M17',46,2760),
+(18,'M16',35,2100),
+(19,'M101',28.5,1710),
+(20,'M81',24.9,1494),
+(21,'Markarian',480,28800);
+/*!40000 ALTER TABLE `sky_objects` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -95,8 +731,49 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (39,'marc.lantol@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$TEu/j1lLCrQKGys3ljzcaw$BFsN9254HDBh8wywTI2eMx5vljdFQQhMKbZzm8NiFDA','2023-12-19 06:15:54','2023-12-19 06:15:54','Marco','Administrateur'),(40,'richard@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$+0LIymDJCVTCQWVdabfMKA$OPqni6X5JsePdUNIt4GBYfheAg7arLu+xE8PCaks/1g','2023-12-19 06:19:31','2023-12-19 06:19:31','Richard','Photographe'),(41,'hubert@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$PzJF1wmz1PK+MNo1u1ZhXA$LOGDQ/cMVVvBhbwhmQS6gTBknmmx89N8dz1guOHjVBM','2023-12-19 06:20:01','2023-12-19 06:20:01','Hubert','Rédacteur-Photographe'),(42,'serge@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$iFSCQO2fKzrpnBn+0R8MXA$ULBfyuLcGlCJl6RtH+rGCz01VfFEqNWqicyJRazMWrE','2023-12-19 06:20:40','2023-12-22 11:50:05','Serge','Rédacteur-Photographe');
+INSERT INTO `users` VALUES
+(39,'marc.lantol@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$TEu/j1lLCrQKGys3ljzcaw$BFsN9254HDBh8wywTI2eMx5vljdFQQhMKbZzm8NiFDA','2023-12-19 06:15:54','2023-12-19 06:15:54','Marco','Administrateur'),
+(40,'richard@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$+0LIymDJCVTCQWVdabfMKA$OPqni6X5JsePdUNIt4GBYfheAg7arLu+xE8PCaks/1g','2023-12-19 06:19:31','2023-12-19 06:19:31','Richard','Photographe'),
+(41,'hubert@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$PzJF1wmz1PK+MNo1u1ZhXA$LOGDQ/cMVVvBhbwhmQS6gTBknmmx89N8dz1guOHjVBM','2023-12-19 06:20:01','2023-12-19 06:20:01','Hubert','Rédacteur-Photographe'),
+(42,'serge@gmail.com','$argon2id$v=19$m=65536,t=5,p=2$iFSCQO2fKzrpnBn+0R8MXA$ULBfyuLcGlCJl6RtH+rGCz01VfFEqNWqicyJRazMWrE','2023-12-19 06:20:40','2023-12-22 11:50:05','Serge','Rédacteur-Photographe');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wave_length`
+--
+
+DROP TABLE IF EXISTS `wave_length`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wave_length` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `color` varchar(100) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wave_length`
+--
+
+LOCK TABLES `wave_length` WRITE;
+/*!40000 ALTER TABLE `wave_length` DISABLE KEYS */;
+INSERT INTO `wave_length` VALUES
+(1,'ultraviolet',300),
+(2,'k-line',395),
+(3,'bleu',450),
+(4,'vert',550),
+(5,'rouge',650),
+(6,'oxygene 3',500),
+(7,'hydrogene beta',486),
+(8,'hydrogene alpha',656),
+(9,'hydrogene gamma',434),
+(10,'souffre 2',671),
+(11,'infrarouge',800),
+(12,'infrarouge_ondes_courtes',1064);
+/*!40000 ALTER TABLE `wave_length` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -108,4 +785,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-02 13:23:18
+-- Dump completed on 2024-02-23 11:38:16
