@@ -1,18 +1,20 @@
-import RefractorsManager from "../models/RefractorsManager.js"
+import RefractorsManager from "../models/RefractorsManager.js";
 
 const RefractorsController = {
   async getAllRefractors(req, res) {
     try {
-      const refractors= await RefractorsManager.getAll();
+      const refractors = await RefractorsManager.getAll();
       res.status(200).json(refractors);
     } catch (error) {
       console.error("Erreur lors de la récupération des tubes optiques", error);
-      res.status(500).send("Erreur server lors de la récupération des tubes optiques");
+      res
+        .status(500)
+        .send("Erreur server lors de la récupération des tubes optiques");
     }
   },
 
   async createRefractor(req, res) {
-    const newRefractor= {
+    const newRefractor = {
       brand: req.body.brand,
       model: req.body.model,
       diameter: req.body.diameter,
@@ -22,14 +24,16 @@ const RefractorsController = {
     };
 
     try {
-      const createdRefractor= await RefractorsManager.create({
+      const createdRefractor = await RefractorsManager.create({
         ...newRefractor,
       });
 
       res.status(201).json(createdRefractor);
     } catch (error) {
       console.error("Erreur lors de la création du tube optique", error);
-      res.status(500).send("Erreur serveur lors de la création du tube optique");
+      res
+        .status(500)
+        .send("Erreur serveur lors de la création du tube optique");
     }
   },
 
@@ -51,13 +55,15 @@ const RefractorsController = {
       res.status(200).json(updatedRefractor);
     } catch (error) {
       console.error("Erreur lors de la modification du tube optique", error);
-      res.status(500).send("Erreur server lors de la modification du tube optique");
+      res
+        .status(500)
+        .send("Erreur server lors de la modification du tube optique");
     }
   },
 
   async deleteRefractor(req, res) {
     try {
-      const refractor= await RefractorManager.delete(req.params.id);
+      const refractor = await RefractorsManager.delete(req.params.id);
       res.status(204).json(refractor);
     } catch (error) {
       console.error("Erreur lors de la suppression du tube optique", error);
