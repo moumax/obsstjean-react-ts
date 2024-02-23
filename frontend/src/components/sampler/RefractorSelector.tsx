@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -25,29 +25,72 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
   barlowSize,
   resolution,
 }) => {
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+
+  const handleBrandSelection = (brand: string) => {
+    setSelectedBrand(brand);
+  };
+
+  const handleModelSelection = (model: string) => {
+    const selectedRefractor = dataRefractors.find(
+      (refractor) =>
+        refractor.brand === selectedBrand && refractor.model === model,
+    );
+    if (selectedRefractor) {
+      handleRefractorSelection(selectedRefractor);
+    }
+  };
+
+  const uniqueBrands = Array.from(
+    new Set(dataRefractors.map((refractor) => refractor.brand)),
+  );
+
+  const modelsForSelectedBrand = selectedBrand
+    ? dataRefractors
+        .filter((refractor) => refractor.brand === selectedBrand)
+        .map((refractor) => refractor.model)
+    : [];
+
   return (
     <>
-      <Select
-        onValueChange={(value) =>
-          handleRefractorSelection(value as unknown as RefractorData)
-        }
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Sélectionnez votre tube" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {dataRefractors.map((refractor: RefractorData) => (
-              <>
-                <SelectLabel>{refractor.brand}</SelectLabel>
-                <SelectItem key={refractor.id} value={refractor}>
-                  {refractor.brand} - {refractor.model}
+      <div className="flex">
+        <Select
+          onValueChange={(value) => handleBrandSelection(value as string)}
+        >
+          <SelectTrigger className="mt-6 w-1/2">
+            <SelectValue placeholder="Marque du tube" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {uniqueBrands.map((brand: string) => (
+                <SelectItem key={brand} value={brand}>
+                  {brand}
                 </SelectItem>
-              </>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+
+        {selectedBrand && (
+          <Select
+            onValueChange={(value) => handleModelSelection(value as string)}
+          >
+            <SelectTrigger className="mt-6 w-1/2">
+              <SelectValue placeholder="Modèle du tube" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {modelsForSelectedBrand.map((model: string) => (
+                  <SelectItem key={model} value={model}>
+                    {model}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+
       {selectedRefractor && (
         <div className="pb-6 pt-6 text-gray-400">
           <p>

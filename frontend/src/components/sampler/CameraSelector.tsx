@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select.tsx";
@@ -21,29 +20,71 @@ export const CameraSelector: React.FC<CameraSelectorProps> = ({
   selectedCamera,
   handleCameraSelection,
 }) => {
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+
+  const handleBrandSelection = (brand: string) => {
+    setSelectedBrand(brand);
+  };
+
+  const handleModelSelection = (model: string) => {
+    const selectedCamera = dataCameras.find(
+      (camera) => camera.brand === selectedBrand && camera.model === model,
+    );
+    if (selectedCamera) {
+      handleCameraSelection(selectedCamera);
+    }
+  };
+
+  const uniqueBrands = Array.from(
+    new Set(dataCameras.map((camera) => camera.brand)),
+  );
+
+  const modelsForSelectedBrand = selectedBrand
+    ? dataCameras
+        .filter((camera) => camera.brand === selectedBrand)
+        .map((camera) => camera.model)
+    : [];
+
   return (
     <>
-      <Select
-        onValueChange={(value) =>
-          handleCameraSelection(value as unknown as CameraData)
-        }
-      >
-        <SelectTrigger className="mt-6">
-          <SelectValue placeholder="Sélectionnez votre caméra" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {dataCameras.map((camera: CameraData) => (
-              <React.Fragment key={camera.id}>
-                <SelectLabel>{camera.brand}</SelectLabel>
-                <SelectItem key={camera.id} value={camera}>
-                  {camera.brand} - {camera.model}
+      <div className="flex">
+        <Select
+          onValueChange={(value) => handleBrandSelection(value as string)}
+        >
+          <SelectTrigger className="mt-6 w-1/2">
+            <SelectValue placeholder="Marque de la caméra" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {uniqueBrands.map((brand: string) => (
+                <SelectItem key={brand} value={brand}>
+                  {brand}
                 </SelectItem>
-              </React.Fragment>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+
+        {selectedBrand && (
+          <Select
+            onValueChange={(value) => handleModelSelection(value as string)}
+          >
+            <SelectTrigger className="mt-6 w-1/2">
+              <SelectValue placeholder="Modèle de la caméra" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {modelsForSelectedBrand.map((model: string) => (
+                  <SelectItem key={model} value={model}>
+                    {model}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+
       {selectedCamera && (
         <div className="pb-6 pt-6 text-gray-400">
           <p>
