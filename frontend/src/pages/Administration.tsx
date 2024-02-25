@@ -1,5 +1,6 @@
 import callAPI from "@/api/callAPI";
 import AddEvent from "@/components/modals/AddEvent";
+import AddRefractor from "@/components/modals/AddRefractors";
 import AddMembers from "@/components/modals/AddMember.tsx";
 import CardEvent from "@/components/ui/CardEvent.tsx";
 import CardMember from "@/components/ui/CardMember.tsx";
@@ -17,31 +18,7 @@ import useSWR from "swr";
 import { useAuth } from "@/contexts/AuthContext";
 import { CalendarDays, Camera, UserCheck, Users } from "lucide-react";
 import { GoTelescope } from "react-icons/go";
-import { RefractorData } from "@/types/types";
-
-type MemberData = {
-  id: number;
-  member: string;
-  email: string;
-  subscriptionDate: string;
-  memberType: string;
-};
-
-type EventData = {
-  id: number;
-  title: string;
-  description: string;
-  date: Date;
-  location: string;
-};
-
-type UserData = {
-  id: number;
-  email: string;
-  name: string;
-  role: string;
-  password_hash: string;
-};
+import { RefractorData, MemberData, EventData, UserData } from "@/types/types";
 
 function Administration() {
   const { isLoggedIn, userRole } = useAuth();
@@ -146,8 +123,8 @@ function Administration() {
       </TabsContent>
       <TabsContent value="evènements">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe") ? (
+          (userRole === "Administrateur" ||
+            userRole === "Rédacteur-Photographe") ? (
           <div>
             <AddEvent />
             {dataEvents.map((event: EventData) => (
@@ -167,9 +144,9 @@ function Administration() {
       </TabsContent>{" "}
       <TabsContent value="photos">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe" ||
-          userRole === "Photographe") ? (
+          (userRole === "Administrateur" ||
+            userRole === "Rédacteur-Photographe" ||
+            userRole === "Photographe") ? (
           <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
             Photos des membres
             <Button type="submit" onClick={() => navigate("/")}>
@@ -184,15 +161,19 @@ function Administration() {
       </TabsContent>
       <TabsContent value="telescope">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe") ? (
+          (userRole === "Administrateur" || userRole === "Rédacteur-Photographe") ? (
           <div className="flex h-full flex-col items-center justify-center text-3xl text-white">
-            Gestion des tubes pour échantilonnage
-            {dataRefractors.map((refractors: RefractorData) => (
-              <div key={refractors.id}>
-                <CardRefractors data={refractors} />
-              </div>
-            ))}
+            Gestion des tubes pour échantillonnage
+            <AddRefractor />
+            {dataRefractors && dataRefractors.length > 0 ? (
+              dataRefractors.map((refractors: RefractorData) => (
+                <div key={refractors.id}>
+                  <CardRefractors data={refractors} />
+                </div>
+              ))
+            ) : (
+              <div>Aucun télescope trouvé</div>
+            )}
             <Button type="submit" onClick={() => navigate("/")}>
               Retour
             </Button>

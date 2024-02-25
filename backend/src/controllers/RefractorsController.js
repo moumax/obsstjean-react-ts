@@ -20,7 +20,6 @@ const RefractorsController = {
       diameter: req.body.diameter,
       focal: req.body.focal,
       focal_ratio: req.body.focal_ratio,
-      resolution: req.body.resolution,
     };
 
     try {
@@ -44,11 +43,10 @@ const RefractorsController = {
       diameter: req.body.diameter,
       focal: req.body.focal,
       focal_ratio: req.body.focal_ratio,
-      resolution: req.body.resolution,
     };
 
     try {
-      const updatedRefractor = await RefractorManager.update(
+      const updatedRefractor = await RefractorsManager.update(
         refractorToUpdate,
         req.params.id,
       );

@@ -24,7 +24,6 @@ export type RefractorData = {
   diameter: number;
   focal: number;
   focal_ratio: number;
-  resolution: number;
 };
 
 export type WavelengthData = {
@@ -38,4 +37,28 @@ export type SkyObjectData = {
   object: string;
   size: number;
   angle: number;
+};
+
+export type MemberData = {
+  id: number;
+  member: string;
+  email: string;
+  subscriptionDate: string;
+  memberType: string;
+};
+
+export type EventData = {
+  id: number;
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+};
+
+export type UserData = {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+  password_hash: string;
 };

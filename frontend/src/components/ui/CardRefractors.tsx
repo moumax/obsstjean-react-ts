@@ -29,7 +29,7 @@ function CardRefractors({
           <CardTitle className="text-sm text-yellow-400">{brand}</CardTitle>
           <CardTitle className="text-sm text-white">{model}</CardTitle>
           <div className="self-end">
-            <EditRefractors />
+            <EditRefractors id={id} brand={brand} model={model} diameter={diameter} focal={focal} focal_ratio={focal_ratio} />
             <DeleteRefractors id={id} brand={brand} model={model} />
           </div>
         </CardHeader>
