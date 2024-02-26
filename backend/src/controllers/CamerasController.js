@@ -1,4 +1,4 @@
-import CamerasManager from "../models/CamerasManager.js"
+import CamerasManager from "../models/CamerasManager.js";
 
 const CamerasController = {
   async getAllCameras(req, res) {
@@ -17,17 +17,17 @@ const CamerasController = {
       model: req.body.model,
       sensor: req.body.sensor,
       sensor_type: req.body.sensor_type,
-      sensor_width_mm: req.sensor_width_mm,
-      sensor_heigth_mm: req.sensor_heigth_mm,
-      sensor_width_pixel: req.sensor_width_pixel,
-      sensor_height_pixel: req.sensor_height_pixel,
-      photosites: req.photosites,
-      megapixels: req.megapixels,
-      fps: req.fps,
-      dynamic: req.dynamic,
-      bits: req.bits,
-      pixel_capacity: req.pixel_capacity,
-      cooler: req.cooler,
+      sensor_width_mm: req.body.sensor_width_mm,
+      sensor_height_mm: req.body.sensor_height_mm,
+      sensor_width_pixel: req.body.sensor_width_pixel,
+      sensor_height_pixel: req.body.sensor_height_pixel,
+      photosites: req.body.photosites,
+      megapixels: req.body.megapixels,
+      fps: req.body.fps,
+      dynamic: req.body.dynamic,
+      bits: req.body.bits,
+      pixel_capacity: req.body.pixel_capacity,
+      cooler: req.body.cooler,
     };
 
     try {
@@ -48,17 +48,17 @@ const CamerasController = {
       model: req.body.model,
       sensor: req.body.sensor,
       sensor_type: req.body.sensor_type,
-      sensor_width_mm: req.sensor_width_mm,
-      sensor_heigth_mm: req.sensor_heigth_mm,
-      sensor_width_pixel: req.sensor_width_pixel,
-      sensor_height_pixel: req.sensor_height_pixel,
-      photosites: req.photosites,
-      megapixels: req.megapixels,
-      fps: req.fps,
-      dynamic: req.dynamic,
-      bits: req.bits,
-      pixel_capacity: req.pixel_capacity,
-      cooler: req.cooler,
+      sensor_width_mm: req.body.sensor_width_mm,
+      sensor_height_mm: req.body.sensor_height_mm,
+      sensor_width_pixel: req.body.sensor_width_pixel,
+      sensor_height_pixel: req.body.sensor_height_pixel,
+      photosites: req.body.photosites,
+      megapixels: req.body.megapixels,
+      fps: req.body.fps,
+      dynamic: req.body.dynamic,
+      bits: req.body.bits,
+      pixel_capacity: req.body.pixel_capacity,
+      cooler: req.body.cooler,
     };
 
     try {
@@ -69,7 +69,9 @@ const CamerasController = {
       res.status(200).json(updatedCamera);
     } catch (error) {
       console.error("Erreur lors de la modification de la camera", error);
-      res.status(500).send("Erreur server lors de la modification de la camera");
+      res
+        .status(500)
+        .send("Erreur server lors de la modification de la camera");
     }
   },
 
