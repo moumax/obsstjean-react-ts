@@ -23,17 +23,26 @@ function CardRefractors({
   data: Data;
 }) {
   return (
-    <div>
-      <Card className="mb-2 bg-transparent">
-        <CardHeader className="flex flex-row items-center justify-center gap-x-4 p-0 px-2">
-          <CardTitle className="text-sm text-yellow-400">{brand}</CardTitle>
+    <Card className="mb-2 bg-transparent">
+      <CardHeader className="m-0 mx-2 mb-4 mt-1 flex flex-row items-center justify-between p-0">
+        <CardTitle className="text-sm text-yellow-400">{brand}</CardTitle>
+        <div className="flex flex-row gap-2">
+          <EditRefractors
+            id={id}
+            brand={brand}
+            model={model}
+            diameter={diameter}
+            focal={focal}
+            focal_ratio={focal_ratio}
+          />
+          <DeleteRefractors id={id} brand={brand} model={model} />
+        </div>
+      </CardHeader>
+      <CardContent className="flex flex-col items-center justify-center gap-2 p-0 px-2 text-xs">
+        <div>
           <CardTitle className="text-sm text-white">{model}</CardTitle>
-          <div className="self-end">
-            <EditRefractors id={id} brand={brand} model={model} diameter={diameter} focal={focal} focal_ratio={focal_ratio} />
-            <DeleteRefractors id={id} brand={brand} model={model} />
-          </div>
-        </CardHeader>
-        <CardContent className="flex items-center justify-center gap-2 p-0 px-2 text-xs">
+        </div>
+        <div className="mb-2 flex flex-row gap-2">
           <p className="text-white opacity-70">
             Diamètre: <span className="text-green-300">{diameter}</span>
           </p>
@@ -41,13 +50,12 @@ function CardRefractors({
             Focale: <span className="text-green-300">{focal}</span>
           </p>
           <p className="text-white opacity-70">
-            Focale / Diamètre:{" "}
-            <span className="text-green-300">{focal_ratio}</span>
+            F/D : <span className="text-green-300">{focal_ratio}</span>
           </p>
-        </CardContent>
-        <CardFooter className="flex justify-end p-0"></CardFooter>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-end p-0"></CardFooter>
+    </Card>
   );
 }
 

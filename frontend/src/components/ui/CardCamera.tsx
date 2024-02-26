@@ -52,9 +52,8 @@ function CardCameras({
   return (
     <div>
       <Card className="mb-2 bg-transparent">
-        <CardHeader className="flex flex-row items-center justify-center gap-x-4 p-0 px-2">
+        <CardHeader className="m-0 mx-2 mb-4 mt-1 flex flex-row items-center justify-between p-0">
           <CardTitle className="text-sm text-yellow-400">{brand}</CardTitle>
-          <CardTitle className="text-sm text-white">{model}</CardTitle>
           <div className="self-end">
             <EditCamera
               id={id}
@@ -77,55 +76,58 @@ function CardCameras({
             <DeleteCamera id={id} brand={brand} model={model} />
           </div>
         </CardHeader>
-        <CardContent className="flex items-center justify-center gap-2 p-0 px-2 text-xs">
-          <div className="mr-4 flex flex-col p-4">
-            <p className="text-white opacity-70">
-              Capteur: <span className="text-green-300">{sensor}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Type de capteur:{" "}
-              <span className="text-green-300">{sensor_type}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Largeur du capteur (mm):{" "}
-              <span className="text-green-300">{sensor_width_mm}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Hauteur du capteur (mm):{" "}
-              <span className="text-green-300">{sensor_height_mm}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Largeur du capteur (pixel):{" "}
-              <span className="text-green-300">{sensor_width_pixel}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Hauteur du capteur (pixel):{" "}
-              <span className="text-green-300">{sensor_height_pixel}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Photosites: <span className="text-green-300">{photosites}</span>
-            </p>
-          </div>
-          <div className="flex flex-col p-4">
-            <p className="text-white opacity-70">
-              Megapixels: <span className="text-green-300">{megapixels}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Images par secondes: <span className="text-green-300">{fps}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Dynamique: <span className="text-green-300">{dynamic}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Bits: <span className="text-green-300">{bits}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Capacités pixel:{" "}
-              <span className="text-green-300">{pixel_capacity}</span>
-            </p>
-            <p className="text-white opacity-70">
-              Refroidissement: <span className="text-green-300">{cooler}</span>
-            </p>
+        <CardContent className="flex flex-col items-center gap-2 pl-3 pr-3 text-xs">
+          <CardTitle className="text-sm text-white">{model}</CardTitle>
+          <div className="flex flex-row gap-2">
+            <div className="flex flex-col">
+              <p className="text-white opacity-70">
+                Capteur: <span className="text-green-300">{sensor}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Type capteur:{" "}
+                <span className="text-green-300">{sensor_type}</span>
+              </p>
+              <p className="text-white opacity-70">
+                L capteur (mm):{" "}
+                <span className="text-green-300">{sensor_width_mm}</span>
+              </p>
+              <p className="text-white opacity-70">
+                H capteur (mm):{" "}
+                <span className="text-green-300">{sensor_height_mm}</span>
+              </p>
+              <p className="text-white opacity-70">
+                L capteur (pixel):{" "}
+                <span className="text-green-300">{sensor_width_pixel}</span>
+              </p>
+              <p className="text-white opacity-70">
+                H capteur (pixel):{" "}
+                <span className="text-green-300">{sensor_height_pixel}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Photosites: <span className="text-green-300">{photosites}</span>
+              </p>
+            </div>
+            <div className="flex flex-col items-end">
+              <p className="text-white opacity-70">
+                Megapixels: <span className="text-green-300">{megapixels}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Images par Sec: <span className="text-green-300">{fps}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Dynamique: <span className="text-green-300">{dynamic}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Bits: <span className="text-green-300">{bits}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Capa pixel:{" "}
+                <span className="text-green-300">{pixel_capacity}</span>
+              </p>
+              <p className="text-white opacity-70">
+                Temp: <span className="text-green-300">{cooler}</span>
+              </p>
+            </div>
           </div>
         </CardContent>
         <CardFooter className="flex justify-end p-0"></CardFooter>

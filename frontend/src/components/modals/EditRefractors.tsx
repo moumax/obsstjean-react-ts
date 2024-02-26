@@ -1,4 +1,4 @@
-import { useState, } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -44,12 +44,8 @@ function EditRefractors(props: EditRefractorsProps) {
     model: z.string().max(100, {
       message: "Le modèle doit contenir entre 5 et 500 caractères",
     }),
-    diameter: z.coerce
-      .number()
-      .positive({ message: "Value must be positive" }),
-    focal: z.coerce
-      .number()
-      .positive({ message: "Value must be positive" }),
+    diameter: z.coerce.number().positive({ message: "Value must be positive" }),
+    focal: z.coerce.number().positive({ message: "Value must be positive" }),
     focal_ratio: z.coerce
       .number()
       .positive({ message: "Value must be positive" }),
@@ -95,9 +91,7 @@ function EditRefractors(props: EditRefractorsProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="bg-transparent text-green-600">
-        <Button>
-          <FileEdit size={20} />
-        </Button>
+        <FileEdit size={20} />
       </DialogTrigger>
       <DialogContent className="bg-blue-900 sm:max-w-[425px]">
         <DialogHeader>
@@ -140,7 +134,11 @@ function EditRefractors(props: EditRefractorsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type="number" placeholder={props.diameter} {...field} />
+                    <Input
+                      type="number"
+                      placeholder={props.diameter}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,7 +162,11 @@ function EditRefractors(props: EditRefractorsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type="number" placeholder={props.focal_ratio} {...field} />
+                    <Input
+                      type="number"
+                      placeholder={props.focal_ratio}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -20,7 +20,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { CalendarDays, Camera, UserCheck, Users } from "lucide-react";
 import { GoTelescope } from "react-icons/go";
 import { MdOutlineCamera } from "react-icons/md";
-import { RefractorData, MemberData, EventData, UserData, CameraData } from "@/types/types";
+import {
+  RefractorData,
+  MemberData,
+  EventData,
+  UserData,
+  CameraData,
+} from "@/types/types";
 import CardCameras from "@/components/ui/CardCamera";
 
 function Administration() {
@@ -138,8 +144,8 @@ function Administration() {
       </TabsContent>
       <TabsContent value="evènements">
         {isLoggedIn &&
-          (userRole === "Administrateur" ||
-            userRole === "Rédacteur-Photographe") ? (
+        (userRole === "Administrateur" ||
+          userRole === "Rédacteur-Photographe") ? (
           <div>
             <AddEvent />
             {dataEvents.map((event: EventData) => (
@@ -159,9 +165,9 @@ function Administration() {
       </TabsContent>{" "}
       <TabsContent value="photos">
         {isLoggedIn &&
-          (userRole === "Administrateur" ||
-            userRole === "Rédacteur-Photographe" ||
-            userRole === "Photographe") ? (
+        (userRole === "Administrateur" ||
+          userRole === "Rédacteur-Photographe" ||
+          userRole === "Photographe") ? (
           <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
             Photos des membres
             <Button type="submit" onClick={() => navigate("/")}>
@@ -176,13 +182,14 @@ function Administration() {
       </TabsContent>
       <TabsContent value="telescope">
         {isLoggedIn &&
-          (userRole === "Administrateur" || userRole === "Rédacteur-Photographe") ? (
-          <div className="flex h-full flex-col items-center justify-center text-3xl text-white">
-            Gestion des tubes pour échantillonnage
+        (userRole === "Administrateur" ||
+          userRole === "Rédacteur-Photographe") ? (
+          <div className="flex h-full flex-col items-center justify-center text-lg text-white">
+            Tubes optiques pour échantillonnage
             <AddRefractor />
             {dataRefractors && dataRefractors.length > 0 ? (
               dataRefractors.map((refractors: RefractorData) => (
-                <div key={refractors.id}>
+                <div key={refractors.id} className="w-full">
                   <CardRefractors data={refractors} />
                 </div>
               ))
@@ -201,13 +208,14 @@ function Administration() {
       </TabsContent>
       <TabsContent value="cameras">
         {isLoggedIn &&
-          (userRole === "Administrateur" || userRole === "Rédacteur-Photographe") ? (
-          <div className="flex h-full flex-col items-center justify-center text-3xl text-white">
-            Gestion des caméras pour échantillonnage
+        (userRole === "Administrateur" ||
+          userRole === "Rédacteur-Photographe") ? (
+          <div className="flex h-full flex-col items-center justify-center text-lg text-white">
+            Caméras pour échantillonnage
             <AddCamera />
             {dataCameras && dataCameras.length > 0 ? (
               dataCameras.map((cameras: CameraData) => (
-                <div key={cameras.id}>
+                <div key={cameras.id} className="w-full">
                   <CardCameras data={cameras} />
                 </div>
               ))
