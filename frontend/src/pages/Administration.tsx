@@ -2,6 +2,7 @@ import callAPI from "@/api/callAPI";
 import AddEvent from "@/components/modals/AddEvent";
 import AddRefractor from "@/components/modals/AddRefractors";
 import AddMembers from "@/components/modals/AddMember.tsx";
+import AddCamera from "@/components/modals/AddCamera";
 import CardEvent from "@/components/ui/CardEvent.tsx";
 import CardMember from "@/components/ui/CardMember.tsx";
 import CardUser from "@/components/ui/CardUser.tsx";
@@ -18,7 +19,9 @@ import useSWR from "swr";
 import { useAuth } from "@/contexts/AuthContext";
 import { CalendarDays, Camera, UserCheck, Users } from "lucide-react";
 import { GoTelescope } from "react-icons/go";
-import { RefractorData, MemberData, EventData, UserData } from "@/types/types";
+import { MdOutlineCamera } from "react-icons/md";
+import { RefractorData, MemberData, EventData, UserData, CameraData } from "@/types/types";
+import CardCameras from "@/components/ui/CardCamera";
 
 function Administration() {
   const { isLoggedIn, userRole } = useAuth();
@@ -42,6 +45,11 @@ function Administration() {
     error: errorRefractors,
     isLoading: isLoadingRefractors,
   } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/refractors/`, callAPI);
+  const {
+    data: dataCameras,
+    error: errorCameras,
+    isLoading: isLoadingCameras,
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/cameras/`, callAPI);
 
   const navigate = useNavigate();
 
@@ -58,6 +66,10 @@ function Administration() {
   if (errorRefractors)
     return `Erreur lors du chargement : ${errorRefractors.message}`;
   if (isLoadingRefractors) return "chargement en cours...";
+
+  if (errorCameras)
+    return `Erreur lors du chargement : ${errorCameras.message}`;
+  if (isLoadingCameras) return "chargement en cours...";
 
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
@@ -78,6 +90,9 @@ function Administration() {
             </TabsTrigger>
             <TabsTrigger className="text-xl" value="telescope">
               <GoTelescope />
+            </TabsTrigger>
+            <TabsTrigger className="text-xl" value="cameras">
+              <MdOutlineCamera />
             </TabsTrigger>
           </div>
         )}
@@ -173,6 +188,31 @@ function Administration() {
               ))
             ) : (
               <div>Aucun télescope trouvé</div>
+            )}
+            <Button type="submit" onClick={() => navigate("/")}>
+              Retour
+            </Button>
+          </div>
+        ) : (
+          <div className="flex h-screen items-center justify-center text-2xl text-white">
+            Tu n'as pas accès à cette section
+          </div>
+        )}
+      </TabsContent>
+      <TabsContent value="cameras">
+        {isLoggedIn &&
+          (userRole === "Administrateur" || userRole === "Rédacteur-Photographe") ? (
+          <div className="flex h-full flex-col items-center justify-center text-3xl text-white">
+            Gestion des caméras pour échantillonnage
+            <AddCamera />
+            {dataCameras && dataCameras.length > 0 ? (
+              dataCameras.map((cameras: CameraData) => (
+                <div key={cameras.id}>
+                  <CardCameras data={cameras} />
+                </div>
+              ))
+            ) : (
+              <div>Aucune caméra trouvé</div>
             )}
             <Button type="submit" onClick={() => navigate("/")}>
               Retour
