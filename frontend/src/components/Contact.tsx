@@ -17,10 +17,7 @@ function Contact() {
   });
 
   return (
-    <section
-      id="contact"
-      className="z-50 flex h-screen w-[90%] flex-col items-center"
-    >
+    <section id="contact" className="z-50 flex flex-col items-center">
       <h1 className="mb-4 text-2xl text-white">Nous contacter</h1>
       <MapContainer
         className="rounded-xl0 mb-8 h-56 w-4/5 overflow-hidden"
@@ -36,7 +33,7 @@ function Contact() {
           <Popup>Observatoire de Saint Jean Le Blanc</Popup>
         </Marker>
       </MapContainer>
-      <div className="mb-16 flex flex-col items-center text-white">
+      <div className="mb-16 flex flex-col items-center text-center text-white">
         <p className="mb-8">
           L'Observatoire est ouvert tous les vendredis à partir de 21h00
         </p>
