@@ -13,7 +13,7 @@ export type CameraData = {
   fps: number;
   dynamic: number;
   bits: number;
-  pixel_capaoity: number;
+  pixel_capacity: number;
   cooler: number;
 };
 
