@@ -40,6 +40,8 @@ interface AddEventProps {
   description?: string;
   date?: Date;
   location?: string;
+  hours?: number;
+  minutes?: number;
 }
 
 function AddEvent(props: AddEventProps) {
@@ -59,6 +61,18 @@ function AddEvent(props: AddEventProps) {
     location: z.string().min(5).max(75, {
       message: "Le lieu doit contenir entre 5 et 75 caractères",
     }),
+    hours: z.coerce.number({
+  required_error: "L'heure est requise",
+  invalid_type_error: "L'heure doit être un nombre",
+}).nonnegative().max(23, {
+      message: "Les heures doivent ne doivent pas dépasser 23",
+    }),
+    minutes: z.coerce.number({
+  required_error: "Les minutes sont requises",
+  invalid_type_error: "Les minutes doivent être un nombre",
+}).nonnegative().max(59, {
+      message: "Les heures doivent ne doivent pas dépasser 59",
+    }),
   });
 
   const defaultValues = {
@@ -66,6 +80,8 @@ function AddEvent(props: AddEventProps) {
     description: props.description || "",
     date: props.date ? new Date(props.date) : undefined,
     location: props.location || "",
+    hours: props.hours,
+    minutes: props.minutes,
   };
 
   const selectedDateRef = useRef(props.date ? new Date(props.date) : undefined);
@@ -206,6 +222,36 @@ function AddEvent(props: AddEventProps) {
                 <FormItem>
                   <FormControl>
                     <Input placeholder="Lieu de l'évènement" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="hours"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="heure"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="minutes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="minutes"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

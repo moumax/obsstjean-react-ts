@@ -16,10 +16,12 @@ interface Data {
   description: string;
   location: string;
   date: Date;
+  hours: number;
+  minutes: number;
 }
 
 function CardEvent({
-  data: { id, title, description, location, date },
+  data: { id, title, description, location, date, hours, minutes },
 }: {
   data: Data;
 }) {
@@ -46,9 +48,8 @@ function CardEvent({
         </CardHeader>
         <CardContent>
           <div className="flex flex-col justify-between">
-            <p className="text-white opacity-70">A quel endroit ?</p>
             <p className="text-white opacity-70">{location}</p>
-            <p className="text-white opacity-70">{formattedDate}</p>
+            <p className="text-white opacity-70">{formattedDate} à {hours == 0 ? "00" : `${hours}`}{minutes == 0 ? "h00" : `h${minutes}`}</p>
           </div>
         </CardContent>
         <CardFooter>
@@ -61,6 +62,8 @@ function CardEvent({
                   date={date}
                   location={location}
                   id={id}
+                  hours={hours}
+                  minutes={minutes}
                 />
                 <DeleteEvents id={id} title={title} />
               </>

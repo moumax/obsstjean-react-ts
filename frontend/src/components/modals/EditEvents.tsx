@@ -30,7 +30,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar.tsx";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";    
+import { fr } from "date-fns/locale";
 import { toast } from "@/components/ui/use-toast.ts";
 import { mutate } from "swr";
 
@@ -40,6 +40,8 @@ interface EditEventsProps {
   description?: string;
   date?: Date;
   location?: string;
+  hours?: number;
+  minutes?: number;
 }
 
 function EditEvents(props: EditEventsProps) {
@@ -58,6 +60,18 @@ function EditEvents(props: EditEventsProps) {
     location: z.string().min(5).max(75, {
       message: "Le lieu doit contenir entre 5 et 75 caractères",
     }),
+    hours: z.coerce.number({
+  required_error: "L'heure est requise",
+  invalid_type_error: "L'heure doit être un nombre",
+}).nonnegative().max(23, {
+      message: "Les heures doivent ne doivent pas dépasser 23",
+    }),
+    minutes: z.coerce.number({
+  required_error: "Les minutes sont requises",
+  invalid_type_error: "Les minutes doivent être un nombre",
+}).nonnegative().max(59, {
+      message: "Les heures doivent ne doivent pas dépasser 59",
+    }),
   });
 
   const defaultValues = {
@@ -65,8 +79,10 @@ function EditEvents(props: EditEventsProps) {
     description: props.description || "",
     date: props.date ? new Date(props.date) : undefined,
     location: props.location || "",
+    hours: props.hours || 0,
+    minutes: props.minutes || 0,
   };
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
@@ -206,6 +222,38 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
                       />
                     </PopoverContent>
                   </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="hours"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                    type="number"
+                      placeholder={props.hours}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="minutes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                    type="number"
+                      placeholder={props.minutes}
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

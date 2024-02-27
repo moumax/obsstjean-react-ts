@@ -19,6 +19,8 @@ const EventsController = {
       description: req.body.description,
       location: req.body.location,
       date: req.body.date,
+      hours: req.body.hours,
+      minutes: req.body.minutes,
     };
 
     try {
@@ -36,6 +38,8 @@ const EventsController = {
       description: req.body.description,
       location: req.body.location,
       date: req.body.date,
+      hours: req.body.hours,
+      minutes: req.body.minutes,
     };
 
     try {
