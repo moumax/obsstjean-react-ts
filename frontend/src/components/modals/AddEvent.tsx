@@ -132,7 +132,7 @@ function AddEvent(props: AddEventProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="">
-        <Button className="w-full self-center bg-transparent p-12 text-green-600">
+        <Button className="self-center bg-transparent p-12 text-green-600">
           <PlusCircle size={50} />
         </Button>
       </DialogTrigger>

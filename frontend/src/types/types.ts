@@ -62,3 +62,8 @@ export type UserData = {
   role: string;
   password_hash: string;
 };
+
+export type LocationData = {
+  id: number;
+  location: string;
+}

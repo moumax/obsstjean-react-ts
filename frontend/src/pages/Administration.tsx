@@ -7,6 +7,7 @@ import CardEvent from "@/components/ui/CardEvent.tsx";
 import CardMember from "@/components/ui/CardMember.tsx";
 import CardUser from "@/components/ui/CardUser.tsx";
 import CardRefractors from "@/components/ui/CardRefractors.tsx";
+import CardLocations from "@/components/ui/CardLocations";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Tabs,
@@ -26,8 +27,10 @@ import {
   EventData,
   UserData,
   CameraData,
+  LocationData,
 } from "@/types/types";
 import CardCameras from "@/components/ui/CardCamera";
+import AddLocation from "@/components/modals/AddLocation";
 
 function Administration() {
   const { isLoggedIn, userRole } = useAuth();
@@ -56,6 +59,11 @@ function Administration() {
     error: errorCameras,
     isLoading: isLoadingCameras,
   } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/cameras/`, callAPI);
+  const {
+    data: dataLocations,
+    error: errorLocations,
+    isLoading: isLoadingLocations,
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/locations/`, callAPI);
 
   const navigate = useNavigate();
 
@@ -76,6 +84,10 @@ function Administration() {
   if (errorCameras)
     return `Erreur lors du chargement : ${errorCameras.message}`;
   if (isLoadingCameras) return "chargement en cours...";
+
+  if (errorLocations)
+    return `Erreur lors du chargement : ${errorLocations.message}`;
+  if (isLoadingLocations) return "chargement en cours...";
 
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
@@ -147,11 +159,21 @@ function Administration() {
         (userRole === "Administrateur" ||
           userRole === "Rédacteur-Photographe") ? (
           <div>
-            <AddEvent />
+            <div className="text-white text-xl flex justify-center items-center">
+           Liste des évènements <AddEvent />
+            </div>
             {dataEvents.map((event: EventData) => (
               <div key={event.id}>
                 <CardEvent data={event} />
               </div>
+            ))}
+            <div className="text-white text-xl flex justify-center items-center">
+           Liste des adresses pour les évènements <AddLocation />
+            </div>
+            {dataLocations.map((location: LocationData) => (
+              <div key={location.id}>
+                <CardLocations data={location} />
+               </div>
             ))}
             <Button type="submit" onClick={() => navigate("/")}>
               Retour

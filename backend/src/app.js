@@ -12,6 +12,7 @@ import CamerasRouter from "./routes/CamerasRouter.js";
 import RefractorsRouter from "./routes/RefractorsRouter.js";
 import WavelengthRouter from "./routes/WavelengthRouter.js";
 import SkyObjectsRouter from "./routes/SkyObjectsRouter.js";
+import locationsRouter from "./routes/LocationsRouter.js";
 
 const router = Router();
 
@@ -35,6 +36,7 @@ router.use("/cameras", CamerasRouter);
 router.use("/refractors", RefractorsRouter);
 router.use("/wavelength", WavelengthRouter);
 router.use("/skyobjects", SkyObjectsRouter);
+router.use("/locations", locationsRouter);
 
 app.use("/api", router);
 
