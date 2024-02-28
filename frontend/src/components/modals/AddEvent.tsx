@@ -33,6 +33,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import LocationSelector from "../ui/LocationSelector";
 
 interface AddEventProps {
   id?: number;
@@ -55,11 +56,9 @@ function AddEvent(props: AddEventProps) {
     description: z.string().min(5).max(500, {
       message: "La description doit contenir entre 5 et 500 caractères",
     }),
+    location: z.string(),
     date: z.date({
-      required_error: "Le date de l'évènee est requise",
-    }),
-    location: z.string().min(5).max(75, {
-      message: "Le lieu doit contenir entre 5 et 75 caractères",
+      required_error: "Le date de l'évènement est requise",
     }),
     hours: z.coerce.number({
   required_error: "L'heure est requise",
@@ -221,7 +220,7 @@ function AddEvent(props: AddEventProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Lieu de l'évènement" {...field} />
+                    <LocationSelector onSelectLocation={(locationId) =>  field.onChange({ target: { value: locationId.toString() } })} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

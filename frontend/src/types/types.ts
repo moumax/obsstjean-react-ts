@@ -53,6 +53,8 @@ export type EventData = {
   description: string;
   date: Date;
   location: string;
+  hours: number;
+  minutes: number;
 };
 
 export type UserData = {

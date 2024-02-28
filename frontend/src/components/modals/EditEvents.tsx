@@ -33,6 +33,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { toast } from "@/components/ui/use-toast.ts";
 import { mutate } from "swr";
+import LocationSelector from "../ui/LocationSelector";
 
 interface EditEventsProps {
   id?: number;
@@ -57,9 +58,7 @@ function EditEvents(props: EditEventsProps) {
     date: z.date({
       required_error: "Le date de l'évènee est requise",
     }),
-    location: z.string().min(5).max(75, {
-      message: "Le lieu doit contenir entre 5 et 75 caractères",
-    }),
+    location: z.string(),
     hours: z.coerce.number({
   required_error: "L'heure est requise",
   invalid_type_error: "L'heure doit être un nombre",
@@ -176,7 +175,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.location} {...field} />
+                    <LocationSelector onSelectLocation={(locationId) =>  field.onChange({ target: { value: locationId.toString() } })} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

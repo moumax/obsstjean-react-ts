@@ -38,7 +38,7 @@ function Administration() {
     data: dataEvents,
     error: errorEvents,
     isLoading: isLoadingEvents,
-  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callAPI);
+  }  = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callAPI);
   const {
     data: dataUsers,
     error: errorUsers,
