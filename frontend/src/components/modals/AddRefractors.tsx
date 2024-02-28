@@ -4,7 +4,6 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -90,14 +89,14 @@ function AddRefractor(props: AddRefractorProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="">
-        <Button className="w-full self-center bg-transparent p-12 text-green-600">
-          <PlusCircle size={50} />
+      <DialogTrigger asChild>
+        <Button className="self-center bg-transparent text-green-600">
+          <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>
-          <DialogTitle className="text-white">Créer un membre</DialogTitle>
+          <DialogTitle className="text-white mb-3">Créer un membre</DialogTitle>
           <DialogDescription className="text-white">
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
@@ -164,12 +163,11 @@ function AddRefractor(props: AddRefractorProps) {
                 </FormItem>
               )}
             />
-            <Button className="bg-green-400" type="submit">
+            <Button className="bg-green-400 w-full" type="submit">
               Sauvegarder
             </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
         <DialogClose className="h-10 rounded-md bg-red-400 text-white">
           Annuler
         </DialogClose>

@@ -34,10 +34,11 @@ const { data: locations, error: errorLocation, isValidating } = useSWR<Location[
       <SelectTrigger>
         <SelectValue placeholder="Lieu de l'évènement" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="w-min">
         <SelectGroup>
           {locations.map((location) => (
             <SelectItem
+              className="text-xs bg-blue-100"
               key={location.id}
               value={location.location}
             >

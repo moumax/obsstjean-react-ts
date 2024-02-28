@@ -131,13 +131,13 @@ function AddEvent(props: AddEventProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="">
-        <Button className="self-center bg-transparent p-12 text-green-600">
-          <PlusCircle size={50} />
+        <Button className="self-center bg-transparent text-green-600">
+          <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>
-          <DialogTitle className="text-white">Créer un evènement</DialogTitle>
+          <DialogTitle className="text-white mb-3">Créer un evènement</DialogTitle>
           <DialogDescription className="text-white">
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
@@ -163,6 +163,7 @@ function AddEvent(props: AddEventProps) {
                 <FormItem>
                   <FormControl>
                     <Textarea
+                      className="h-48"
                       placeholder="Description de l'évènement"
                       {...field}
                     />
@@ -183,7 +184,7 @@ function AddEvent(props: AddEventProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[240px] pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground",
+                            !field.value && "text-muted-foreground w-full",
                           )}
                         >
                           {field.value ? (
@@ -195,7 +196,7 @@ function AddEvent(props: AddEventProps) {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="p-0 w-max" align="center">
                       <Calendar
                         mode="single"
                         selected={selectedDateRef.current}
@@ -226,6 +227,7 @@ function AddEvent(props: AddEventProps) {
                 </FormItem>
               )}
             />
+            <div className="flex">
             <FormField
               control={form.control}
               name="hours"
@@ -256,7 +258,8 @@ function AddEvent(props: AddEventProps) {
                 </FormItem>
               )}
             />
-            <Button className="bg-green-400" type="submit">
+            </div>
+            <Button className="bg-green-400 w-full" type="submit">
               Sauvegarder
             </Button>
           </form>

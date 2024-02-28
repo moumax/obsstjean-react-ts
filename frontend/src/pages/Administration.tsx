@@ -138,7 +138,10 @@ function Administration() {
         {isLoggedIn &&
           (userRole === "Administrateur" ? (
             <div>
-              <AddMembers />
+              <div className="text-white text-xl flex justify-around items-center my-10">
+                Liste membres
+                <AddMembers />
+              </div>
               {dataMembers.map((member: MemberData) => (
                 <div key={member.id}>
                   <CardMember data={member} />
@@ -159,7 +162,7 @@ function Administration() {
         (userRole === "Administrateur" ||
           userRole === "Rédacteur-Photographe") ? (
           <div>
-            <div className="text-white text-xl flex justify-center items-center">
+            <div className="text-white text-xl flex justify-around items-center my-10">
            Liste des évènements <AddEvent />
             </div>
             {dataEvents.map((event: EventData) => (
@@ -167,8 +170,8 @@ function Administration() {
                 <CardEvent data={event} />
               </div>
             ))}
-            <div className="text-white text-xl flex justify-center items-center">
-           Liste des adresses pour les évènements <AddLocation />
+            <div className="text-white text-xl flex justify-around items-center">
+           Adresses des évènements <AddLocation />
             </div>
             {dataLocations.map((location: LocationData) => (
               <div key={location.id}>
@@ -206,9 +209,11 @@ function Administration() {
         {isLoggedIn &&
         (userRole === "Administrateur" ||
           userRole === "Rédacteur-Photographe") ? (
-          <div className="flex h-full flex-col items-center justify-center text-lg text-white">
-            Tubes optiques pour échantillonnage
+          <div>
+            <div className="text-white text-xl flex justify-around items-center my-10">
+            Optiques échantillonnage
             <AddRefractor />
+              </div>
             {dataRefractors && dataRefractors.length > 0 ? (
               dataRefractors.map((refractors: RefractorData) => (
                 <div key={refractors.id} className="w-full">
@@ -232,9 +237,11 @@ function Administration() {
         {isLoggedIn &&
         (userRole === "Administrateur" ||
           userRole === "Rédacteur-Photographe") ? (
-          <div className="flex h-full flex-col items-center justify-center text-lg text-white">
-            Caméras pour échantillonnage
-            <AddCamera />
+          <div>
+            <div className="text-white text-xl flex justify-around items-center my-10">
+              Caméras échantillonnage
+              <AddCamera />
+            </div>
             {dataCameras && dataCameras.length > 0 ? (
               dataCameras.map((cameras: CameraData) => (
                 <div key={cameras.id} className="w-full">

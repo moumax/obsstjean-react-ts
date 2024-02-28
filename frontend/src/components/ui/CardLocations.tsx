@@ -3,10 +3,7 @@ import EditLocation from "../modals/EditLocation";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card.tsx";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -27,13 +24,13 @@ function CardLocations({
   return (
     <div className="mb-2">
       <Card className="bg-transparent">
-        <CardContent>
-          <div className="flex flex-col justify-between">
-            <p className="text-white opacity-70">{location}</p>
+        <CardContent className="p-0">
+          <div className="flex flex-col justify-between my-1 mx-3">
+            <p className="text-white opacity-70 text-sm">{location}</p>
           </div>
         </CardContent>
-        <CardFooter>
-          <div className="flex w-full justify-end gap-2">
+        <CardFooter className="p-0">
+          <div className="flex w-full justify-end mx-2">
             {isLoggedIn && currentPage !== "/" && (
               <>
                 <EditLocation location={location} id={id} />

@@ -46,15 +46,15 @@ function CardEvent({
             {description}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0 text-start mx-4">
           <div className="flex flex-col justify-between">
-            <p className="text-white opacity-70">{location}</p>
-            <p className="text-white opacity-70">{formattedDate} à {hours == 0 ? "00" : `${hours}`}{minutes == 0 ? "h00" : `h${minutes}`}</p>
+            <p className="text-white opacity-70 text-sm mb-2">{location}</p>
+            <p className="text-white opacity-70 text-sm">{formattedDate} à {hours == 0 ? "00" : `${hours}`}{minutes == 0 ? "h00" : `h${minutes}`}</p>
           </div>
         </CardContent>
-        <CardFooter>
-          <div className="flex w-full justify-end gap-2">
             {isLoggedIn && currentPage !== "/" && (
+        <CardFooter className="p-0 mx-2">
+          <div className="flex w-full justify-end">
               <>
                 <EditEvents
                   title={title}
@@ -67,9 +67,9 @@ function CardEvent({
                 />
                 <DeleteEvents id={id} title={title} />
               </>
-            )}
           </div>
         </CardFooter>
+            )}
       </Card>
     </div>
   );

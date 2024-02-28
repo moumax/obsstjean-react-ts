@@ -98,8 +98,8 @@ function AddMembers(props: AddMembersProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="">
-        <Button className="w-full self-center bg-transparent p-12 text-green-600">
-          <PlusCircle size={50} />
+        <Button className="self-center bg-transparent text-green-600">
+          <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-blue-900 w-full">
@@ -174,7 +174,7 @@ function AddMembers(props: AddMembersProps) {
                 </FormItem>
               )}
             />
-            <Button className="bg-green-400" type="submit">
+            <Button className="bg-green-400 w-full" type="submit">
               Sauvegarder
             </Button>
           </form>
