@@ -135,7 +135,7 @@ function AddEvent(props: AddEventProps) {
           <PlusCircle size={50} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-blue-900 sm:max-w-[425px]">
+      <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>
           <DialogTitle className="text-white">Créer un evènement</DialogTitle>
           <DialogDescription className="text-white">

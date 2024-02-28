@@ -140,12 +140,12 @@ function AddCamera(props: AddCameraProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="">
+      <DialogTrigger asChild>
         <Button className="w-full self-center bg-transparent p-12 text-green-600">
           <PlusCircle size={50} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-blue-900 sm:max-w-[425px]">
+      <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>
           <DialogTitle className="text-white">Créer une caméra</DialogTitle>
           <DialogDescription className="text-white">
