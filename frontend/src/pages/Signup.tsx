@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx"
 import { useToast } from "@/components/ui/use-toast"
@@ -15,13 +16,6 @@ export default function Signup() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  interface FormData {
-    email: string;
-    name: string;
-    password: string;
-    role: string;
-  }
-
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -29,6 +23,7 @@ export default function Signup() {
       name: "",
       password: "",
       role: "",
+      photograph: false
     },
   })
 
@@ -38,15 +33,14 @@ export default function Signup() {
       toast({
         description: "Le compte a bien été créé",
       })
-      mutate(`${import.meta.env.VITE_BACKEND_URL}/users/`)
+      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/users/`)
       navigate("/");
     } catch (error) {
       console.error("Error submitting datas:", error);
     }
   }
-
-  const sendDataToDatabase = async (form: FormData) => {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/`, {
+  const sendDataToDatabase = async (form: { role: string; email: string; password: string; name: string; photograph: boolean }) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,10 +49,10 @@ export default function Signup() {
     });
 
     if (!response.ok) {
+    console.log(response)
       throw new Error('Failed to submit data');
     }
 
-    // You can handle the response here if needed
     const data = await response.json();
     return data;
   };
@@ -124,6 +118,25 @@ export default function Signup() {
               <FormMessage />
             </FormItem>
           )}
+        />
+        <FormField
+          control={form.control}
+          name="photograph"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow text-white">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                  Veux tu partager tes photos sur le site ?
+                </FormLabel>
+              </div>
+            </FormItem>
+            )}
         />
         <Button type="submit">Submit</Button>
         <Button

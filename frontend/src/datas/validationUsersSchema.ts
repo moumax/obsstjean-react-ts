@@ -13,6 +13,7 @@ const signUpSchema = z.object({
   role: z
     .string()
     .min(4, { message: "Le rôle doit contenir au moins 4 caractères !" }),
+  photograph: z.boolean()
 });
 
 export default signUpSchema;

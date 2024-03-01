@@ -195,6 +195,17 @@ function Administration() {
           userRole === "Photographe") ? (
           <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
             Photos des membres
+              <div className="text-sm">
+                Liste des photographes: 
+                {dataUsers.map((user: UserData) => (
+                  <div key={user.id}>
+                    {user.photograph ? user.name : ""}
+                  </div>
+                ))}
+                <Button type="submit" onClick={() => navigate("/")}>
+                  Retour
+                </Button>
+              </div>
             <Button type="submit" onClick={() => navigate("/")}>
               Retour
             </Button>

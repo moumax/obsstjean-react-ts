@@ -63,6 +63,7 @@ export type UserData = {
   name: string;
   role: string;
   password_hash: string;
+  photograph: boolean;
 };
 
 export type LocationData = {

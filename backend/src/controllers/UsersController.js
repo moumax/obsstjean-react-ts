@@ -1,5 +1,8 @@
 import UsersManager from "../models/UsersManager.js";
 import { hashPassword } from "../helpers/argonHelper.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const UsersController = {
   async getAllUsers(req, res) {
@@ -20,6 +23,7 @@ const UsersController = {
       name: req.body.name,
       password_hash: req.body.password,
       role: req.body.role,
+      photograph: req.body.photograph,
     };
 
     try {
@@ -29,6 +33,11 @@ const UsersController = {
           .then(resolve)
           .catch(reject);
       });
+
+      const currentDirname = path.dirname(fileURLToPath(import.meta.url));
+      const publicDir = path.join(currentDirname, '..', '..', '..', 'frontend', 'public');
+      const userPhotosFolder = path.join(publicDir, '..', 'public', 'Photos', newUser.name);
+      fs.mkdirSync(userPhotosFolder, { recursive: true });
 
       const createdUser = await UsersManager.create({
         ...newUser,
