@@ -1,3 +1,4 @@
+import callAPI from "@/api/callAPI";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -9,62 +10,54 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useSWR from "swr";
 
 interface CardPhotosProps {
   name: string;
 }
 
-function CardPhotos({ name }: CardPhotosProps) {
+const CardPhotos = ({ name }: CardPhotosProps) => {
   const [open, setOpen] = useState(false);
-  const [gallery, setGallery] = useState<string[]>([]);
-
-  useEffect(() => {
-    const loadAllImages = async () => {
-      const imageContext = await import.meta.glob(`../../../public/Photos/*/*.{jpg,jpeg}`);
-      const imageKeys = Object.keys(imageContext);
-      setGallery(imageKeys);
-    };
-
-    loadAllImages();
-  }, []);
-
   const handleOpen = () => {
     setOpen(true);
   };
 
-  console.log(gallery)
+  const { data: responseData, error: errorFolders, isLoading: isLoadingFolders } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/user-images/${name}`, callAPI);
+
+  const displayImages = () => {
+    if (responseData && responseData.images) {
+      return responseData.images.map((imageUrl, index) => (
+        <img key={index} src={imageUrl} alt={`Image ${index}`} />
+      ));
+    }
+    return null;
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="bg-transparent text-green-600">
-        <Button onClick={handleOpen}>
-          Afficher la galerie
-        </Button>
+        <Button onClick={handleOpen}>Afficher la galerie</Button>
       </DialogTrigger>
       <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>
-          <DialogTitle className="text-white mb-5">
-            Gallerie photo de {name}
-          </DialogTitle>
+          <DialogTitle className="text-white mb-5">Gallerie photo de {name}</DialogTitle>
           <DialogDescription className="text-white">
-            <div>
-              {gallery.filter(image => image.startsWith(`../../../public/Photos/${name}/`)).map((image, index) => (
-                <a key={index} href={image} target="_blank">
-                  <img src={image} className="rounded-md mb-2" alt={`Photo ${index}`} />
-                  Texte de la photo
-                </a>
-              ))}
-            </div>
+            {isLoadingFolders ? (
+              <p>Chargement en cours...</p>
+            ) : errorFolders ? (
+              <p>Erreur lors du chargement : {errorFolders.message}</p>
+            ) : (
+              <div>{displayImages()}</div>
+            )}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose className="h-10 rounded-md bg-red-400 text-white">
-            Annuler
-          </DialogClose>
+          <DialogClose className="h-10 rounded-md bg-red-400 text-white">Annuler</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
-}
+};
 
 export default CardPhotos;

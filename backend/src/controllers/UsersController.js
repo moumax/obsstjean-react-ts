@@ -34,9 +34,10 @@ const UsersController = {
           .catch(reject);
       });
 
+      // Creation of the user custom folder
       const currentDirname = path.dirname(fileURLToPath(import.meta.url));
-      const publicDir = path.join(currentDirname, '..', '..', '..', 'frontend', 'public');
-      const userPhotosFolder = path.join(publicDir, '..', 'public', 'Photos', newUser.name);
+      const publicDir = path.join(currentDirname, '..', '..', '..', 'backend', 'uploads');
+      const userPhotosFolder = path.join(publicDir, newUser.name);
       fs.mkdirSync(userPhotosFolder, { recursive: true });
 
       const createdUser = await UsersManager.create({

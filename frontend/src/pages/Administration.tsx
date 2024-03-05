@@ -31,9 +31,10 @@ import {
 } from "@/types/types";
 import CardCameras from "@/components/ui/CardCamera";
 import AddLocation from "@/components/modals/AddLocation";
+import PhotoUpload from "@/components/ui/PhotoUpload";
 
 function Administration() {
-  const { isLoggedIn, userRole } = useAuth();
+  const { isLoggedIn, userRole, userName } = useAuth();
   const {
     data: dataEvents,
     error: errorEvents,
@@ -195,16 +196,14 @@ function Administration() {
           userRole === "Photographe") ? (
           <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
             Photos des membres
-              <div className="text-sm">
+              <div className="text-sm w-full">
                 Liste des photographes: 
                 {dataUsers.map((user: UserData) => (
                   <div key={user.id}>
                     {user.photograph ? user.name : ""}
                   </div>
                 ))}
-                <Button type="submit" onClick={() => navigate("/")}>
-                  Retour
-                </Button>
+                <PhotoUpload username={userName}/>
               </div>
             <Button type="submit" onClick={() => navigate("/")}>
               Retour

@@ -22,7 +22,7 @@ function Photos() {
   // Extract the folderNames array from the responseData object
   const { folderNames } = responseData;
 
-  console.log(folderNames);
+  console.log("folderName", folderNames);
   
   return (
     <section className="flex justify-center items-center">
