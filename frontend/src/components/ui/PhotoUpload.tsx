@@ -5,14 +5,13 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "./filepond.css"
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-function PhotoUpload({ username }) {
+function PhotoUpload() {
   const [image, setImage] = useState([]);
   const baseURL = "http://localhost:5000/api/images/"
-  
+
   return (
     <div className="mt-4">
       <FilePond
@@ -32,11 +31,11 @@ function PhotoUpload({ username }) {
         allowReorder={true}
         server={{
           process: {
-          url: baseURL,
-          method: 'POST',
-          withCredentials: true
-    },
-  }}
+            url: baseURL,
+            method: 'POST',
+            withCredentials: true
+          },
+        }}
 
       />
     </div>
