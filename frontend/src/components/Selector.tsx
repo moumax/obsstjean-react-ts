@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs.tsx";
 import Events from "@/components/Events.tsx";
 import Sun from "@/components/Sun.tsx";
-import Photos from "@/components/Photos.tsx";
+import PhotosGallery from "./PhotosGallery";
 
 function Selector() {
   return (
@@ -20,7 +20,7 @@ function Selector() {
         <Events />
       </TabsContent>
       <TabsContent value="photos">
-        <Photos />
+        <PhotosGallery />
       </TabsContent>
       <TabsContent value="sun">
         <Sun />

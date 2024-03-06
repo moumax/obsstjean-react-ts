@@ -13,21 +13,23 @@ import {
 import { useState } from "react";
 import useSWR from "swr";
 
+// Show all images of a user folder
+
 interface CardPhotosProps {
-  name: string;
+  folderName: string;
 }
 
-const CardPhotos = ({ name }: CardPhotosProps) => {
+const CardPhotos = ({ folderName }: CardPhotosProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
 
-  const { data: responseData, error: errorFolders, isLoading: isLoadingFolders } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/user-images/${name}`, callAPI);
+  const { data: data, error: error, isLoading: isLoading } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/user-images/${folderName}`, callAPI);
 
   const displayImages = () => {
-    if (responseData && responseData.images) {
-      return responseData.images.map((imageUrl, index) => (
+    if (data && data.images) {
+      return data.images.map((imageUrl: string, index: number) => (
         <img key={index} src={imageUrl} alt={`Image ${index}`} />
       ));
     }
@@ -41,12 +43,12 @@ const CardPhotos = ({ name }: CardPhotosProps) => {
       </DialogTrigger>
       <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>
-          <DialogTitle className="text-white mb-5">Gallerie photo de {name}</DialogTitle>
+          <DialogTitle className="text-white mb-5">Gallerie photo de {folderName}</DialogTitle>
           <DialogDescription className="text-white">
-            {isLoadingFolders ? (
+            {isLoading ? (
               <p>Chargement en cours...</p>
-            ) : errorFolders ? (
-              <p>Erreur lors du chargement : {errorFolders.message}</p>
+            ) : error ? (
+              <p>Erreur lors du chargement : {error.message}</p>
             ) : (
               <div>{displayImages()}</div>
             )}
