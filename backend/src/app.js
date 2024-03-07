@@ -16,14 +16,15 @@ import locationsRouter from "./routes/LocationsRouter.js";
 import imageRouter from "./routes/ImageRouter.js";
 import { fileURLToPath } from 'url';
 import multer from "multer";
+import GalleryRouter from "./routes/GalleryRouter.js";
 
 const router = Router();
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function(req, file, cb) {
     cb(null, './uploads'); // Le dossier où seront stockées les images
   },
-  filename: function (req, file, cb) {
+  filename: function(req, file, cb) {
     cb(null, file.originalname); // Le nom original de l'image
   }
 });
@@ -57,50 +58,26 @@ app.get('/folderNames', (req, res) => {
   }
 });
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.get("/gallery", (req, res) => {
-    const imagesDirectory = path.join(__dirname, '..', '..', 'backend', 'uploads');
-    fs.readdir(imagesDirectory, (err, userFolders) => {
-        if (err) {
-            console.error('Error reading user folders:', err);
-            return res.status(500).json({ error: 'Internal server error' });
-        }
-    const imageUrls = [];
-    userFolders.forEach(userFolder => {
-        if (!userFolder.startsWith('.')) {
-            const userFolderPath = path.join(imagesDirectory, userFolder);
-            fs.readdirSync(userFolderPath).forEach(file => {
-                // Filter out hidden system files
-                if (!file.startsWith('.')) {
-                    const imageUrl = `${req.protocol}://${req.get('host')}/${userFolder}/${file}`;
-                    imageUrls.push(imageUrl);
-                }
-            });
-        }
-    });
-        res.json({ images: imageUrls });
-    });
-});
-
 const directoyName = path.dirname(fileURLToPath(import.meta.url));
 app.get("/user-images/:username", (req, res) => {
-    const username = req.params.username;
-    const userFolderPath = path.join(directoyName, '..', '..', 'backend', 'uploads', username);
-    
-    fs.readdir(userFolderPath, (err, files) => {
-        if (err) {
-            console.error('Error reading user folder:', err);
-            return res.status(500).json({ error: 'Internal server error' });
-        }
+  const username = req.params.username;
+  const userFolderPath = path.join(directoyName, '..', '..', 'backend', 'uploads', username);
 
-        const imageUrls = files
-            .filter(file => !file.startsWith('.'))
-            .map(file => `${req.protocol}://${req.get('host')}/${username}/${file}`);
+  fs.readdir(userFolderPath, (err, files) => {
+    if (err) {
+      console.error('Error reading user folder:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
 
-        res.json({ images: imageUrls });
-    });
+    const imageUrls = files
+      .filter(file => !file.startsWith('.'))
+      .map(file => `${req.protocol}://${req.get('host')}/${username}/${file}`);
+
+    res.json({ images: imageUrls });
+  });
 });
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const staticFilesPath = path.join(__dirname, '..', 'uploads');
 app.use(express.static(staticFilesPath));
 
@@ -113,8 +90,12 @@ router.use("/refractors", RefractorsRouter);
 router.use("/wavelength", WavelengthRouter);
 router.use("/skyobjects", SkyObjectsRouter);
 router.use("/locations", locationsRouter);
-//Route pour uploader des images
+
+// Upload users images
 router.use('/images', authorization, upload.single('image'), imageRouter);
+
+// Fetch all folder gallery's to display images on frontend
+router.use("/gallery", GalleryRouter);
 
 app.use("/api", router);
 
