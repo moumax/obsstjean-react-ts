@@ -7,14 +7,14 @@ import authorization from "./middlewares/auth.js";
 import { fileURLToPath } from 'url';
 import multer from "multer";
 import authRouter from "./routes/AuthRouter.js";
-import eventsRouter from "./routes/EventsRouter.js";
-import membersRouter from "./routes/MembersRouter.js";
-import usersRouter from "./routes/UsersRouter.js";
+import EventsRouter from "./routes/EventsRouter.js";
+import MembersRouter from "./routes/MembersRouter.js";
+import UsersRouter from "./routes/UsersRouter.js";
 import CamerasRouter from "./routes/CamerasRouter.js";
 import RefractorsRouter from "./routes/RefractorsRouter.js";
 import WavelengthRouter from "./routes/WavelengthRouter.js";
 import SkyObjectsRouter from "./routes/SkyObjectsRouter.js";
-import locationsRouter from "./routes/LocationsRouter.js";
+import LocationsRouter from "./routes/LocationsRouter.js";
 import UploadImagesRouter from "./routes/UploadImagesRouter.js";
 import GalleryRouter from "./routes/GalleryRouter.js";
 import FoldersNameRouter from "./routes/FoldersNameRouter.js";
@@ -68,14 +68,16 @@ const staticFilesPath = path.join(__dirname, '..', 'uploads');
 app.use(express.static(staticFilesPath));
 
 router.use("/auth", authRouter);
-router.use("/users", usersRouter);
-router.use("/events", eventsRouter);
-router.use("/members", authorization, membersRouter);
+router.use("/users", UsersRouter);
+router.use("/events", EventsRouter);
+router.use("/members", authorization, MembersRouter);
 router.use("/cameras", CamerasRouter);
 router.use("/refractors", RefractorsRouter);
 router.use("/wavelength", WavelengthRouter);
 router.use("/skyobjects", SkyObjectsRouter);
-router.use("/locations", locationsRouter);
+router.use("/locations", LocationsRouter);
+
+// Search for different gallery folders by username to display it on frontend
 router.use("/foldersname", FoldersNameRouter);
 
 // Upload users images

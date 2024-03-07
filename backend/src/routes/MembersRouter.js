@@ -1,11 +1,11 @@
-import express from "express";
 import MembersController from "../controllers/MembersController.js";
+import express from "express";
 
-const membersRouter = express.Router();
+const router = express.Router();
 
-membersRouter.get("/", MembersController.getAllMembers);
-membersRouter.post("/", MembersController.createMember);
-membersRouter.put("/:id", MembersController.editMember);
-membersRouter.delete("/:id", MembersController.deleteMember);
+router.get("/", MembersController.getAllMembers);
+router.post("/", MembersController.createMember);
+router.put("/:id", MembersController.editMember);
+router.delete("/:id", MembersController.deleteMember);
 
-export default membersRouter;
+export default router;
