@@ -17,6 +17,7 @@ import SkyObjectsRouter from "./routes/SkyObjectsRouter.js";
 import locationsRouter from "./routes/LocationsRouter.js";
 import UploadImagesRouter from "./routes/UploadImagesRouter.js";
 import GalleryRouter from "./routes/GalleryRouter.js";
+import FoldersNameRouter from "./routes/FoldersNameRouter.js";
 
 const router = Router();
 
@@ -42,21 +43,6 @@ app.use(
   }),
 );
 
-// Api to iterate on users folders photo
-const currentDirname = path.dirname(fileURLToPath(import.meta.url));
-const publicFolderPath = path.join(currentDirname, '..', '..', 'backend', 'uploads');
-app.get('/folderNames', (req, res) => {
-  try {
-    const folderNames = fs.readdirSync(publicFolderPath, { withFileTypes: true })
-      .filter(item => item.isDirectory())
-      .map(item => item.name);
-    console.log("folder", folderNames)
-    res.json({ folderNames });
-  } catch (error) {
-    console.error('Error fetching folder names:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
 
 const directoyName = path.dirname(fileURLToPath(import.meta.url));
 app.get("/user-images/:username", (req, res) => {
@@ -90,6 +76,7 @@ router.use("/refractors", RefractorsRouter);
 router.use("/wavelength", WavelengthRouter);
 router.use("/skyobjects", SkyObjectsRouter);
 router.use("/locations", locationsRouter);
+router.use("/foldersname", FoldersNameRouter);
 
 // Upload users images
 router.use('/upload', authorization, upload.single('image'), UploadImagesRouter);

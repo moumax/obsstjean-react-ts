@@ -15,7 +15,7 @@ function PhotosGallery() {
     data: data,
     error: error,
     isLoading: isLoading,
-  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/folderNames/`, callAPI);
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/foldersname/`, callAPI);
 
   const folderNames = data?.folderNames || [];
 
