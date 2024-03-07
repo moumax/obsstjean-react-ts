@@ -1,12 +1,12 @@
-import ImagesManager from "../models/ImagesManager.js";
+import UploadImagesManager from "../models/UploadImagesManager.js";
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-const ImagesController = {
+const UploadImagesController = {
   async getAllImages(req, res) {
     try {
-      const images = await ImagesManager.getAllImages();
+      const images = await UploadImagesManager.getAllImages();
       res.status(200).json(images);
     } catch (error) {
       console.error("Erreur lors de la récupération des images", error);
@@ -22,30 +22,32 @@ const ImagesController = {
     const userName = req.userName;
     const imageFile = req.file;
     const imageExtension = path.extname(imageFile.originalname);
-
-    const randomFileName = uuidv4() + imageExtension;
-
     const imagePath = imageFile.path;
     const currentModuleURL = new URL(import.meta.url);
     const currentDirectory = path.dirname(currentModuleURL.pathname);
     const userFolder = path.join(currentDirectory, "..", "..", "uploads", userName);
+
+    // Create new random file name
+    const randomFileName = uuidv4() + imageExtension;
+
+    // Create a new image path
     const newImagePath = path.join(userFolder, randomFileName);
 
+    // if userFolder doesn't exist, create one
     try {
       if (!fs.existsSync(userFolder)) {
         fs.mkdirSync(userFolder, { recursive: true });
       }
-
       fs.renameSync(imagePath, newImagePath);
 
-      const uploadedImage = await ImagesManager.uploadImage(randomFileName, newImagePath);
+      await UploadImagesManager.uploadImage(randomFileName, newImagePath);
+      res.status(201).json({ message: 'Image uploaded successfully' });
 
-      res.status(201).json(uploadedImage);
     } catch (error) {
       console.error("Erreur lors de l'upload de l'image", error);
       res.status(500).send("Erreur serveur lors de l'upload de l'image");
     }
-  },
+  }
 };
 
-export default ImagesController;
+export default UploadImagesController;

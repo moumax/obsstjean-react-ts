@@ -10,7 +10,7 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 function PhotoUpload() {
   const [image, setImage] = useState([]);
-  const baseURL = "http://localhost:5000/api/images/"
+  const baseURL = "http://localhost:5000/api/upload/"
 
   return (
     <div className="mt-4">

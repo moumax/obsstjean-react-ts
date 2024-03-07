@@ -4,6 +4,8 @@ import express, { Router } from "express";
 import fs from "fs";
 import path from "path";
 import authorization from "./middlewares/auth.js";
+import { fileURLToPath } from 'url';
+import multer from "multer";
 import authRouter from "./routes/AuthRouter.js";
 import eventsRouter from "./routes/EventsRouter.js";
 import membersRouter from "./routes/MembersRouter.js";
@@ -13,9 +15,7 @@ import RefractorsRouter from "./routes/RefractorsRouter.js";
 import WavelengthRouter from "./routes/WavelengthRouter.js";
 import SkyObjectsRouter from "./routes/SkyObjectsRouter.js";
 import locationsRouter from "./routes/LocationsRouter.js";
-import imageRouter from "./routes/ImageRouter.js";
-import { fileURLToPath } from 'url';
-import multer from "multer";
+import UploadImagesRouter from "./routes/UploadImagesRouter.js";
 import GalleryRouter from "./routes/GalleryRouter.js";
 
 const router = Router();
@@ -92,7 +92,7 @@ router.use("/skyobjects", SkyObjectsRouter);
 router.use("/locations", locationsRouter);
 
 // Upload users images
-router.use('/images', authorization, upload.single('image'), imageRouter);
+router.use('/upload', authorization, upload.single('image'), UploadImagesRouter);
 
 // Fetch all folder gallery's to display images on frontend
 router.use("/gallery", GalleryRouter);
