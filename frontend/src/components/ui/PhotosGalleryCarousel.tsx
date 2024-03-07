@@ -11,7 +11,7 @@ interface PhotosGalleryCarouselProps {
 // Take an image randomly on user folder to display it to introduce the gallery
 
 function PhotosGalleryCarousel({ folderName }: PhotosGalleryCarouselProps) {
-  const { data: data, error: error, isLoading: isLoading } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/user-images/${folderName}`, callAPI);
+  const { data: data, error: error, isLoading: isLoading } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/${folderName}`, callAPI);
   const [userImages, setUserImages] = useState<string[]>([]);
 
   useEffect(() => {

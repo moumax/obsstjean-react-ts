@@ -25,7 +25,7 @@ const CardPhotos = ({ folderName }: CardPhotosProps) => {
     setOpen(true);
   };
 
-  const { data: data, error: error, isLoading: isLoading } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/user-images/${folderName}`, callAPI);
+  const { data: data, error: error, isLoading: isLoading } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/${folderName}`, callAPI);
 
   const displayImages = () => {
     if (data && data.images) {

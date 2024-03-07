@@ -6,7 +6,7 @@ import path from "path";
 import authorization from "./middlewares/auth.js";
 import { fileURLToPath } from 'url';
 import multer from "multer";
-import authRouter from "./routes/AuthRouter.js";
+import AuthRouter from "./routes/AuthRouter.js";
 import EventsRouter from "./routes/EventsRouter.js";
 import MembersRouter from "./routes/MembersRouter.js";
 import UsersRouter from "./routes/UsersRouter.js";
@@ -43,31 +43,11 @@ app.use(
   }),
 );
 
-
-const directoyName = path.dirname(fileURLToPath(import.meta.url));
-app.get("/user-images/:username", (req, res) => {
-  const username = req.params.username;
-  const userFolderPath = path.join(directoyName, '..', '..', 'backend', 'uploads', username);
-
-  fs.readdir(userFolderPath, (err, files) => {
-    if (err) {
-      console.error('Error reading user folder:', err);
-      return res.status(500).json({ error: 'Internal server error' });
-    }
-
-    const imageUrls = files
-      .filter(file => !file.startsWith('.'))
-      .map(file => `${req.protocol}://${req.get('host')}/${username}/${file}`);
-
-    res.json({ images: imageUrls });
-  });
-});
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const staticFilesPath = path.join(__dirname, '..', 'uploads');
+const directoryName = path.dirname(fileURLToPath(import.meta.url));
+const staticFilesPath = path.join(directoryName, '..', 'uploads');
 app.use(express.static(staticFilesPath));
 
-router.use("/auth", authRouter);
+router.use("/auth", AuthRouter);
 router.use("/users", UsersRouter);
 router.use("/events", EventsRouter);
 router.use("/members", authorization, MembersRouter);
@@ -84,11 +64,11 @@ router.use("/foldersname", FoldersNameRouter);
 router.use('/upload', authorization, upload.single('image'), UploadImagesRouter);
 
 // Fetch all folder gallery's to display images on frontend
+// Fetch one folder gallery's to display images on frontend for one user
 router.use("/gallery", GalleryRouter);
 
 app.use("/api", router);
 
-// Endpoint pour récupérer les informations de session de l'utilisateur
 app.get("/api/session", authorization, (req, res) => {
   res.json({
     name: req.userName,
@@ -97,9 +77,7 @@ app.get("/api/session", authorization, (req, res) => {
   });
 });
 
-// Utilisez import.meta.url pour obtenir l'URL du module actuel
 const currentModuleURL = new URL(import.meta.url);
-// Utilisez path.dirname pour extraire le chemin du répertoire
 const currentDirectory = path.dirname(currentModuleURL.pathname);
 
 app.use(express.static(path.join(currentDirectory, "../public")));
