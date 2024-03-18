@@ -15,6 +15,7 @@ const UploadImagesController = {
     const imageFile = req.file;
     const title = req.body.title;
     const description = req.body.description;
+    const owner = req.body.owner;
     const imageExtension = path.extname(imageFile.originalname);
     const imagePath = imageFile.path;
     const currentModuleURL = new URL(import.meta.url);
@@ -45,6 +46,7 @@ const UploadImagesController = {
         newImagePath,
         title,
         description,
+        owner,
       );
       res.status(201).json({ message: "Image uploaded successfully" });
     } catch (error) {

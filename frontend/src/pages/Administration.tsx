@@ -32,6 +32,7 @@ import {
 import CardCameras from "@/components/ui/CardCamera";
 import AddLocation from "@/components/modals/AddLocation";
 import PhotoUpload from "@/components/ui/PhotoUpload";
+import AdminPhotosDisplay from "@/components/ui/gallery/AdminPhotosDisplay";
 
 function Administration() {
   const { isLoggedIn, userRole, userName } = useAuth();
@@ -194,10 +195,11 @@ function Administration() {
         (userRole === "Administrateur" ||
           userRole === "Rédacteur-Photographe" ||
           userRole === "Photographe") ? (
-          <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
-            Photos des membres
+          <div className="flex h-full flex-col items-center justify-center text-3xl text-white">
+           Gestionnaire de photos
               <div className="text-sm w-full">
                 <PhotoUpload username={userName}/>
+                <AdminPhotosDisplay username={userName}/>
               </div>
             <Button type="submit" onClick={() => navigate("/")}>
               Retour

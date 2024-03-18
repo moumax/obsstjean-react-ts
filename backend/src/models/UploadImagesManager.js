@@ -11,14 +11,14 @@ const UploadImagesManager = {
     }
   },
 
-  async uploadImage(imageName, imagePath, title, description) {
+  async uploadImage(imageName, imagePath, title, description, owner) {
     try {
       const [result] = await dbPool.query(
-        'INSERT INTO images (imageName, imagePath, title, description) VALUES (?, ?, ?, ?)',
-        [imageName, imagePath, title, description]
+        'INSERT INTO images (imageName, imagePath, title, description, owner) VALUES (?, ?, ?, ?, ?)',
+        [imageName, imagePath, title, description, owner]
       );
 
-      return { id: result.insertId, imageName, imagePath, title, description };
+      return { id: result.insertId, imageName, imagePath, title, description, owner };
     } catch (err) {
       console.error(
         "Erreur lors de la création de la nouvelle image :",

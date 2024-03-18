@@ -7,6 +7,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { useState } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
+import { useAuth } from "@/contexts/AuthContext";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -15,9 +16,11 @@ function PhotoUpload() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const baseURL = "http://localhost:5000/api/upload/";
+  const { userName } = useAuth();
 
   return (
     <div className="mt-4">
+    <h2 className="text-xl text-center mb-7">Poste tes photos !</h2>
       <div>
         <Label>
           Titre de la photo
@@ -66,6 +69,7 @@ function PhotoUpload() {
             ondata: (formData) => {
               formData.append("title", title);
               formData.append("description", description)
+              formData.append("owner", userName)
               return formData;
             }
           },
