@@ -4,7 +4,7 @@ import express, { Router } from "express";
 import fs from "fs";
 import path from "path";
 import authorization from "./middlewares/auth.js";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import multer from "multer";
 import AuthRouter from "./routes/AuthRouter.js";
 import EventsRouter from "./routes/EventsRouter.js";
@@ -22,12 +22,12 @@ import FoldersNameRouter from "./routes/FoldersNameRouter.js";
 const router = Router();
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './uploads'); // Le dossier où seront stockées les images
+  destination: function (req, file, cb) {
+    cb(null, "./uploads"); // Le dossier où seront stockées les images
   },
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, file.originalname); // Le nom original de l'image
-  }
+  },
 });
 const upload = multer({ storage: storage });
 
@@ -44,7 +44,7 @@ app.use(
 );
 
 const directoryName = path.dirname(fileURLToPath(import.meta.url));
-const staticFilesPath = path.join(directoryName, '..', 'uploads');
+const staticFilesPath = path.join(directoryName, "..", "uploads");
 app.use(express.static(staticFilesPath));
 
 router.use("/auth", AuthRouter);
@@ -56,16 +56,18 @@ router.use("/refractors", RefractorsRouter);
 router.use("/wavelength", WavelengthRouter);
 router.use("/skyobjects", SkyObjectsRouter);
 router.use("/locations", LocationsRouter);
+router.use("/gallery", GalleryRouter);
 
 // Search for different gallery folders by username to display it on frontend
 router.use("/foldersname", FoldersNameRouter);
 
 // Upload users images
-router.use('/upload', authorization, upload.single('image'), UploadImagesRouter);
-
-// Fetch all folder gallery's to display images on frontend
-// Fetch one folder gallery's to display images on frontend for one user
-router.use("/gallery", GalleryRouter);
+router.use(
+  "/upload",
+  authorization,
+  upload.single("image"),
+  UploadImagesRouter,
+);
 
 app.use("/api", router);
 

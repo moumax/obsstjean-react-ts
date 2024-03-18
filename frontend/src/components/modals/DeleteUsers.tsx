@@ -23,13 +23,13 @@ function DeleteUsers(props: DeleteUsersProps) {
 
   const handleDelete = async (userId: number) => {
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${userId}`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
         method: "DELETE",
       });
       toast({
         description: `L'utilisateur ${props.name} a bien été supprimé`,
       });
-      mutate(`${import.meta.env.VITE_BACKEND_URL}/users/`);
+      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/users/`);
     } catch (error) {
       console.error("Erreur lors de la suppression de l'utilisateur", error);
     }
