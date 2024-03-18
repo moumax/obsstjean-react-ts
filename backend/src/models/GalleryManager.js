@@ -17,6 +17,18 @@ const GalleryManager = {
       throw err;
     }
   },
+  async edit(title, description, id) {
+    try {
+      const [result] = await dbpool.query("UPDATE images SET ? WHERE id = ?", [
+        title,
+        description,
+        id,
+      ]);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  },
   async delete(id) {
     try {
       const [result] = await dbpool.query("DELETE FROM images WHERE id = ?", id);

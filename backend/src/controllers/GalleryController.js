@@ -19,6 +19,25 @@ const GalleryController = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
+  async editPhoto(req, res) {
+    const PhotoToUpdate = {
+      title: req.body.title,
+      description: req.body.description,
+    };
+
+    try {
+      const updatedPhoto = await GalleryManager.edit(
+        PhotoToUpdate,
+        req.params.id,
+      );
+      res.status(200).json(updatedPhoto);
+    } catch (error) {
+      console.error("Erreur lors de la modification des paramètres de la photo", error);
+      res
+        .status(500)
+        .send("Erreur lors de la modification des paramètres de la photo");
+    }
+  },
   async delete(req, res) {
     try {
       const photo = await GalleryManager.delete(req.params.id);
