@@ -197,12 +197,6 @@ function Administration() {
           <div className="flex h-screen flex-col items-center justify-center text-3xl text-white">
             Photos des membres
               <div className="text-sm w-full">
-                Liste des photographes: 
-                {dataUsers.map((user: UserData) => (
-                  <div key={user.id}>
-                    {user.photograph ? user.name : ""}
-                  </div>
-                ))}
                 <PhotoUpload username={userName}/>
               </div>
             <Button type="submit" onClick={() => navigate("/")}>

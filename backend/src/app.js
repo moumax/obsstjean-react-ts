@@ -17,7 +17,6 @@ import SkyObjectsRouter from "./routes/SkyObjectsRouter.js";
 import LocationsRouter from "./routes/LocationsRouter.js";
 import UploadImagesRouter from "./routes/UploadImagesRouter.js";
 import GalleryRouter from "./routes/GalleryRouter.js";
-import FoldersNameRouter from "./routes/FoldersNameRouter.js";
 
 const router = Router();
 
@@ -57,9 +56,6 @@ router.use("/wavelength", WavelengthRouter);
 router.use("/skyobjects", SkyObjectsRouter);
 router.use("/locations", LocationsRouter);
 router.use("/gallery", GalleryRouter);
-
-// Search for different gallery folders by username to display it on frontend
-router.use("/foldersname", FoldersNameRouter);
 
 // Upload users images
 router.use(
