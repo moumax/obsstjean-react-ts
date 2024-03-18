@@ -79,9 +79,7 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="bg-transparent text-green-600">
-        <Button>
           <FileEdit />
-        </Button>
       </DialogTrigger>
       <DialogContent className="bg-blue-900 w-full">
         <DialogHeader>

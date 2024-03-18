@@ -26,9 +26,15 @@ function AdminPhotosDisplay({ username }) {
       <h2 className="text-xl text-center mb-7">Gestion de tes photos</h2>
       {responseData.map((image) => (
         <div className="flex flex-col items-center mb-4 text-xs overflow-hidden">
-          <EditPhotoParams id={image.id} title={image.title} description={image.description} username={username} />
-          <DeletePhoto id={image.id} name={image.title} username={username} />
-          <img className="w-40" src={`${import.meta.env.VITE_BACKEND_URL}/${username}/${image.imageName}`} alt={image.title} />
+          <div className="relative mb-2">
+            <img className="w-40" src={`${import.meta.env.VITE_BACKEND_URL}/${username}/${image.imageName}`} alt={image.title} />
+            <div className="absolute top-0 right-0 px-2 opacity-50">
+              <EditPhotoParams id={image.id} title={image.title} description={image.description} username={username} />
+            </div>
+            <div className="absolute top-0 right-0 px-10 opacity-50">
+              <DeletePhoto id={image.id} name={image.title} username={username} />
+            </div>
+          </div>
           <p className="text-yellow-300">{image.title}</p>
           <p style={{ wordWrap: 'break-word' }}>{image.description}</p>
         </div>
