@@ -63,6 +63,7 @@ const DisplaySelectorGallery = () => {
               allImages={imagesByUser[extractUserName(image.imagePath)]}
               imageName={image.imageName}
               userName={extractUserName(image.imagePath)}
+              description={image.description}
             />
           ))}
         </CarouselContent>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CarouselItem } from "@/components/ui/carousel";
 import DisplayAllImages from "./DisplayAllImages";
 
-function DisplayOneImage({ id, userName, imageName, title, allImages }) {
+function DisplayOneImage({ id, userName, imageName, title, allImages, description }) {
   const [showGallery, setShowGallery] = useState(false);
 
   const handleGalleryOpen = () => {
@@ -27,6 +27,7 @@ function DisplayOneImage({ id, userName, imageName, title, allImages }) {
           images={allImages}
           onClose={handleGalleryClose}
           title={title} // Passer le titre de l'image si nécessaire
+          description={description}
         />
       )}
     </>

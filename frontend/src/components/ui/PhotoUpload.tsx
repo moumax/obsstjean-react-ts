@@ -13,6 +13,7 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 function PhotoUpload() {
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const baseURL = "http://localhost:5000/api/upload/";
 
   return (
@@ -29,6 +30,18 @@ function PhotoUpload() {
             setTitle(e.target.value);
           }}
           placeholder="Titre de ton image"
+        />
+        <Label>
+          Description de la photo
+        </Label>
+        <Input
+          type="text"
+          className="text-black"
+          value={description}
+          onChange={e => {
+            setDescription(e.target.value);
+          }}
+          placeholder="Description de ton image"
         />
       </div>
       <FilePond
@@ -52,6 +65,7 @@ function PhotoUpload() {
             withCredentials: true,
             ondata: (formData) => {
               formData.append("title", title);
+              formData.append("description", description)
               return formData;
             }
           },

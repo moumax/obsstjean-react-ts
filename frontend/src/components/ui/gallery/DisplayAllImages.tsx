@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
 
-function DisplayAllImages({ userName, images, onClose }) {
+function DisplayAllImages({ userName, images, onClose, description }) {
   console.log("images", images)
   return (
     <Dialog open={true} onOpenChange={onClose}>
@@ -23,12 +23,20 @@ function DisplayAllImages({ userName, images, onClose }) {
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col">
-          {images && images.map((image, index) => (
-            <div className="flex flex-col items-center gap-4">
-              <p className="text-white mt-3">{image.title}</p>
-              <img key={index} src={`${import.meta.env.VITE_BACKEND_URL}/${userName}/${image.imageName}`} alt={`Image ${index}`} />
-            </div>
-          ))}
+          {images &&
+            images.map((image, index) => (
+              <div className="relative mb-2" key={index}>
+                <a href={`${import.meta.env.VITE_BACKEND_URL}/${userName}/${image.imageName}`} target="_blank">
+                  <img src={`${import.meta.env.VITE_BACKEND_URL}/${userName}/${image.imageName}`} alt={`Image ${index}`} />
+                </a>
+                <div className="absolute top-0 right-0 px-2  text-yellow-300 opacity-70">
+                  <p className="">{image.title}</p>
+                </div>
+                <div className="w-full absolute bottom-0 left-0 px-2 text-white opacity-70 text-xs">
+                  <p className="mt-3" style={{ wordWrap: 'break-word' }}>{image.description}</p>
+                </div>
+              </div>
+            ))}
         </div>
         <DialogFooter>
           <DialogClose
