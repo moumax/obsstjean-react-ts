@@ -22,7 +22,6 @@ interface DisplayAllImagesProps {
   title: string;
   description: string;
 }
-
 function DisplayAllImages( props: DisplayAllImagesProps) {
   return (
     <Dialog open={true} onOpenChange={props.onClose}>
@@ -39,7 +38,7 @@ function DisplayAllImages( props: DisplayAllImagesProps) {
           {props.images &&
             props.images.map((image: Image, index: number) => (
               <div className="relative mb-2" key={index}>
-                <a href={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${image.imageName}`} target="_blank">
+                <a href={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/original_${image.imageName}`} target="_blank">
                   <img src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${image.imageName}`} alt={`Image ${index}`} />
                 </a>
                 <div className="absolute top-0 right-0 px-2  text-yellow-300 opacity-70">

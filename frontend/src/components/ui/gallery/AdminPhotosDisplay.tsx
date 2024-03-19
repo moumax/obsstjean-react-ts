@@ -1,11 +1,9 @@
 import callAPI from "@/api/callAPI";
-import { useState } from "react";
 import useSWR from "swr";
 import DeletePhoto from "./modals/DeletePhoto";
 import EditPhotoParams from "./modals/EditPhotoParams";
 
 function AdminPhotosDisplay({ username }) {
-  const [images, setImages] = useState([])
   const {
     data: responseData,
     error: fetchError,
@@ -21,11 +19,13 @@ function AdminPhotosDisplay({ username }) {
     return <div>Chargement...</div>;
   }
 
+  const filteredImages = responseData.filter(image => !image.imageName.startsWith("original_"));
+
   return (
     <div>
       <h2 className="text-xl text-center mb-7">Gestion de tes photos</h2>
-      {responseData.map((image) => (
-        <div className="flex flex-col items-center mb-4 text-xs overflow-hidden">
+      {filteredImages.map((image) => (
+        <div key={image.id} className="flex flex-col items-center mb-4 text-xs overflow-hidden">
           <div className="relative mb-2">
             <img className="w-40" src={`${import.meta.env.VITE_BACKEND_URL}/${username}/${image.imageName}`} alt={image.title} />
             <div className="absolute top-0 right-0 px-2 opacity-50">
@@ -42,6 +42,5 @@ function AdminPhotosDisplay({ username }) {
     </div>
   );
 }
-
 
 export default AdminPhotosDisplay;

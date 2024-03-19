@@ -38,9 +38,13 @@ const DisplaySelectorGallery = () => {
       });
       setImagesByUser(images);
 
-      const randomImagesArray = Object.values(images).map((images) => {
-        const randomIndex = Math.floor(Math.random() * images.length);
-        return images[randomIndex];
+      const randomImagesArray: ImageData[] = [];
+      Object.values(images).forEach(userImages => {
+        const nonOriginalImages = userImages.filter(image => !image.imageName.startsWith("original_"));
+        if (nonOriginalImages.length > 0) {
+          const randomIndex = Math.floor(Math.random() * nonOriginalImages.length);
+          randomImagesArray.push(nonOriginalImages[randomIndex]);
+        }
       });
       setRandomImages(randomImagesArray);
     }
@@ -64,17 +68,19 @@ const DisplaySelectorGallery = () => {
     <section className="flex items-center justify-center">
       <Carousel className="w-[70%]">
         <CarouselContent>
-          {randomImages.map((image, index) => (
-            <DisplayOneImage
-              key={index}
-              id={index}
-              allImages={imagesByUser[extractUserName(image.imagePath)]}
-              imageName={image.imageName}
-              userName={extractUserName(image.imagePath)}
-              description={image.description}
-              title="Titre de l'image"
-            />
-          ))}
+          {randomImages
+            .filter(image => !image.imageName.startsWith("original_"))
+            .map((image, index) => (
+              <DisplayOneImage
+                key={index}
+                id={index}
+                allImages={imagesByUser[extractUserName(image.imagePath)].filter(image => !image.imageName.startsWith("original_"))}
+                imageName={image.imageName}
+                userName={extractUserName(image.imagePath)}
+                description={image.description}
+                title="Titre de l'image"
+              />
+            ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
