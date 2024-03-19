@@ -30,6 +30,21 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// Middleware pour la transformation de l'image
+const imageTransformMiddleware = (req, res, next) => {
+  const imageTransforms = req.files.map(file => {
+    const fileName = file.originalname;
+    const fileExtension = fileName.split('.').pop();
+    const thumbFileName = `${fileName.replace(`.${fileExtension}`, '')}_thumb.${fileExtension}`;
+    return {
+      ...file,
+      filename: thumbFileName
+    };
+  });
+  req.files = imageTransforms;
+  next();
+};
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -61,7 +76,8 @@ router.use("/gallery", GalleryRouter);
 router.use(
   "/upload",
   authorization,
-  upload.single("image"),
+  upload.array("image"),
+  imageTransformMiddleware, // Appliquer le middleware pour la transformation de l'image
   UploadImagesRouter,
 );
 

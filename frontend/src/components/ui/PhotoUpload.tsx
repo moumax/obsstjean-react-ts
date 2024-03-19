@@ -2,6 +2,8 @@ import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import "./filepond.css"
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { useRef, useState } from "react";
@@ -10,7 +12,7 @@ import { Input } from "./input";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./button";
 
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageTransform);
 
 function PhotoUpload() {
   const [image, setImage] = useState([]);
@@ -74,8 +76,19 @@ function PhotoUpload() {
         credits={false}
         maxFiles={5}
         instantUpload={false}
+        allowImageTransform={true}
+        allowImageResize={true}
         name="image"
         allowReorder={true}
+        imageTransformVariantsIncludeOriginal={true}
+        imageResizeTargetWidth={256}
+        imageTransformVariants={{
+          thumb_medium_: (file) => {
+            return {
+              width: 256
+            };
+          }
+        }}
         server={{
           process: {
             url: baseURL,
