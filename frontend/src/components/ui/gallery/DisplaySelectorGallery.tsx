@@ -9,19 +9,26 @@ import {
 } from "@/components/ui/carousel";
 import DisplayOneImage from "./DisplayOneImage";
 
+interface ImageData {
+  imagePath: string;
+  imageName: string;
+  description: string;
+  title: string;
+}
+
 const DisplaySelectorGallery = () => {
   const {
     data: responseData,
     error: fetchError,
     isLoading: isLoadingData,
-  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/`, callAPI);
+  } = useSWR<ImageData[]>(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/`, callAPI);
 
-  const [randomImages, setRandomImages] = useState([]);
-  const [imagesByUser, setImagesByUser] = useState({});
+  const [randomImages, setRandomImages] = useState<ImageData[]>([]);
+  const [imagesByUser, setImagesByUser] = useState<Record<string, ImageData[]>>({});
 
   useEffect(() => {
     if (responseData) {
-      const images = {};
+      const images: Record<string, ImageData[]> = {};
       responseData.forEach((image) => {
         const userName = extractUserName(image.imagePath);
         if (!images[userName]) {
@@ -39,7 +46,7 @@ const DisplaySelectorGallery = () => {
     }
   }, [responseData]);
 
-  const extractUserName = (path) => {
+  const extractUserName = (path: string) => {
     const parts = path.split("/");
     return parts[parts.length - 2];
   };
@@ -60,10 +67,12 @@ const DisplaySelectorGallery = () => {
           {randomImages.map((image, index) => (
             <DisplayOneImage
               key={index}
+              id={index}
               allImages={imagesByUser[extractUserName(image.imagePath)]}
               imageName={image.imageName}
               userName={extractUserName(image.imagePath)}
               description={image.description}
+              title="Titre de l'image"
             />
           ))}
         </CarouselContent>

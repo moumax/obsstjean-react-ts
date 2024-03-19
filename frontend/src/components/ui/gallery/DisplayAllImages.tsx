@@ -9,25 +9,38 @@ import {
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
 
-function DisplayAllImages({ userName, images, onClose, description }) {
-  console.log("images", images)
+interface Image {
+  imageName: string;
+  title: string;
+  description: string;
+}
+
+interface DisplayAllImagesProps {
+  userName: string;
+  images: Image[];
+  onClose: () => void;
+  title: string;
+  description: string;
+}
+
+function DisplayAllImages( props: DisplayAllImagesProps) {
   return (
-    <Dialog open={true} onOpenChange={onClose}>
+    <Dialog open={true} onOpenChange={props.onClose}>
       <DialogTrigger asChild className="bg-transparent text-green-600">
         <Button>Afficher la galerie</Button>
       </DialogTrigger>
       <DialogContent className="w-full bg-blue-900">
         <DialogHeader>
           <DialogTitle className="mb-5 text-white text-center text-2xl">
-            Gallerie photo de {userName}
+            Gallerie photo de {props.userName}
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col">
-          {images &&
-            images.map((image, index) => (
+          {props.images &&
+            props.images.map((image: Image, index: number) => (
               <div className="relative mb-2" key={index}>
-                <a href={`${import.meta.env.VITE_BACKEND_URL}/${userName}/${image.imageName}`} target="_blank">
-                  <img src={`${import.meta.env.VITE_BACKEND_URL}/${userName}/${image.imageName}`} alt={`Image ${index}`} />
+                <a href={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${image.imageName}`} target="_blank">
+                  <img src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${image.imageName}`} alt={`Image ${index}`} />
                 </a>
                 <div className="absolute top-0 right-0 px-2  text-yellow-300 opacity-70">
                   <p className="">{image.title}</p>
@@ -40,7 +53,7 @@ function DisplayAllImages({ userName, images, onClose, description }) {
         </div>
         <DialogFooter>
           <DialogClose
-            onClick={onClose}
+            onClick={props.onClose}
             className="w-full h-10 rounded-md bg-red-400 text-white"
           >
             Fermer

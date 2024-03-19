@@ -4,10 +4,11 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "./filepond.css"
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
 import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "./button";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -15,12 +16,25 @@ function PhotoUpload() {
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const filePondRef = useRef(null);
+  const [filesSelected, setFilesSelected] = useState(false); // Nouvel état pour suivre si des fichiers sont sélectionnés
   const baseURL = "http://localhost:5000/api/upload/";
   const { userName } = useAuth();
 
+  const handleUpload = () => {
+    if (filePondRef.current) {
+      filePondRef.current.processFiles();
+    }
+  };
+
+  const handleFileChange = (files) => {
+    setImage(files);
+    setFilesSelected(files.length > 0); // Met à jour l'état selon si des fichiers sont sélectionnés ou non
+  };
+
   return (
     <div className="mt-4">
-    <h2 className="text-xl text-center mb-7">Poste tes photos !</h2>
+      <h2 className="text-xl text-center mb-7">Poste tes photos !</h2>
       <div>
         <Label>
           Titre de la photo
@@ -59,6 +73,7 @@ function PhotoUpload() {
         files={image}
         credits={false}
         maxFiles={5}
+        instantUpload={false}
         name="image"
         allowReorder={true}
         server={{
@@ -74,7 +89,13 @@ function PhotoUpload() {
             }
           },
         }}
+        onupdatefiles={handleFileChange}
       />
+      {filesSelected && ( // Affiche le bouton uniquement si des fichiers sont sélectionnés
+        <Button onClick={handleUpload} className="btn bg-green-500 mt-4 w-full mb-5">
+          Upload
+        </Button>
+      )}
     </div>
   );
 }

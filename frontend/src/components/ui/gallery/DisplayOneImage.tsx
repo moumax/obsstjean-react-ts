@@ -2,7 +2,22 @@ import { useState } from "react";
 import { CarouselItem } from "@/components/ui/carousel";
 import DisplayAllImages from "./DisplayAllImages";
 
-function DisplayOneImage({ id, userName, imageName, title, allImages, description }) {
+interface Image {
+  imageName: string;
+  title: string;
+  description: string;
+}
+
+interface DisplayOneImageProps {
+  id: number;
+  userName: string;
+  imageName: string;
+  title: string;
+  description: string;
+  allImages: Image[];
+}
+
+function DisplayOneImage(props: DisplayOneImageProps) {
   const [showGallery, setShowGallery] = useState(false);
 
   const handleGalleryOpen = () => {
@@ -13,21 +28,19 @@ function DisplayOneImage({ id, userName, imageName, title, allImages, descriptio
     setShowGallery(false);
   };
 
-  console.log("allImage", allImages)
-
   return (
     <>
       <CarouselItem onClick={handleGalleryOpen}>
-        <div className="mb-2 text-center text-white">Galerie de {userName}</div>
-        <img src={`${import.meta.env.VITE_BACKEND_URL}/${userName}/${imageName}`} alt={title} />
+        <div className="mb-2 text-center text-white">Galerie de {props.userName}</div>
+        <img src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${props.imageName}`} alt={props.title} />
       </CarouselItem>
       {showGallery && (
         <DisplayAllImages
-          userName={userName}
-          images={allImages}
+          userName={props.userName}
+          images={props.allImages}
           onClose={handleGalleryClose}
-          title={title} // Passer le titre de l'image si nécessaire
-          description={description}
+          title={props.title}
+          description={props.description}
         />
       )}
     </>
