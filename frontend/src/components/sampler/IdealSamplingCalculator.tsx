@@ -20,10 +20,10 @@ export const IdealSamplingCalculator: React.FC<
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="text-center text-yellow-400">
+          <TableHead className="text-center text-primaryYellow">
             Echantillonage (" / pixel)
           </TableHead>
-          <TableHead className="text-center text-yellow-400">
+          <TableHead className="text-center text-primaryYellow">
             Echantillonage idéal
           </TableHead>
         </TableRow>

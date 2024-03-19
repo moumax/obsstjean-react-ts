@@ -38,7 +38,7 @@ function Contact() {
           L'Observatoire est ouvert tous les vendredis à partir de 21h00
         </p>
         <div className="flex w-full flex-col items-center justify-center gap-3">
-          <div className="flex gap-1 text-yellow-400">
+          <div className="flex gap-1 text-primaryYellow">
             <GoMail />
             <p>obsstjean</p>
             <p>
@@ -46,9 +46,9 @@ function Contact() {
             </p>
             <p>gmail.com</p>
           </div>
-          <div className="flex items-center gap-3 text-yellow-400">
+          <div className="flex items-center gap-3 text-primaryYellow">
             <a href="https://www.google.fr" target="_blank" rel="noreferrer">
-              <AiOutlineFacebook className="text-xl text-yellow-400" />
+              <AiOutlineFacebook className="text-xl text-primaryYellow" />
             </a>
             <p>Obsstjean</p>
           </div>

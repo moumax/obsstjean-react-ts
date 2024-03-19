@@ -2,7 +2,7 @@ function CardAbout({ data }) {
   return (
     <>
       <div className="flex w-full flex-col items-center">
-        <h3 className="m-[2vw] mb-[7vh] text-2xl text-yellow-300">
+        <h3 className="m-[2vw] mb-[7vh] text-2xl text-primaryYellow">
           {data.title}
         </h3>
         <img

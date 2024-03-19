@@ -93,7 +93,7 @@ function Administration() {
 
   return (
     <Tabs defaultValue="utilisateurs" className="h-full">
-      <TabsList className="flex w-full bg-transparent align-middle text-yellow-300">
+      <TabsList className="flex w-full bg-transparent align-middle text-primaryYellow">
         {isLoggedIn && (
           <div>
             <TabsTrigger className="text-xs" value="utilisateurs">

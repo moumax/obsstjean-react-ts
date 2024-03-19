@@ -16,7 +16,7 @@ function CardUser({ data: {email, name, role, id, password_hash} }: { data: Data
     <div>
       <Card className="bg-transparent">
         <CardHeader className="flex flex-row items-center justify-center gap-4 p-0">
-          <CardTitle className="text-yellow-400 text-xs">{email}</CardTitle>
+          <CardTitle className="text-primaryYellow text-xs">{email}</CardTitle>
           <CardTitle className="text-white text-xs">{name}</CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center">

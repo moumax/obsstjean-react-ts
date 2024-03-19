@@ -33,7 +33,7 @@ function CardMember({
         />
         <DeleteMembers id={id} member={member} />
         <CardHeader className="items-center p-0">
-          <CardTitle className="text-base text-yellow-400">{member}</CardTitle>
+          <CardTitle className="text-base text-primaryYellow">{member}</CardTitle>
         </CardHeader>
         <CardContent className="p-0 text-center text-gray-500">
           {email}

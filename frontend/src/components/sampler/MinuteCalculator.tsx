@@ -23,13 +23,13 @@ export const MinuteCalculator: React.FC<MinuteCalculatorProps> = ({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="text-center text-yellow-400">
+          <TableHead className="text-center text-primaryYellow">
             Largeur '
           </TableHead>
-          <TableHead className="text-center text-yellow-400">
+          <TableHead className="text-center text-primaryYellow">
             Hauteur '
           </TableHead>
-          <TableHead className="text-center text-yellow-400">
+          <TableHead className="text-center text-primaryYellow">
             Diagonale '
           </TableHead>
         </TableRow>

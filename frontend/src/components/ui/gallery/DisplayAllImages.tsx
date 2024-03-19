@@ -41,7 +41,7 @@ function DisplayAllImages( props: DisplayAllImagesProps) {
                 <a href={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/original_${image.imageName}`} target="_blank">
                   <img src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${image.imageName}`} alt={`Image ${index}`} />
                 </a>
-                <div className="absolute top-0 right-0 px-2  text-yellow-300 opacity-70">
+                <div className="absolute top-0 right-0 px-2  text-primaryYellow opacity-70">
                   <p className="">{image.title}</p>
                 </div>
                 <div className="w-full absolute bottom-0 left-0 px-2 text-white opacity-70 text-xs">

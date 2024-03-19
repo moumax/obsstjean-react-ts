@@ -53,7 +53,7 @@ function CardCameras({
     <div>
       <Card className="mb-2 bg-transparent">
         <CardHeader className="m-0 mx-2 mb-4 mt-1 flex flex-row items-center justify-between p-0">
-          <CardTitle className="text-sm text-yellow-400">{brand}</CardTitle>
+          <CardTitle className="text-sm text-primaryYellow">{brand}</CardTitle>
           <div className="self-end">
             <EditCamera
               id={id}

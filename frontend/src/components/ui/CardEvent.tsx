@@ -41,7 +41,7 @@ function CardEvent({
     <div className="mb-2">
       <Card className="bg-transparent">
         <CardHeader>
-          <CardTitle className="text-base text-yellow-400">{title}</CardTitle>
+          <CardTitle className="text-base text-primaryYellow">{title}</CardTitle>
           <CardDescription className="text-white opacity-50">
             {description}
           </CardDescription>

@@ -35,7 +35,7 @@ function AdminPhotosDisplay({ username }) {
               <DeletePhoto id={image.id} name={image.title} username={username} />
             </div>
           </div>
-          <p className="text-yellow-300">{image.title}</p>
+          <p className="text-primaryYellow">{image.title}</p>
           <p style={{ wordWrap: 'break-word' }}>{image.description}</p>
         </div>
       ))}
