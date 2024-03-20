@@ -31,7 +31,13 @@ function CardEvent({
 
   const currentPage = window.location.pathname;
 
-  const formattedDate = new Date(date).toLocaleDateString("fr-FR", {
+  const currentDate = new Date();
+  const eventDate = new Date(date);
+
+  const isPastEvent = eventDate < currentDate;
+  const isFutureEvent = eventDate > currentDate;
+
+  const formattedDate = eventDate.toLocaleDateString("fr-FR", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -39,7 +45,7 @@ function CardEvent({
 
   return (
     <div className="mb-2">
-      <Card className="bg-transparent">
+      <Card className={`bg-transparent ${isPastEvent ? 'border-red-500 border-opacity-20' : (isFutureEvent ? 'border-green-500 border-opacity-20' : '')}`}>
         <CardHeader>
           <CardTitle className="text-base text-primaryYellow">{title}</CardTitle>
           <CardDescription className="text-white opacity-50">
@@ -49,12 +55,12 @@ function CardEvent({
         <CardContent className="p-0 text-start mx-4">
           <div className="flex flex-col justify-between">
             <p className="text-white opacity-70 text-sm mb-2">{location}</p>
-            <p className="text-white opacity-70 text-sm">{formattedDate} à {hours == 0 ? "00" : `${hours}`}{minutes == 0 ? "h00" : `h${minutes}`}</p>
+            <p className="text-white opacity-70 text-sm text-right">{formattedDate} à {hours === 0 ? "00" : `${hours}`}{minutes === 0 ? "h00" : `h${minutes}`}</p>
           </div>
         </CardContent>
-            {isLoggedIn && currentPage !== "/" && (
-        <CardFooter className="p-0 mx-2">
-          <div className="flex w-full justify-end">
+        {isLoggedIn && currentPage !== "/" && (
+          <CardFooter className="p-0 mx-2">
+            <div className="flex w-full justify-end">
               <>
                 <EditEvents
                   title={title}
@@ -67,9 +73,9 @@ function CardEvent({
                 />
                 <DeleteEvents id={id} title={title} />
               </>
-          </div>
-        </CardFooter>
-            )}
+            </div>
+          </CardFooter>
+        )}
       </Card>
     </div>
   );

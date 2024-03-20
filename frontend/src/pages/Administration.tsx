@@ -91,6 +91,16 @@ function Administration() {
     return `Erreur lors du chargement : ${errorLocations.message}`;
   if (isLoadingLocations) return "chargement en cours...";
 
+  const currentDate = new Date();
+
+  const upcomingEvents = dataEvents.filter((event: Event) => new Date(event.date) > currentDate);
+  const pastEvents = dataEvents.filter((event: Event) => new Date(event.date) < currentDate);
+
+  upcomingEvents.sort((a: Event, b: Event) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  pastEvents.sort((a: Event, b: Event) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const sortedEvents = [...upcomingEvents, ...pastEvents];
+
   return (
     <Tabs defaultValue="utilisateurs" className="h-fit">
       <TabsList className="flex w-full bg-transparent align-middle text-primaryYellow">
@@ -173,7 +183,7 @@ function Administration() {
             <div className="text-white text-xl flex justify-around items-center my-10">
               Liste des évènements <AddEvent />
             </div>
-            {dataEvents.map((event: EventData) => (
+            {sortedEvents.map((event: EventData) => (
               <div key={event.id}>
                 <CardEvent data={event} />
               </div>

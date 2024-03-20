@@ -1,6 +1,6 @@
+import useSWR from "swr";
 import callAPI from "@/api/callAPI";
 import CardEvent from "@/components/ui/CardEvent.tsx";
-import useSWR from "swr";
 
 interface Event {
   id: number;
@@ -20,9 +20,19 @@ function Events() {
   if (errorEvents) return `Erreur lors du chargement : ${errorEvents.message}`;
   if (isLoadingEvents) return "chargement en cours...";
 
+  const currentDate = new Date();
+
+  const upcomingEvents = dataEvents.filter((event: Event) => new Date(event.date) > currentDate);
+  const pastEvents = dataEvents.filter((event: Event) => new Date(event.date) < currentDate);
+
+  upcomingEvents.sort((a: Event, b: Event) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  pastEvents.sort((a: Event, b: Event) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const sortedEvents = [...upcomingEvents, ...pastEvents];
+
   return (
     <div id="calendar">
-      {dataEvents.map((event: Event) => (
+      {sortedEvents.map((event: Event) => (
         <div key={event.id}>
           <CardEvent data={event} />
         </div>
