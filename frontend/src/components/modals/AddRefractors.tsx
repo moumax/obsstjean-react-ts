@@ -16,13 +16,13 @@ import {
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { useToast } from "@/components/ui/use-toast.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { mutate } from "swr";
 import * as z from "zod";
+import { toast } from "sonner"
 
 interface AddRefractorProps {
   brand?: string;
@@ -33,7 +33,6 @@ interface AddRefractorProps {
 }
 
 function AddRefractor(props: AddRefractorProps) {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
@@ -74,15 +73,14 @@ function AddRefractor(props: AddRefractorProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values), // Utiliser requestData au lieu de values
+        body: JSON.stringify(values),
         credentials: "include",
       });
-      toast({
-        description: `Téléscope créé avec succès !`,
-      });
+      toast.success('Téléscope créé avec succès !')
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/refractors/`);
     } catch (error) {
+      toast.error('Erreur lors de la création du téléscope...')
       console.error("Erreur lors de la création du téléscope", error);
     }
   }

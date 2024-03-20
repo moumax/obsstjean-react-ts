@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog.tsx";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner"
 
 interface DeleteLocationProps {
   id: number;
@@ -19,8 +19,6 @@ interface DeleteLocationProps {
 }
 
 function DeleteLocation(props: DeleteLocationProps) {
-  const { toast } = useToast();
-
   const handleDelete = async (locationId: number) => {
     try {
       await fetch(
@@ -30,12 +28,11 @@ function DeleteLocation(props: DeleteLocationProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `Lieu correctement supprimé de la base de données !`,
-      });
+      toast.success('Lieu correctement supprimé de la base de données !')
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/locations/`);
     } catch (error) {
       console.error("Erreur lors de la suppression du lieu", error);
+      toast.error('Erreur lors de la suppression du lieu...')
     }
   };
 

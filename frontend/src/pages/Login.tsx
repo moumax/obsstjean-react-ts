@@ -7,17 +7,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input.tsx";
-import { useToast } from "@/components/ui/use-toast";
 import loginSchema from "@/datas/validationLoginSchema.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { mutate } from "swr";
+import { toast } from "sonner"
 
 function Login() {
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   interface FormData {
     email: string;
@@ -35,13 +34,12 @@ function Login() {
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     try {
       await sendDataToDatabase(values);
-      toast({
-        description: "Tu es maintenant connecté !",
-      });
+      toast.success('Tu est connecté !')
       navigate("/");
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/session/`);
     } catch (error) {
-      console.error("Erreur dans le form:", error);
+      console.error("Erreur dans le formulaire :", error);
+      toast.error('La connexion a échoué...')
     }
   }
 
@@ -59,9 +57,7 @@ function Login() {
     );
 
     if (!response.ok) {
-      toast({
-        description: "Erreur dans le formulaire",
-      });
+      toast.error('Erreur dans le formulaire')
       throw new Error("Erreur dans le formulaire");
     }
     const data = await response.json();

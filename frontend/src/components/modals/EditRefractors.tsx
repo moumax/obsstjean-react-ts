@@ -22,7 +22,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form.tsx";
-import { toast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 import { mutate } from "swr";
 
 interface EditRefractorsProps {
@@ -78,13 +78,12 @@ function EditRefractors(props: EditRefractorsProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `Le téléscope ${props.brand} ${props.model} a bien été modifié`,
-      });
+      toast.success(`Le téléscope ${props.brand} ${props.model} a bien été modifié`)
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/refractors/`);
     } catch (error) {
       console.error("Erreur lors de la modification du téléscope", error);
+      toast.error('Erreur lors de la modification du téléscope...')
     }
   }
 

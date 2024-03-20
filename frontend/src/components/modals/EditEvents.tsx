@@ -31,7 +31,7 @@ import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar.tsx";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { toast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 import { mutate } from "swr";
 import LocationSelector from "../ui/LocationSelector";
 
@@ -60,15 +60,15 @@ function EditEvents(props: EditEventsProps) {
     }),
     location: z.string(),
     hours: z.coerce.number({
-  required_error: "L'heure est requise",
-  invalid_type_error: "L'heure doit être un nombre",
-}).nonnegative().max(23, {
+      required_error: "L'heure est requise",
+      invalid_type_error: "L'heure doit être un nombre",
+    }).nonnegative().max(23, {
       message: "Les heures doivent ne doivent pas dépasser 23",
     }),
     minutes: z.coerce.number({
-  required_error: "Les minutes sont requises",
-  invalid_type_error: "Les minutes doivent être un nombre",
-}).nonnegative().max(59, {
+      required_error: "Les minutes sont requises",
+      invalid_type_error: "Les minutes doivent être un nombre",
+    }).nonnegative().max(59, {
       message: "Les heures doivent ne doivent pas dépasser 59",
     }),
   });
@@ -89,43 +89,42 @@ function EditEvents(props: EditEventsProps) {
 
   const selectedDateRef = useRef(props.date ? new Date(props.date) : undefined);
 
-async function onSubmit(values: z.infer<typeof formSchema>) {
-  if (selectedDateRef.current) {
-    const year = selectedDateRef.current.getFullYear();
-    const month = selectedDateRef.current.getMonth() + 1;
-    const day = selectedDateRef.current.getDate();
-    const hours = selectedDateRef.current.getHours();
-    const minutes = selectedDateRef.current.getMinutes();
-    const seconds = selectedDateRef.current.getSeconds();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (selectedDateRef.current) {
+      const year = selectedDateRef.current.getFullYear();
+      const month = selectedDateRef.current.getMonth() + 1;
+      const day = selectedDateRef.current.getDate();
+      const hours = selectedDateRef.current.getHours();
+      const minutes = selectedDateRef.current.getMinutes();
+      const seconds = selectedDateRef.current.getSeconds();
 
-    // Créez une date en utilisant la date et l'heure locales
-    const localDate = new Date(year, month - 1, day + 1, hours, minutes, seconds);
+      // Créez une date en utilisant la date et l'heure locales
+      const localDate = new Date(year, month - 1, day + 1, hours, minutes, seconds);
 
-    // Convertissez la date locale en ISO format
-    const isoDate = localDate.toISOString().slice(0, 19).replace("T", " ");
+      // Convertissez la date locale en ISO format
+      const isoDate = localDate.toISOString().slice(0, 19).replace("T", " ");
 
-    const requestData = { ...values, date: isoDate };
-    try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/${props.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-        credentials: "include",
-      });
-      toast({
-        description: `L'évènement ${props.title} a bien été modifié`,
-      });
-      setOpen(false);
-      mutate(`${import.meta.env.VITE_BACKEND_URL}/api/events/`);
-    } catch (error) {
-      console.error("Erreur lors de la modification de l'évènement", error);
+      const requestData = { ...values, date: isoDate };
+      try {
+        await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/${props.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+          credentials: "include",
+        });
+        toast.success(`L'évènement ${props.title} a bien été modifié`)
+        setOpen(false);
+        mutate(`${import.meta.env.VITE_BACKEND_URL}/api/events/`);
+      } catch (error) {
+        console.error("Erreur lors de la modification de l'évènement", error);
+        toast.error('Erreur lors de la modification de l\'évènement...')
+      }
+    } else {
+      console.error("La date sélectionnée est indéfinie");
     }
-  } else {
-    console.error("La date sélectionnée est indéfinie");
   }
-}
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -175,7 +174,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <LocationSelector onSelectLocation={(locationId) =>  field.onChange({ target: { value: locationId.toString() } })} />
+                    <LocationSelector onSelectLocation={(locationId) => field.onChange({ target: { value: locationId.toString() } })} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -232,7 +231,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
                 <FormItem>
                   <FormControl>
                     <Input
-                    type="number"
+                      type="number"
                       placeholder={props.hours}
                       {...field}
                     />
@@ -248,7 +247,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
                 <FormItem>
                   <FormControl>
                     <Input
-                    type="number"
+                      type="number"
                       placeholder={props.minutes}
                       {...field}
                     />

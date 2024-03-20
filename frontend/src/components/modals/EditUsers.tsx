@@ -29,7 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select.tsx";
-import { useToast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 
 interface EditUsersProps {
   id: number;
@@ -40,8 +40,6 @@ interface EditUsersProps {
 }
 
 function EditUsers(props: EditUsersProps) {
-  const { toast } = useToast();
-
   const formSchema = z.object({
     email: z.string().min(5).max(75, {
       message: "Le titre doit contenir entre 5 et 75 caractères",
@@ -72,12 +70,11 @@ function EditUsers(props: EditUsersProps) {
         },
         body: JSON.stringify(values), // Envoyer les données du formulaire
       });
-      toast({
-        description: `L'utilisateur ${props.name} a bien été modifié`,
-      });
+      toast.success(`L'utilisateur ${props.name} a bien été modifié`)
       mutate(`${import.meta.env.VITE_BACKEND_URL}/users/`);
     } catch (error) {
       console.error("Erreur lors de la modification de l'utilisateur", error);
+      toast.error('Erreur lors de la modification de l\'utilisateur...')
     }
   }
 

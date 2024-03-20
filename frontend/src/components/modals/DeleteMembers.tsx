@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog.tsx";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner"
 
 interface DeleteMemberProps {
   id: number;
@@ -19,8 +19,6 @@ interface DeleteMemberProps {
 }
 
 function DeleteMembers(props: DeleteMemberProps) {
-  const { toast } = useToast();
-
   const handleDelete = async (memberId: number) => {
     try {
       await fetch(
@@ -30,12 +28,11 @@ function DeleteMembers(props: DeleteMemberProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `Membre correctement supprimé de la base de données !`,
-      });
+      toast.success('Membre correctement supprimé de la base de données !')
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/members/`);
     } catch (error) {
-      console.error("Erreur lors de la suppression du membre ", error);
+      console.error("Erreur lors de la suppression du membre", error);
+      toast.error('Erreur lors de la suppression du membre')
     }
   };
 

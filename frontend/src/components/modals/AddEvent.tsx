@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { useToast } from "@/components/ui/use-toast.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, PlusCircle } from "lucide-react";
 import { useRef, useState } from "react";
@@ -34,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
 import LocationSelector from "../ui/LocationSelector";
+import { toast } from "sonner"
 
 interface AddEventProps {
   id?: number;
@@ -46,7 +46,6 @@ interface AddEventProps {
 }
 
 function AddEvent(props: AddEventProps) {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
@@ -115,12 +114,11 @@ function AddEvent(props: AddEventProps) {
           body: JSON.stringify(requestData),
           credentials: "include",
         });
-        toast({
-          description: `Événement créé avec succès !`,
-        });
+        toast.success('Événement créé avec succès !')
         setOpen(false);
         mutate(`${import.meta.env.VITE_BACKEND_URL}/api/events/`);
       } catch (error) {
+        toast.error('Erreur lors de la création de l\'événement...')
         console.error("Erreur lors de la création de l'événement", error);
       }
     } else {

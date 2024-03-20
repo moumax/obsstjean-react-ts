@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button.tsx";
-import { toast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 import { BiLogoJavascript, BiLogoReact } from "react-icons/bi";
 import { SiMysql } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
@@ -26,18 +26,14 @@ function Footer() {
         },
       );
       if (!response.ok) {
-        toast({
-          description: "Logout impossible",
-        });
+        toast.error('Déconnexion impossible...')
         throw new Error("Erreur dans la fonction logout");
       }
-
-      toast({
-        description: "Tu es déconnecté !",
-      });
+      toast.success('Tu es déconnecté !')
       refreshPage();
     } catch (error) {
       console.error("Erreur lors de la déconnexion:", error);
+      toast.error('Erreur lors de la déconnexion')
     }
   };
 

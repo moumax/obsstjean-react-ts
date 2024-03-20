@@ -2,10 +2,10 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "@/pages/Home.tsx";
 import Login from "@/pages/Login.tsx";
 import Administration from "@/pages/Administration.tsx";
-import { Toaster } from "@/components/ui/toaster.tsx";
 import Signup from "@/pages/Signup.tsx";
 import { Button } from "./components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { Toaster } from "./components/ui/sonner"
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <main className="h-fit bg-[#072449]">
-      <Toaster />
+      <Toaster position="bottom-right" expand/>
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />

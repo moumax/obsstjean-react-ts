@@ -3,7 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx"
-import { useToast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import signUpSchema from "@/datas/validationUsersSchema.ts"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -14,7 +14,6 @@ import * as z from "zod"
 export default function Signup() {
   const { mutate } = useSWRConfig()
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -30,13 +29,12 @@ export default function Signup() {
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     try {
       await sendDataToDatabase(values);
-      toast({
-        description: "Le compte a bien été créé",
-      })
+      toast.success('Ton compte a bien été créé')
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/users/`)
       navigate("/");
     } catch (error) {
       console.error("Error submitting datas:", error);
+      toast.error('Erreur lors de la création de ton compte...')
     }
   }
   const sendDataToDatabase = async (form: { role: string; email: string; password: string; name: string; photograph: boolean }) => {
@@ -49,7 +47,7 @@ export default function Signup() {
     });
 
     if (!response.ok) {
-    console.log(response)
+      toast.error('Erreur lors de l\'envoi des données au server...')
       throw new Error('Failed to submit data');
     }
 

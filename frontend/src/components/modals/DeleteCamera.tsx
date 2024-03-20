@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog.tsx";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner"
 
 interface DeleteCameraProps {
   id: number;
@@ -20,8 +20,6 @@ interface DeleteCameraProps {
 }
 
 function DeleteCamera(props: DeleteCameraProps) {
-  const { toast } = useToast();
-
   const handleDelete = async (cameraId: number) => {
     try {
       await fetch(
@@ -30,11 +28,10 @@ function DeleteCamera(props: DeleteCameraProps) {
           method: "DELETE",
         },
       );
-      toast({
-        description: `La caméra ${props.brand}, ${props.model} a bien été supprimé`,
-      });
+      toast.success(`La caméra ${props.brand}, ${props.model} a bien été supprimé`)
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/cameras/`);
     } catch (error) {
+      toast.error(`Erreur lors de la supression de la caméra ${props.brand}, ${props.model}`)
       console.error("Erreur lors de la suppression de la caméra", error);
     }
   };

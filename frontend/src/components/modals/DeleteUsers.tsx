@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog.tsx";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner"
 
 interface DeleteUsersProps {
   id: number;
@@ -19,19 +19,16 @@ interface DeleteUsersProps {
 }
 
 function DeleteUsers(props: DeleteUsersProps) {
-  const { toast } = useToast();
-
   const handleDelete = async (userId: number) => {
     try {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
         method: "DELETE",
       });
-      toast({
-        description: `L'utilisateur ${props.name} a bien été supprimé`,
-      });
+      toast.success(`L'utilisateur ${props.name} a bien été supprimé`)
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/users/`);
     } catch (error) {
       console.error("Erreur lors de la suppression de l'utilisateur", error);
+      toast.error('Erreur lors de la suppression de l\'utilisateur')
     }
   };
 

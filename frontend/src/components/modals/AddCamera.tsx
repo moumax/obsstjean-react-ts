@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button.tsx";
+import { toast } from "sonner"
 import {
   Dialog,
   DialogClose,
@@ -17,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { useToast } from "@/components/ui/use-toast.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
@@ -44,7 +44,6 @@ interface AddCameraProps {
 }
 
 function AddCamera(props: AddCameraProps) {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
@@ -128,13 +127,12 @@ function AddCamera(props: AddCameraProps) {
         body: JSON.stringify(values),
         credentials: "include",
       });
-      toast({
-        description: `Caméra créé avec succès !`,
-      });
+      toast.success('Caméra crée avec succès !')
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/cameras/`);
     } catch (error) {
       console.error("Erreur lors de la création de la caméra", error);
+      toast.error('Erreur lors de la création de la caméra...')
     }
   }
 

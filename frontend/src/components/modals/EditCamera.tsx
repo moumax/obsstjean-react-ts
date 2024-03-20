@@ -22,7 +22,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form.tsx";
-import { toast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 import { mutate } from "swr";
 
 interface EditCameraProps {
@@ -131,13 +131,12 @@ function EditCamera(props: EditCameraProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `La caméra ${props.brand} ${props.model} a bien été modifié`,
-      });
+      toast.success(`La caméra ${props.brand} ${props.model} a bien été modifié`)
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/cameras/`);
     } catch (error) {
       console.error("Erreur lors de la modification de la caméra", error);
+      toast.error('Erreur lors de la modification de la caméra...')
     }
   }
 

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog.tsx";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
-import { useToast } from "../../../ui/use-toast";
+import { toast } from "sonner"
 
 interface DeletePhotoProps {
   id: number;
@@ -20,8 +20,6 @@ interface DeletePhotoProps {
 }
 
 function DeletePhoto(props: DeletePhotoProps) {
-  const { toast } = useToast();
-
   const handleDelete = async (photoId: number) => {
     try {
       await fetch(
@@ -31,12 +29,11 @@ function DeletePhoto(props: DeletePhotoProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `Photo correctement supprimé de la base de données !`,
-      });
+      toast.success('Photo correctement supprimé de la base de données !')
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/${props.username}`);
     } catch (error) {
       console.error("Erreur lors de la suppression de la photo", error);
+      toast.error('Erreur lors de la suppression de la photo...')
     }
   };
 

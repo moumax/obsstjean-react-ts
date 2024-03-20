@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { useToast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FileEdit } from "lucide-react";
 import { useState } from "react";
@@ -41,7 +41,6 @@ interface EditMembersProps {
 }
 
 function EditMembers(props: EditMembersProps) {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
@@ -82,13 +81,12 @@ function EditMembers(props: EditMembersProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `Modification effectuée avec succès !`,
-      });
+      toast.success('Modification effectuée avec succès !')
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/members/`);
     } catch (error) {
       console.error("Erreur lors de la modification du membre", error);
+      toast.error('Erreur lors de la modification du membre...')
     }
   }
 

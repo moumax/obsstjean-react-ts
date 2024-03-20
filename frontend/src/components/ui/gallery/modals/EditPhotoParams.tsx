@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { useToast } from "@/components/ui/use-toast.ts";
+import { toast } from "sonner"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FileEdit } from "lucide-react";
 import { useState } from "react";
@@ -33,7 +33,6 @@ interface EditPhotoParamsProps {
 }
 
 function EditPhotoParams(props: EditPhotoParamsProps) {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
@@ -66,13 +65,12 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
           credentials: "include",
         },
       );
-      toast({
-        description: `Modification effectuée avec succès !`,
-      });
+      toast.success('Modification effectuée avec succès !')
       setOpen(false);
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/${props.username}`);
     } catch (error) {
       console.error("Erreur lors de la modification des paramètres de la photo", error);
+      toast.error('Erreur lors de la modification des paramètres de la photo...')
     }
   }
 

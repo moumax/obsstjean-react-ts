@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog.tsx";
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner"
 
 interface DeleteEventsProps {
   id: number;
@@ -19,19 +19,16 @@ interface DeleteEventsProps {
 }
 
 function DeleteEvents(props: DeleteEventsProps) {
-  const { toast } = useToast();
-
   const handleDelete = async (eventId: number) => {
     try {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/${eventId}`, {
         method: "DELETE",
       });
-      toast({
-        description: `L'évènement ${props.title} a bien été supprimé`,
-      });
+      toast.success(`L'évènement ${props.title} a bien été supprimé`)
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/events/`);
     } catch (error) {
       console.error("Erreur lors de la suppression de l'évènement", error);
+      toast.error('Erreur lors de la suppression de l\'évènement...')
     }
   };
 
