@@ -81,7 +81,7 @@ function EditUsers(props: EditUsersProps) {
   return (
     <Dialog>
       <DialogTrigger asChild className="bg-transparent text-green-600">
-        <Button>
+        <Button className="w-5 p-0 mx-1">
           <FileEdit />
         </Button>
       </DialogTrigger>

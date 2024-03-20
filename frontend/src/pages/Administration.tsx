@@ -40,7 +40,7 @@ function Administration() {
     data: dataEvents,
     error: errorEvents,
     isLoading: isLoadingEvents,
-  }  = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callAPI);
+  } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callAPI);
   const {
     data: dataUsers,
     error: errorUsers,
@@ -92,7 +92,7 @@ function Administration() {
   if (isLoadingLocations) return "chargement en cours...";
 
   return (
-    <Tabs defaultValue="utilisateurs" className="h-full">
+    <Tabs defaultValue="utilisateurs" className="h-fit">
       <TabsList className="flex w-full bg-transparent align-middle text-primaryYellow">
         {isLoggedIn && (
           <div>
@@ -121,18 +121,24 @@ function Administration() {
         {isLoggedIn &&
           (userRole === "Administrateur" ? (
             <div>
+              <div className="text-white text-xl flex justify-around items-center my-10">
+                Liste des utilisateurs
+              </div>
               {dataUsers.map((user: UserData) => (
                 <div key={user.id}>
                   <CardUser data={user} />
                 </div>
               ))}
-              <Button type="submit" onClick={() => navigate("/")}>
+              <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
                 Retour
               </Button>
             </div>
           ) : (
-            <div className="flex h-screen items-center justify-center text-2xl text-white">
+            <div className="flex flex-col items-center justify-center text-xl text-white">
               Tu n'as pas accès à cette section
+              <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
+                Retour à la page principale
+              </Button>
             </div>
           ))}
       </TabsContent>
@@ -141,7 +147,7 @@ function Administration() {
           (userRole === "Administrateur" ? (
             <div>
               <div className="text-white text-xl flex justify-around items-center my-10">
-                Liste membres
+                Liste des membres
                 <AddMembers />
               </div>
               {dataMembers.map((member: MemberData) => (
@@ -149,7 +155,7 @@ function Administration() {
                   <CardMember data={member} />
                 </div>
               ))}
-              <Button type="submit" onClick={() => navigate("/")}>
+              <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
                 Retour
               </Button>
             </div>
@@ -161,11 +167,11 @@ function Administration() {
       </TabsContent>
       <TabsContent value="evènements">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe") ? (
+          (userRole === "Administrateur" ||
+            userRole === "Rédacteur-Photographe") ? (
           <div>
             <div className="text-white text-xl flex justify-around items-center my-10">
-           Liste des évènements <AddEvent />
+              Liste des évènements <AddEvent />
             </div>
             {dataEvents.map((event: EventData) => (
               <div key={event.id}>
@@ -173,14 +179,14 @@ function Administration() {
               </div>
             ))}
             <div className="text-white text-xl flex justify-around items-center">
-           Adresses des évènements <AddLocation />
+              Adresses des évènements <AddLocation />
             </div>
             {dataLocations.map((location: LocationData) => (
               <div key={location.id}>
                 <CardLocations data={location} />
-               </div>
+              </div>
             ))}
-            <Button type="submit" onClick={() => navigate("/")}>
+            <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
               Retour
             </Button>
           </div>
@@ -192,16 +198,16 @@ function Administration() {
       </TabsContent>{" "}
       <TabsContent value="photos">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe" ||
-          userRole === "Photographe") ? (
+          (userRole === "Administrateur" ||
+            userRole === "Rédacteur-Photographe" ||
+            userRole === "Photographe") ? (
           <div className="flex h-full flex-col items-center justify-center text-3xl text-white">
-           Gestionnaire de photos
-              <div className="text-sm w-full">
-                <PhotoUpload username={userName}/>
-                <AdminPhotosDisplay username={userName}/>
-              </div>
-            <Button type="submit" onClick={() => navigate("/")}>
+            Gestionnaire de photos
+            <div className="text-sm w-full">
+              <PhotoUpload username={userName} />
+              <AdminPhotosDisplay username={userName} />
+            </div>
+            <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
               Retour
             </Button>
           </div>
@@ -213,13 +219,13 @@ function Administration() {
       </TabsContent>
       <TabsContent value="telescope">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe") ? (
+          (userRole === "Administrateur" ||
+            userRole === "Rédacteur-Photographe") ? (
           <div>
             <div className="text-white text-xl flex justify-around items-center my-10">
-            Optiques échantillonnage
-            <AddRefractor />
-              </div>
+              Optiques échantillonnage
+              <AddRefractor />
+            </div>
             {dataRefractors && dataRefractors.length > 0 ? (
               dataRefractors.map((refractors: RefractorData) => (
                 <div key={refractors.id} className="w-full">
@@ -229,7 +235,7 @@ function Administration() {
             ) : (
               <div>Aucun télescope trouvé</div>
             )}
-            <Button type="submit" onClick={() => navigate("/")}>
+            <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
               Retour
             </Button>
           </div>
@@ -241,8 +247,8 @@ function Administration() {
       </TabsContent>
       <TabsContent value="cameras">
         {isLoggedIn &&
-        (userRole === "Administrateur" ||
-          userRole === "Rédacteur-Photographe") ? (
+          (userRole === "Administrateur" ||
+            userRole === "Rédacteur-Photographe") ? (
           <div>
             <div className="text-white text-xl flex justify-around items-center my-10">
               Caméras échantillonnage
@@ -257,7 +263,7 @@ function Administration() {
             ) : (
               <div>Aucune caméra trouvé</div>
             )}
-            <Button type="submit" onClick={() => navigate("/")}>
+            <Button variant="destructive" type="submit" className="w-full mt-3" onClick={() => navigate("/")}>
               Retour
             </Button>
           </div>

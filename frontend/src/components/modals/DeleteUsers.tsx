@@ -12,6 +12,7 @@ import {
 import { Trash2 } from "lucide-react";
 import { mutate } from "swr";
 import { toast } from "sonner"
+import { Button } from "../ui/button";
 
 interface DeleteUsersProps {
   id: number;
@@ -34,8 +35,10 @@ function DeleteUsers(props: DeleteUsersProps) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="text-red-600">
-        <Trash2 />
+      <AlertDialogTrigger asChild className="text-red-600 bg-transparent">
+        <Button className="w-5 p-0 mx-1">
+          <Trash2 />
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-blue-800 text-white">
         <AlertDialogHeader>
