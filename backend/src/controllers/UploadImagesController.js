@@ -7,7 +7,7 @@ const UploadImagesController = {
     if (!req.files || Object.keys(req.files).length === 0) {
       return res
         .status(400)
-        .json({ message: "Veuillez sélectionner au moins une image." });
+        .json({ message: "Please, select at least one picture" });
     }
 
     const userName = req.userName;
@@ -17,7 +17,6 @@ const UploadImagesController = {
         const title = req.body.title;
         const description = req.body.description || "";
         const owner = req.body.owner || "";
-        const imageExtension = path.extname(imageFile.originalname);
         const imagePath = imageFile.path;
         const currentModuleURL = new URL(import.meta.url);
         const currentDirectory = path.dirname(currentModuleURL.pathname);
@@ -31,6 +30,10 @@ const UploadImagesController = {
         }
 
         fs.renameSync(imagePath, newImagePath);
+
+        if (originalFileName.startsWith("original_")) {
+          continue;
+        }
 
         await UploadImagesManager.uploadImage(
           originalFileName,
