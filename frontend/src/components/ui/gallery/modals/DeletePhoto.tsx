@@ -17,6 +17,7 @@ interface DeletePhotoProps {
   id: number;
   name: string;
   username: string;
+  path: string;
 }
 
 function DeletePhoto(props: DeletePhotoProps) {
@@ -57,7 +58,7 @@ function DeletePhoto(props: DeletePhotoProps) {
             Annuler
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => handleDelete(props.id)}
+            onClick={() => handleDelete(props.id, props.path)}
             className="bg-red-600"
           >
             Supprimer

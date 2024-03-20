@@ -14,6 +14,7 @@ interface ImageData {
   imageName: string;
   description: string;
   title: string;
+  owner: string;
 }
 
 const DisplaySelectorGallery = () => {
@@ -30,11 +31,11 @@ const DisplaySelectorGallery = () => {
     if (responseData) {
       const images: Record<string, ImageData[]> = {};
       responseData.forEach((image) => {
-        const userName = extractUserName(image.imagePath);
-        if (!images[userName]) {
-          images[userName] = [];
+        const owner = image.owner;
+        if (!images[owner]) {
+          images[owner] = [];
         }
-        images[userName].push(image);
+        images[owner].push(image);
       });
       setImagesByUser(images);
 
@@ -68,19 +69,17 @@ const DisplaySelectorGallery = () => {
     <section className="flex items-center justify-center">
       <Carousel className="w-[70%]">
         <CarouselContent>
-          {randomImages
-            .filter(image => !image.imageName.startsWith("original_"))
-            .map((image, index) => (
-              <DisplayOneImage
-                key={index}
-                id={index}
-                allImages={imagesByUser[extractUserName(image.imagePath)].filter(image => !image.imageName.startsWith("original_"))}
-                imageName={image.imageName}
-                userName={extractUserName(image.imagePath)}
-                description={image.description}
-                title="Titre de l'image"
-              />
-            ))}
+          {randomImages.map((image, index) => (
+            <DisplayOneImage
+              key={index}
+              id={index}
+              allImages={imagesByUser[image.owner]}
+              imageName={image.imageName}
+              userName={image.owner}
+              description={image.description}
+              title={image.title}
+            />
+          ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />

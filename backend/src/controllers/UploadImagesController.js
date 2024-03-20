@@ -37,7 +37,7 @@ const UploadImagesController = {
 
         await UploadImagesManager.uploadImage(
           originalFileName,
-          newImagePath,
+          userFolder,
           title,
           description,
           owner,

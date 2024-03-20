@@ -19,7 +19,7 @@ function PhotoUpload() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const filePondRef = useRef(null);
-  const [filesSelected, setFilesSelected] = useState(false); // Nouvel état pour suivre si des fichiers sont sélectionnés
+  const [filesSelected, setFilesSelected] = useState(false);
   const baseURL = "http://localhost:5000/api/upload/";
   const { userName } = useAuth();
 
@@ -31,7 +31,7 @@ function PhotoUpload() {
 
   const handleFileChange = (files) => {
     setImage(files);
-    setFilesSelected(files.length > 0); // Met à jour l'état selon si des fichiers sont sélectionnés ou non
+    setFilesSelected(files.length > 0);
   };
 
   return (

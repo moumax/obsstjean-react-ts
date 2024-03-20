@@ -1,4 +1,6 @@
 import dbpool from "../services/db.js";
+import fs from "fs/promises"
+import path from "path"
 
 const GalleryManager = {
   async getAll() {
@@ -31,6 +33,16 @@ const GalleryManager = {
   },
   async delete(id) {
     try {
+      const [photo] = await dbpool.query("SELECT * FROM images WHERE id = ?", [id]);
+      const filepath = photo[0].imagePath;
+      const imagename = photo[0].imageName;
+      const prefix = "original_"
+      const fullPathResized = path.join(filepath, imagename);
+      const fullPathOriginal = path.join(filepath, prefix + imagename);
+
+      await fs.unlink(fullPathResized);
+      await fs.unlink(fullPathOriginal);
+
       const [result] = await dbpool.query("DELETE FROM images WHERE id = ?", id);
       return result.affectedRows;
     } catch (err) {

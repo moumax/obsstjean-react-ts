@@ -32,7 +32,7 @@ function AdminPhotosDisplay({ username }) {
               <EditPhotoParams id={image.id} title={image.title} description={image.description} username={username} />
             </div>
             <div className="absolute top-0 right-0 px-10 opacity-50">
-              <DeletePhoto id={image.id} name={image.title} username={username} />
+              <DeletePhoto id={image.id} name={image.title} username={username} path={image.imagePath}/>
             </div>
           </div>
           <p className="text-primaryYellow">{image.title}</p>
