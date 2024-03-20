@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import DisplayOneImage from "./DisplayOneImage";
+import { LoadingSpinner } from "../loader";
 
 interface ImageData {
   imagePath: string;
@@ -57,12 +58,11 @@ const DisplaySelectorGallery = () => {
   };
 
   if (fetchError) {
-    console.error("Erreur lors de la récupération des données :", fetchError);
-    return <div>Erreur lors de la récupération des données</div>;
+    return <div className="text-white">Erreur lors de la récupération des données</div>;
   }
 
   if (isLoadingData) {
-    return <div>Chargement...</div>;
+    return <LoadingSpinner size={72} />;
   }
 
   return (

@@ -2,6 +2,7 @@ import callAPI from "@/api/callAPI";
 import useSWR from "swr";
 import DeletePhoto from "./modals/DeletePhoto";
 import EditPhotoParams from "./modals/EditPhotoParams";
+import { LoadingSpinner } from "../loader";
 
 function AdminPhotosDisplay({ username }) {
   const {
@@ -11,12 +12,11 @@ function AdminPhotosDisplay({ username }) {
   } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/gallery/${username}`, callAPI);
 
   if (fetchError) {
-    console.error("Erreur lors de la récupération des données :", fetchError);
-    return <div>Erreur lors de la récupération des données</div>;
+    return <div className="text-white">Erreur lors de la récupération des données</div>;
   }
 
   if (isLoadingData) {
-    return <div>Chargement...</div>;
+    return <LoadingSpinner size={72} />;
   }
 
   const filteredImages = responseData.filter(image => !image.imageName.startsWith("original_"));

@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import callAPI from "@/api/callAPI";
 import CardEvent from "@/components/ui/CardEvent.tsx";
+import { LoadingSpinner } from "../ui/loader";
 
 interface Event {
   id: number;
@@ -17,8 +18,8 @@ function Events() {
     isLoading: isLoadingEvents,
   } = useSWR(`${import.meta.env.VITE_BACKEND_URL}/api/events/`, callAPI);
 
-  if (errorEvents) return `Erreur lors du chargement : ${errorEvents.message}`;
-  if (isLoadingEvents) return "chargement en cours...";
+  if (errorEvents) return <div className="text-white">Erreur lors du chargement : {errorEvents.message}</div>;
+  if (isLoadingEvents) return <LoadingSpinner size={72} />;
 
   const currentDate = new Date();
 

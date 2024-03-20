@@ -40,6 +40,7 @@ import { IdealSamplingCalculator } from "./sampler/IdealSamplingCalculator";
 import { WavelengthSelector } from "./sampler/WavelengthSelector";
 import { TurbulenceInput } from "./sampler/TurbulenceInput";
 import { BarlowSizeInput } from "./sampler/BarlowSizeInput";
+import { LoadingSpinner } from "./ui/loader";
 
 function Sampling() {
   const [turbulence, setTurbulence] = useState(1);
@@ -93,20 +94,20 @@ function Sampling() {
   };
 
   if (errorCameras)
-    return `Erreur lors du chargement : ${errorCameras.message}`;
-  if (isLoadingCameras) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorCameras.message}</div>;
+  if (isLoadingCameras) return <LoadingSpinner size={72} />;
 
   if (errorRefractors)
-    return `Erreur lors du chargement : ${errorRefractors.message}`;
-  if (isLoadingRefractors) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorRefractors.message}</div>;
+  if (isLoadingRefractors) return <LoadingSpinner size={72} />;
 
   if (errorWavelength)
-    return `Erreur lors du chargement : ${errorWavelength.message}`;
-  if (isLoadingWavelength) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorWavelength.message}</div>;
+  if (isLoadingWavelength) return <LoadingSpinner size={72} />;
 
   if (errorSkyObjects)
-    return `Erreur lors du chargement : ${errorSkyObjects.message}`;
-  if (isLoadingSkyObjects) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorSkyObjects.message}</div>;
+  if (isLoadingSkyObjects) return <LoadingSpinner size={72} />;
 
   const widthSecondCalculationResult = widthSecondCalculation(
     selectedRefractor,

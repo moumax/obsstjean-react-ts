@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select.tsx";
 import useSWR from "swr";
 import callAPI from "@/api/callAPI";
+import { LoadingSpinner } from "./loader";
 
 interface Location {
   id: number;
@@ -26,8 +27,8 @@ const { data: locations, error: errorLocation, isValidating } = useSWR<Location[
   );
 
   if (errorLocation)
-    return `Erreur lors du chargement : ${errorLocation.message}`;
-  if (!locations || isValidating) return "Chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorLocation.message}</div>;
+  if (!locations || isValidating) return <LoadingSpinner size={72} />;
 
   return (
     <Select onValueChange={(value) => onSelectLocation(value)}>

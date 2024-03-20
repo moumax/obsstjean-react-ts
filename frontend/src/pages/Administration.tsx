@@ -33,6 +33,7 @@ import CardCameras from "@/components/ui/CardCamera";
 import AddLocation from "@/components/modals/AddLocation";
 import PhotoUpload from "@/components/ui/PhotoUpload";
 import AdminPhotosDisplay from "@/components/ui/gallery/AdminPhotosDisplay";
+import { LoadingSpinner } from "@/components/ui/loader";
 
 function Administration() {
   const { isLoggedIn, userRole, userName } = useAuth();
@@ -69,27 +70,27 @@ function Administration() {
 
   const navigate = useNavigate();
 
-  if (errorEvents) return `Erreur lors du chargement : ${errorEvents.message}`;
-  if (isLoadingEvents) return "chargement en cours...";
+  if (errorEvents) return <div className="text-white">Erreur lors du chargement : {errorEvents.message}</div>
+  if (isLoadingEvents) return <LoadingSpinner size={72} />;
 
-  if (errorUsers) return `Erreur lors du chargement : ${errorUsers.message}`;
-  if (isLoadingUsers) return "chargement en cours...";
+  if (errorUsers) return <div className="text-white">Erreur lors du chargement : {errorUsers.message}</div>;
+  if (isLoadingUsers) return <LoadingSpinner size={72} />;
 
   if (errorMembers)
-    return `Erreur lors du chargement : ${errorMembers.message}`;
-  if (isLoadingMembers) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorMembers.message}</div>;
+  if (isLoadingMembers) return <LoadingSpinner size={72} />;
 
   if (errorRefractors)
-    return `Erreur lors du chargement : ${errorRefractors.message}`;
-  if (isLoadingRefractors) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorRefractors.message}</div>;
+  if (isLoadingRefractors) return <LoadingSpinner size={72} />;
 
   if (errorCameras)
-    return `Erreur lors du chargement : ${errorCameras.message}`;
-  if (isLoadingCameras) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorCameras.message}</div>;
+  if (isLoadingCameras) return <LoadingSpinner size={72} />;
 
   if (errorLocations)
-    return `Erreur lors du chargement : ${errorLocations.message}`;
-  if (isLoadingLocations) return "chargement en cours...";
+    return <div className="text-white">Erreur lors du chargement : {errorLocations.message}</div>;
+  if (isLoadingLocations) return <LoadingSpinner size={72} />;
 
   const currentDate = new Date();
 
