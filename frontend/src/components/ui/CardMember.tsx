@@ -21,18 +21,17 @@ function CardMember({
   data: Data
 }) {
   if (!member) return null
+
+  const isMember =
+    memberType === 'Membre' || memberType === 'Membre bienfaiteur'
+  const isNotMember = memberType === 'Ancien membre'
+
   return (
     <div className='mb-2'>
-      <Card className='bg-transparent'>
-        <EditMembers
-          id={id}
-          member={member}
-          email={email}
-          subscriptionDate={subscriptionDate}
-          memberType={memberType}
-        />
-        <DeleteMembers id={id} member={member} />
-        <CardHeader className='items-center p-0'>
+      <Card
+        className={`bg-transparent ${isNotMember ? 'border-red-500 border-opacity-30' : isMember ? 'border-green-500 border-opacity-30' : ''}`}
+      >
+        <CardHeader className='items-center p-0 pt-2'>
           <CardTitle className='text-base text-primaryYellow'>
             {member}
           </CardTitle>
@@ -40,12 +39,24 @@ function CardMember({
         <CardContent className='p-0 text-center text-gray-500'>
           {email}
         </CardContent>
+        {subscriptionDate && (
+          <CardContent className='p-0 text-center text-gray-500'>
+            Membre depuis le {subscriptionDate}
+          </CardContent>
+        )}
         <CardContent className='p-0 text-center text-gray-500'>
-          {subscriptionDate}
+          Statut : {memberType}
         </CardContent>
-        <CardContent className='p-0 text-center text-gray-500'>
-          {memberType}
-        </CardContent>
+        <div className='text-end pr-3'>
+          <EditMembers
+            id={id}
+            member={member}
+            email={email}
+            subscriptionDate={subscriptionDate}
+            memberType={memberType}
+          />
+          <DeleteMembers id={id} member={member} />
+        </div>
         <div className='flex w-full justify-end gap-2'></div>
       </Card>
     </div>

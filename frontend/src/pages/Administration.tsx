@@ -121,22 +121,43 @@ function Administration() {
   const currentDate = new Date()
 
   const upcomingEvents = dataEvents.filter(
-    (event: Event) => new Date(event.date) > currentDate
+    (event: EventData) => new Date(event.date) > currentDate
   )
   const pastEvents = dataEvents.filter(
-    (event: Event) => new Date(event.date) < currentDate
+    (event: EventData) => new Date(event.date) < currentDate
   )
 
   upcomingEvents.sort(
-    (a: Event, b: Event) =>
+    (a: EventData, b: EventData) =>
       new Date(a.date).getTime() - new Date(b.date).getTime()
   )
   pastEvents.sort(
-    (a: Event, b: Event) =>
+    (a: EventData, b: EventData) =>
       new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
   const sortedEvents = [...upcomingEvents, ...pastEvents]
+
+  const actualMembers = dataMembers.filter(
+    (member: MemberData) =>
+      member.memberType === 'Membre' ||
+      member.memberType === 'Membre bienfaiteur'
+  )
+  const oldMembers = dataMembers.filter(
+    (member: MemberData) => member.memberType === 'Ancien membre'
+  )
+  actualMembers.sort((a: MemberData, b: MemberData) => {
+    if (a.member < b.member) return -1
+    if (a.member > b.member) return 1
+    return 0
+  })
+
+  oldMembers.sort((a: MemberData, b: MemberData) => {
+    if (a.member < b.member) return -1
+    if (a.member > b.member) return 1
+    return 0
+  })
+  const sortedMembers = [...actualMembers, ...oldMembers]
 
   return (
     <Tabs defaultValue='utilisateurs' className='h-fit'>
@@ -207,7 +228,7 @@ function Administration() {
                 Liste des membres
                 <AddMembers />
               </div>
-              {dataMembers.map((member: MemberData) => (
+              {sortedMembers.map((member: MemberData) => (
                 <div key={member.id}>
                   <CardMember data={member} />
                 </div>
