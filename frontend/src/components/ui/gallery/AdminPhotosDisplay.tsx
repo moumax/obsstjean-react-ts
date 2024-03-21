@@ -44,7 +44,7 @@ function AdminPhotosDisplay({ username }) {
               src={`${import.meta.env.VITE_BACKEND_URL}/${username}/${image.imageName}`}
               alt={image.title}
             />
-            <div className='absolute top-0 right-0 px-10 opacity-50'>
+            <div className='absolute top-1 right-0 px-10 opacity-50'>
               <DeletePhoto
                 id={image.id}
                 name={image.title}
@@ -52,7 +52,7 @@ function AdminPhotosDisplay({ username }) {
                 path={image.imagePath}
               />
             </div>
-            <div className='absolute top-0 right-0 px-2 opacity-50'>
+            <div className='absolute top-1 right-0 px-2 opacity-50'>
               <EditPhotoParams
                 id={image.id}
                 title={image.title}
