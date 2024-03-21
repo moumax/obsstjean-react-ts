@@ -85,7 +85,7 @@ function EditUsers(props: EditUsersProps) {
           <FileEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 sm:max-w-[425px]'>
+      <DialogContent className='bg-blue-900 w-full'>
         <DialogHeader>
           <DialogTitle className='text-white'>
             Modifier un utilisateur
@@ -149,7 +149,7 @@ function EditUsers(props: EditUsersProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400' type='submit'>
+            <Button className='bg-green-400 w-full' type='submit'>
               Sauvegarder
             </Button>
           </form>
