@@ -1,50 +1,50 @@
-import { verifyPassword } from "../helpers/argonHelper.js";
-import { encodeJwt } from "../helpers/jwtHelper.js";
-import UsersManager from "../models/UsersManager.js";
+import { verifyPassword } from '../helpers/argonHelper.js'
+import { encodeJwt } from '../helpers/jwtHelper.js'
+import UsersManager from '../models/UsersManager.js'
 
 const AuthController = {
   async login(req, res) {
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
     try {
-      const user = await UsersManager.getUserByEmail(email);
+      const user = await UsersManager.getUserByEmail(email)
       if (!user) {
-        return res.status(401).json({ message: "" });
+        return res.status(401).json({ message: '' })
       }
       const passwordMatch = await verifyPassword(
         password,
-        user[0].password_hash,
-      );
+        user[0].password_hash
+      )
 
       if (!passwordMatch) {
-        return res.status(401).json({ message: "Utilisateur invalide" });
+        return res.status(401).json({ message: 'Utilisateur invalide' })
       }
 
       const token = encodeJwt({
         email: user[0].email,
         name: user[0].name,
-        role: user[0].role,
-      });
+        role: user[0].role
+      })
 
-      res.cookie("access_token", token, {
+      res.cookie('access_token', token, {
         httpOnly: true,
         secure: false,
-        sameSite: "strict",
-      });
+        sameSite: 'strict'
+      })
 
       res.status(200).json({
         isAuthenticated: true,
         name: user[0].name,
-        role: user[0].role,
-      });
+        role: user[0].role
+      })
     } catch (err) {
-      console.error("Erreur de connexion", err);
-      res.status(500).send("Erreur interne du serveur");
+      console.error('Erreur de connexion', err)
+      res.status(500).send('Erreur interne du serveur')
     }
   },
   async logout(req, res) {
-    res.clearCookie("access_token", { path: "/" }).status(200).send("Ok.");
-  },
-};
+    res.clearCookie('access_token', { path: '/' }).status(200).send('Ok.')
+  }
+}
 
-export default AuthController;
+export default AuthController

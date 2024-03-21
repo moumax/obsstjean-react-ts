@@ -1,13 +1,13 @@
-import MembersManager from "../models/MembersManager.js";
+import MembersManager from '../models/MembersManager.js'
 
 const MembersController = {
   async getAllMembers(req, res) {
     try {
-      const members = await MembersManager.getAll();
-      res.status(200).json(members);
+      const members = await MembersManager.getAll()
+      res.status(200).json(members)
     } catch (error) {
-      console.error("Erreur lors de la récupération des members", error);
-      res.status(500).send("Erreur server lors de la récupération des members");
+      console.error('Erreur lors de la récupération des members', error)
+      res.status(500).send('Erreur server lors de la récupération des members')
     }
   },
 
@@ -16,18 +16,18 @@ const MembersController = {
       member: req.body.member,
       email: req.body.email,
       subscriptionDate: req.body.subscriptionDate,
-      memberType: req.body.memberType,
-    };
+      memberType: req.body.memberType
+    }
 
     try {
       const createdMember = await MembersManager.create({
-        ...newMember,
-      });
+        ...newMember
+      })
 
-      res.status(201).json(createdMember);
+      res.status(201).json(createdMember)
     } catch (error) {
-      console.error("Erreur lors de la création du membre", error);
-      res.status(500).send("Erreur serveur lors de la création du membre");
+      console.error('Erreur lors de la création du membre', error)
+      res.status(500).send('Erreur serveur lors de la création du membre')
     }
   },
 
@@ -36,30 +36,30 @@ const MembersController = {
       member: req.body.member,
       email: req.body.email,
       subscriptionDate: req.body.subscriptionDate,
-      memberType: req.body.memberType,
-    };
+      memberType: req.body.memberType
+    }
 
     try {
       const updatedMember = await MembersManager.update(
         memberToUpdate,
-        req.params.id,
-      );
-      res.status(200).json(updatedMember);
+        req.params.id
+      )
+      res.status(200).json(updatedMember)
     } catch (error) {
-      console.error("Erreur lors de la modification du membre", error);
-      res.status(500).send("Erreur server lors de la modification du membre");
+      console.error('Erreur lors de la modification du membre', error)
+      res.status(500).send('Erreur server lors de la modification du membre')
     }
   },
 
   async deleteMember(req, res) {
     try {
-      const member = await MembersManager.delete(req.params.id);
-      res.status(204).json(member);
+      const member = await MembersManager.delete(req.params.id)
+      res.status(204).json(member)
     } catch (error) {
-      console.error("Erreur lors de la suppression du membre", error);
-      res.status(500).send("Le membre n'a pas été supprimé");
+      console.error('Erreur lors de la suppression du membre', error)
+      res.status(500).send("Le membre n'a pas été supprimé")
     }
-  },
-};
+  }
+}
 
-export default MembersController;
+export default MembersController

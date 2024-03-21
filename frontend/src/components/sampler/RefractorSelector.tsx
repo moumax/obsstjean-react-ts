@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
-import { RefractorData } from "@/types/types";
+  SelectValue
+} from '@/components/ui/select.tsx'
+import { RefractorData } from '@/types/types'
 
 interface RefractorSelectorProps {
-  dataRefractors: RefractorData[];
-  selectedRefractor: RefractorData | null;
-  handleRefractorSelection: (refractor: RefractorData) => void;
-  barlowSize: number;
-  resolution: number;
+  dataRefractors: RefractorData[]
+  selectedRefractor: RefractorData | null
+  handleRefractorSelection: (refractor: RefractorData) => void
+  barlowSize: number
+  resolution: number
 }
 
 export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
@@ -23,42 +22,40 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
   selectedRefractor,
   handleRefractorSelection,
   barlowSize,
-  resolution,
+  resolution
 }) => {
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
 
   const handleBrandSelection = (brand: string) => {
-    setSelectedBrand(brand);
-  };
+    setSelectedBrand(brand)
+  }
 
   const handleModelSelection = (model: string) => {
     const selectedRefractor = dataRefractors.find(
-      (refractor) =>
-        refractor.brand === selectedBrand && refractor.model === model,
-    );
+      refractor =>
+        refractor.brand === selectedBrand && refractor.model === model
+    )
     if (selectedRefractor) {
-      handleRefractorSelection(selectedRefractor);
+      handleRefractorSelection(selectedRefractor)
     }
-  };
+  }
 
   const uniqueBrands = Array.from(
-    new Set(dataRefractors.map((refractor) => refractor.brand)),
-  );
+    new Set(dataRefractors.map(refractor => refractor.brand))
+  )
 
   const modelsForSelectedBrand = selectedBrand
     ? dataRefractors
-        .filter((refractor) => refractor.brand === selectedBrand)
-        .map((refractor) => refractor.model)
-    : [];
+        .filter(refractor => refractor.brand === selectedBrand)
+        .map(refractor => refractor.model)
+    : []
 
   return (
     <>
-      <div className="flex">
-        <Select
-          onValueChange={(value) => handleBrandSelection(value as string)}
-        >
-          <SelectTrigger className="mt-6 w-1/2">
-            <SelectValue placeholder="Marque du tube" />
+      <div className='flex'>
+        <Select onValueChange={value => handleBrandSelection(value as string)}>
+          <SelectTrigger className='mt-6 w-1/2'>
+            <SelectValue placeholder='Marque du tube' />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -73,10 +70,10 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
 
         {selectedBrand && (
           <Select
-            onValueChange={(value) => handleModelSelection(value as string)}
+            onValueChange={value => handleModelSelection(value as string)}
           >
-            <SelectTrigger className="mt-6 w-1/2">
-              <SelectValue placeholder="Modèle du tube" />
+            <SelectTrigger className='mt-6 w-1/2'>
+              <SelectValue placeholder='Modèle du tube' />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -92,15 +89,15 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
       </div>
 
       {selectedRefractor && (
-        <div className="pb-6 pt-6 text-gray-400">
+        <div className='pb-6 pt-6 text-gray-400'>
           <p>
-            Diametre:{" "}
-            <span className="font-bold">{selectedRefractor.diameter}</span>
+            Diametre:{' '}
+            <span className='font-bold'>{selectedRefractor.diameter}</span>
           </p>
           <p>
             {barlowSize > 1 ? (
-              <p className="text-green-600">
-                Focale avec barlow * {barlowSize} :{" "}
+              <p className='text-green-600'>
+                Focale avec barlow * {barlowSize} :{' '}
                 {selectedRefractor.focal * barlowSize}
               </p>
             ) : (
@@ -109,8 +106,8 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
           </p>
           <p>
             {barlowSize > 1 ? (
-              <p className="text-green-600">
-                Rapport F/D avec barlow * {barlowSize} :{" "}
+              <p className='text-green-600'>
+                Rapport F/D avec barlow * {barlowSize} :{' '}
                 {selectedRefractor.focal_ratio * barlowSize}
               </p>
             ) : (
@@ -118,10 +115,10 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
             )}
           </p>
           <p>
-            Resolution du tube : <span className="font-bold">{resolution}</span>
+            Resolution du tube : <span className='font-bold'>{resolution}</span>
           </p>
         </div>
       )}
     </>
-  );
-};
+  )
+}

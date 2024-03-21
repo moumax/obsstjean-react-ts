@@ -1,66 +1,66 @@
-import { FilePond, registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import { FilePond, registerPlugin } from 'react-filepond'
+import 'filepond/dist/filepond.min.css'
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import FilePondPluginImageTransform from 'filepond-plugin-image-transform'
 import FilePondPluginImageResize from 'filepond-plugin-image-resize'
-import "./filepond.css"
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { useRef, useState } from "react";
-import { Label } from "./label";
-import { Input } from "./input";
-import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "./button";
+import './filepond.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import { useRef, useState } from 'react'
+import { Label } from './label'
+import { Input } from './input'
+import { useAuth } from '@/contexts/AuthContext'
 
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageTransform);
+registerPlugin(
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImagePreview,
+  FilePondPluginImageResize,
+  FilePondPluginImageTransform
+)
 
 function PhotoUpload() {
-  const [image, setImage] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const filePondRef = useRef(null);
-  const [filesSelected, setFilesSelected] = useState(false);
-  const baseURL = "http://localhost:5000/api/upload/";
-  const { userName } = useAuth();
+  const [image, setImage] = useState([])
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const filePondRef = useRef(null)
+  const [filesSelected, setFilesSelected] = useState(false)
+  const baseURL = 'http://localhost:5000/api/upload/'
+  const { userName } = useAuth()
 
   const handleUpload = () => {
     if (filePondRef.current) {
-      filePondRef.current.processFiles();
+      filePondRef.current.processFiles()
     }
-  };
+  }
 
-  const handleFileChange = (files) => {
-    setImage(files);
-    setFilesSelected(files.length > 0);
-  };
+  const handleFileChange = files => {
+    setImage(files)
+    setFilesSelected(files.length > 0)
+  }
 
   return (
-    <div className="mt-4">
-      <h2 className="text-xl text-center mb-7">Poste tes photos !</h2>
+    <div className='mt-4'>
+      <h2 className='text-xl text-center mb-7'>Poste tes photos !</h2>
       <div>
-        <Label>
-          Titre de la photo
-        </Label>
+        <Label>Titre de la photo</Label>
         <Input
-          type="text"
-          className="text-black"
+          type='text'
+          className='text-black'
           value={title}
           onChange={e => {
-            setTitle(e.target.value);
+            setTitle(e.target.value)
           }}
-          placeholder="Titre de ton image"
+          placeholder='Titre de ton image'
         />
-        <Label>
-          Description de la photo
-        </Label>
+        <Label>Description de la photo</Label>
         <Input
-          type="text"
-          className="text-black"
+          type='text'
+          className='text-black'
           value={description}
           onChange={e => {
-            setDescription(e.target.value);
+            setDescription(e.target.value)
           }}
-          placeholder="Description de ton image"
+          placeholder='Description de ton image'
         />
       </div>
       <FilePond
@@ -75,7 +75,7 @@ function PhotoUpload() {
         credits={false}
         maxFiles={1}
         instantUpload={false}
-        name="image"
+        name='image'
         allowReorder
         imageTransformVariantsIncludeOriginal
         allowImageResize
@@ -86,13 +86,13 @@ function PhotoUpload() {
             url: baseURL,
             method: 'POST',
             withCredentials: true,
-            ondata: (formData) => {
-              formData.append("title", title);
-              formData.append("description", description)
-              formData.append("owner", userName)
-              return formData;
+            ondata: formData => {
+              formData.append('title', title)
+              formData.append('description', description)
+              formData.append('owner', userName)
+              return formData
             }
-          },
+          }
         }}
         onupdatefiles={handleFileChange}
       />
@@ -102,7 +102,7 @@ function PhotoUpload() {
         </Button>
       )} */}
     </div>
-  );
+  )
 }
 
-export default PhotoUpload;
+export default PhotoUpload

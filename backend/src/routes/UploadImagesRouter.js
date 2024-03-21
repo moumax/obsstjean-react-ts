@@ -1,9 +1,9 @@
-import UploadImagesController from "../controllers/UploadImagesController.js";
-import { Router } from "express";
+import UploadImagesController from '../controllers/UploadImagesController.js'
+import { Router } from 'express'
 
-const UploadImagesRouter = Router();
+const UploadImagesRouter = Router()
 
 // UploadImagesRouter.get("/", UploadImagesController.getAllImages);
-UploadImagesRouter.post("/", UploadImagesController.uploadImage);
+UploadImagesRouter.post('/', UploadImagesController.uploadImage)
 
-export default UploadImagesRouter;
+export default UploadImagesRouter

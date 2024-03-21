@@ -1,37 +1,37 @@
-import React from "react";
+import React from 'react'
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
-import { WavelengthData } from "@/types/types";
-import { Label } from "../ui/label";
+  SelectValue
+} from '@/components/ui/select.tsx'
+import { WavelengthData } from '@/types/types'
+import { Label } from '../ui/label'
 
 interface WavelengthSelectorProps {
-  dataWavelength: WavelengthData[];
-  setSelectedWavelength: WavelengthData;
-  handleWavelengthSelection: (wavelength: WavelengthData) => void;
+  dataWavelength: WavelengthData[]
+  setSelectedWavelength: WavelengthData
+  handleWavelengthSelection: (wavelength: WavelengthData) => void
 }
 
 export const WavelengthSelector: React.FC<WavelengthSelectorProps> = ({
   dataWavelength,
   setSelectedWavelength,
-  handleWavelengthSelection,
+  handleWavelengthSelection
 }) => {
   return (
     <>
-      <Label className="text-black-400">Filtre</Label>
+      <Label className='text-black-400'>Filtre</Label>
       <Select
-        onValueChange={(value) =>
+        onValueChange={value =>
           handleWavelengthSelection(value as unknown as WavelengthData)
         }
         defaultValue={() => setSelectedWavelength(dataWavelength[3])}
       >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="vert - 550" />
+        <SelectTrigger className='w-[180px]'>
+          <SelectValue placeholder='vert - 550' />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
@@ -46,5 +46,5 @@ export const WavelengthSelector: React.FC<WavelengthSelectorProps> = ({
         </SelectContent>
       </Select>
     </>
-  );
-};
+  )
+}

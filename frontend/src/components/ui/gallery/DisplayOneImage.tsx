@@ -1,38 +1,43 @@
-import { useState } from "react";
-import { CarouselItem } from "@/components/ui/carousel";
-import DisplayAllImages from "./DisplayAllImages";
+import { useState } from 'react'
+import { CarouselItem } from '@/components/ui/carousel'
+import DisplayAllImages from './DisplayAllImages'
 
 interface Image {
-  imageName: string;
-  title: string;
-  description: string;
+  imageName: string
+  title: string
+  description: string
 }
 
 interface DisplayOneImageProps {
-  id: number;
-  userName: string;
-  imageName: string;
-  title: string;
-  description: string;
-  allImages: Image[];
+  id: number
+  userName: string
+  imageName: string
+  title: string
+  description: string
+  allImages: Image[]
 }
 
 function DisplayOneImage(props: DisplayOneImageProps) {
-  const [showGallery, setShowGallery] = useState(false);
+  const [showGallery, setShowGallery] = useState(false)
 
   const handleGalleryOpen = () => {
-    setShowGallery(true);
-  };
+    setShowGallery(true)
+  }
 
   const handleGalleryClose = () => {
-    setShowGallery(false);
-  };
+    setShowGallery(false)
+  }
 
   return (
     <>
       <CarouselItem onClick={handleGalleryOpen}>
-        <div className="mb-2 text-center text-white">Galerie de {props.userName}</div>
-        <img src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${props.imageName}`} alt={props.title} />
+        <div className='mb-2 text-center text-white'>
+          Galerie de {props.userName}
+        </div>
+        <img
+          src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${props.imageName}`}
+          alt={props.title}
+        />
       </CarouselItem>
       {showGallery && (
         <DisplayAllImages
@@ -44,7 +49,7 @@ function DisplayOneImage(props: DisplayOneImageProps) {
         />
       )}
     </>
-  );
+  )
 }
 
-export default DisplayOneImage;
+export default DisplayOneImage
