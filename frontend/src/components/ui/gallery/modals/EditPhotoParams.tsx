@@ -23,6 +23,7 @@ import { FileEdit } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { mutate } from 'swr'
 import * as z from 'zod'
+import { useState } from 'react'
 
 interface EditPhotoParamsProps {
   username: string
@@ -32,6 +33,7 @@ interface EditPhotoParamsProps {
 }
 
 function EditPhotoParams(props: EditPhotoParamsProps) {
+  const [open, setOpen] = useState(false)
   const formSchema = z.object({
     title: z.string().min(5).max(75, {
       message: 'Le titre doit contenir entre 5 et 75 caractères'
@@ -79,7 +81,7 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className='bg-transparent text-green-600'>
         <FileEdit />
       </DialogTrigger>
