@@ -20,7 +20,6 @@ import { Input } from '@/components/ui/input.tsx'
 import { toast } from 'sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FileEdit } from 'lucide-react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { mutate } from 'swr'
 import * as z from 'zod'
@@ -33,8 +32,6 @@ interface EditPhotoParamsProps {
 }
 
 function EditPhotoParams(props: EditPhotoParamsProps) {
-  const [open, setOpen] = useState(false)
-
   const formSchema = z.object({
     title: z.string().min(5).max(75, {
       message: 'Le titre doit contenir entre 5 et 75 caractères'
@@ -82,8 +79,8 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className='bg-transparent text-green-600'>
+    <Dialog>
+      <DialogTrigger className='bg-transparent text-green-600'>
         <FileEdit />
       </DialogTrigger>
       <DialogContent className='bg-blue-900 w-full'>
