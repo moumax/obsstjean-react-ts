@@ -18,7 +18,7 @@ function Navbar() {
           </a>
         </li>
         <li>
-          <a href='#calendar'>
+          <a href='#selector'>
             <CalendarDays strokeWidth={1} color='orange' />
           </a>
         </li>

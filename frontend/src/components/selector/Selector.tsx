@@ -14,6 +14,7 @@ function Selector() {
     <Tabs
       defaultValue='events'
       className='h-full text-center w-full overflow-hidden mb-12'
+      id='selector'
     >
       <TabsList className='bg-transparent text-primaryYellow border border-gray-300'>
         <TabsTrigger

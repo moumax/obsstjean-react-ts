@@ -47,7 +47,7 @@ function Events() {
   const sortedEvents = [...upcomingEvents, ...pastEvents]
 
   return (
-    <div id='calendar'>
+    <div>
       {sortedEvents.map((event: Event) => (
         <div key={event.id}>
           <CardEvent data={event} />
