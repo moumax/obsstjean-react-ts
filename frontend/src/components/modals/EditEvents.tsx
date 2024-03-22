@@ -34,6 +34,7 @@ import { fr } from 'date-fns/locale'
 import { toast } from 'sonner'
 import { mutate } from 'swr'
 import LocationSelector from '../ui/LocationSelector'
+import { Textarea } from '../ui/textarea'
 
 interface EditEventsProps {
   id?: number
@@ -149,7 +150,7 @@ function EditEvents(props: EditEventsProps) {
           <FileEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 sm:max-w-[425px]'>
+      <DialogContent className='bg-blue-900 w-full'>
         <DialogHeader>
           <DialogTitle className='text-white'>
             Modifier un évènement
@@ -178,7 +179,7 @@ function EditEvents(props: EditEventsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.description} {...field} />
+                    <Textarea placeholder={props.description} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -246,35 +247,44 @@ function EditEvents(props: EditEventsProps) {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name='hours'
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input type='number' placeholder={props.hours} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='minutes'
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type='number'
-                      placeholder={props.minutes}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button className='bg-green-400' type='submit'>
+            <div className='flex items-center'>
+              <FormField
+                control={form.control}
+                name='hours'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className='w-1/2'
+                        type='number'
+                        placeholder={props.hours}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className='relative pr-20 text-white'>heure</div>
+              <FormField
+                control={form.control}
+                name='minutes'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className='w-1/2'
+                        type='number'
+                        placeholder={props.minutes}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button className='bg-green-400 w-full' type='submit'>
               Sauvegarder
             </Button>
           </form>
