@@ -89,10 +89,12 @@ function Navbar() {
             </li>
           )}
         </div>
-        <div className=''>
-          <p className='text-center text-xs text-primaryYellow p-1'>
-            <b>{isLoggedIn ? userName : 'visiteur'}</b>, tu es connecté !
-          </p>
+        <div>
+          {isLoggedIn && (
+            <p className='text-center text-xs text-primaryYellow p-1'>
+              <b>{userName}</b>, tu est connecté !
+            </p>
+          )}
         </div>
       </ul>
     </nav>
