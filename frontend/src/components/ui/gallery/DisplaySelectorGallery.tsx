@@ -80,7 +80,7 @@ const DisplaySelectorGallery = () => {
 
   return (
     <section className='flex items-center justify-center'>
-      <Carousel className='w-[70%]'>
+      <Carousel className='w-full'>
         <CarouselContent>
           {randomImages.map((image, index) => (
             <DisplayOneImage
@@ -94,8 +94,8 @@ const DisplaySelectorGallery = () => {
             />
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className=' mx-16 my-2 text-primaryYellow bg-transparent' />
+        <CarouselNext className='mx-16 my-2 text-primaryYellow bg-transparent' />
       </Carousel>
     </section>
   )

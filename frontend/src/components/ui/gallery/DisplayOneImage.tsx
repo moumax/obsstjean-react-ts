@@ -30,13 +30,18 @@ function DisplayOneImage(props: DisplayOneImageProps) {
 
   return (
     <>
-      <CarouselItem onClick={handleGalleryOpen}>
-        <div className='mb-2 text-center text-white'>
-          Galerie de {props.userName}
+      <CarouselItem
+        onClick={handleGalleryOpen}
+        className='flex flex-col items-center justify-center'
+      >
+        <div className='mb-2 text-center text-white/40 text-sm'>
+          Clique sur l'image pour voir la galerie de{' '}
+          <span className='text-yellow-400'>{props.userName}</span>
         </div>
         <img
           src={`${import.meta.env.VITE_BACKEND_URL}/${props.userName}/${props.imageName}`}
           alt={props.title}
+          className='w-full rounded-3xl mt-3'
         />
       </CarouselItem>
       {showGallery && (

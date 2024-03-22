@@ -16,7 +16,7 @@ function Selector() {
         defaultValue='events'
         className='h-full text-center w-full overflow-hidden mb-12 scroll-mt-20'
       >
-        <TabsList className='bg-transparent text-primaryYellow border border-gray-300'>
+        <TabsList className='flex justify-between w-full bg-transparent text-primaryYellow border border-gray-300'>
           <TabsTrigger
             value='events'
             className='data-[state=active]:bg-gray-400 data-[state=active]:opacity-50 data-[state=active]:text-green-200'
