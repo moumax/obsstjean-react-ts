@@ -17,7 +17,10 @@ function Contact() {
   })
 
   return (
-    <section id='contact' className='z-50 flex flex-col items-center'>
+    <section
+      id='contact'
+      className='z-40 flex flex-col items-center scroll-mt-20'
+    >
       <h1 className='mb-4 text-2xl text-white'>Nous contacter</h1>
       <MapContainer
         className='rounded-xl0 mb-8 h-56 w-4/5 overflow-hidden'

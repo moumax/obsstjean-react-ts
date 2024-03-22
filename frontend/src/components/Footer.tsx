@@ -1,42 +1,7 @@
-import { Button } from '@/components/ui/button.tsx'
-import { toast } from 'sonner'
 import { BiLogoJavascript, BiLogoReact } from 'react-icons/bi'
 import { SiMysql } from 'react-icons/si'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/contexts/AuthContext'
-
-function refreshPage() {
-  window.location.reload()
-}
 
 function Footer() {
-  const { isLoggedIn } = useAuth()
-  const navigate = useNavigate()
-
-  const handleDisconnection = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout/`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          credentials: 'include'
-        }
-      )
-      if (!response.ok) {
-        toast.error('Déconnexion impossible...')
-        throw new Error('Erreur dans la fonction logout')
-      }
-      toast.success('Tu es déconnecté !')
-      refreshPage()
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error)
-      toast.error('Erreur lors de la déconnexion')
-    }
-  }
-
   return (
     <footer className='flex flex-col'>
       <div className='flex flex-col items-center text-center text-xs text-white opacity-40'>
@@ -52,23 +17,6 @@ function Footer() {
             alt='Ville de Saint Jean Le Blancé'
           />
         </div>
-      </div>
-      <div className='mt-5 self-end'>
-        {!isLoggedIn && (
-          <Button type='submit' onClick={() => navigate('/login')}>
-            Login
-          </Button>
-        )}
-        {isLoggedIn && (
-          <Button type='submit' onClick={handleDisconnection}>
-            Logout
-          </Button>
-        )}
-        {isLoggedIn && (
-          <Button type='submit' onClick={() => navigate('/administration')}>
-            Administration
-          </Button>
-        )}
       </div>
     </footer>
   )

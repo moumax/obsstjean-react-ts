@@ -7,7 +7,10 @@ import './Carousel.css'
 
 function About() {
   return (
-    <section id='about' className='flex items-center w-full h-fit mb-12'>
+    <section
+      id='about'
+      className='flex items-center w-full h-fit mb-12 scroll-mt-20'
+    >
       <Carousel
         infiniteLoop
         autoPlay
