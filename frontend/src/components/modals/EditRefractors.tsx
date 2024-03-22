@@ -94,7 +94,7 @@ function EditRefractors(props: EditRefractorsProps) {
       <DialogTrigger asChild className='bg-transparent text-green-600'>
         <FileEdit size={20} />
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 sm:max-w-[425px]'>
+      <DialogContent className='bg-blue-900 w-full'>
         <DialogHeader>
           <DialogTitle className='text-white'>
             Modifier un téléscope

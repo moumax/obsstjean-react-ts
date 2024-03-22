@@ -149,11 +149,9 @@ function EditCamera(props: EditCameraProps) {
           <FileEdit size={20} />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 sm:max-w-[425px]'>
+      <DialogContent className='bg-blue-900 w-full'>
         <DialogHeader>
-          <DialogTitle className='text-white'>
-            Modifier un téléscope
-          </DialogTitle>
+          <DialogTitle className='text-white'>Modifier une caméra</DialogTitle>
           <DialogDescription className='text-white'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
@@ -372,7 +370,7 @@ function EditCamera(props: EditCameraProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400' type='submit'>
+            <Button className='bg-green-400 w-full' type='submit'>
               Sauvegarder
             </Button>
           </form>

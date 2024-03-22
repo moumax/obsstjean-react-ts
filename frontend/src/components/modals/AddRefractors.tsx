@@ -52,9 +52,9 @@ function AddRefractor(props: AddRefractorProps) {
   const defaultValues = {
     brand: props.brand || '',
     model: props.model || '',
-    diameter: props.diameter || 0,
-    focal: props.focal || 0,
-    focal_ratio: props.focal_ratio || 0
+    diameter: props.diameter !== undefined ? props.diameter : '',
+    focal: props.focal !== undefined ? props.focal : '',
+    focal_ratio: props.focal_ratio !== undefined ? props.focal_ratio : ''
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -90,7 +90,9 @@ function AddRefractor(props: AddRefractorProps) {
       </DialogTrigger>
       <DialogContent className='bg-blue-900 w-full'>
         <DialogHeader>
-          <DialogTitle className='text-white mb-3'>Créer un membre</DialogTitle>
+          <DialogTitle className='text-white mb-3'>
+            Créer une nouvelle optique
+          </DialogTitle>
           <DialogDescription className='text-white'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
@@ -103,7 +105,7 @@ function AddRefractor(props: AddRefractorProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Marque du téléscope' {...field} />
+                    <Input placeholder="Marque de l\'optique" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -115,7 +117,7 @@ function AddRefractor(props: AddRefractorProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Modèle du téléscope' {...field} />
+                    <Input placeholder='Modèle de l\optique' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
