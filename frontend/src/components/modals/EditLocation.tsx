@@ -16,7 +16,6 @@ import {
   FormItem,
   FormMessage
 } from '@/components/ui/form.tsx'
-import { Input } from '@/components/ui/input.tsx'
 import { toast } from 'sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FileEdit } from 'lucide-react'
@@ -24,6 +23,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { mutate } from 'swr'
 import * as z from 'zod'
+import { Textarea } from '../ui/textarea'
 
 interface EditLocationProps {
   id: number
@@ -75,7 +75,7 @@ function EditLocation(props: EditLocationProps) {
           <FileEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 sm:max-w-[425px]'>
+      <DialogContent className='bg-blue-900 w-full'>
         <DialogHeader>
           <DialogTitle className='text-white'>Modifier un lieu</DialogTitle>
           <DialogDescription className='text-white'>
@@ -90,13 +90,13 @@ function EditLocation(props: EditLocationProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.location} {...field} />
+                    <Textarea placeholder={props.location} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400' type='submit'>
+            <Button className='bg-green-400 w-full' type='submit'>
               Sauvegarder
             </Button>
           </form>

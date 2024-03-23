@@ -34,7 +34,7 @@ function Login() {
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     try {
       await sendDataToDatabase(values)
-      toast.success('Tu est connecté !')
+      toast.success('Tu es connecté !')
       navigate('/')
       mutate(`${import.meta.env.VITE_BACKEND_URL}/api/session/`)
     } catch (error) {

@@ -92,7 +92,7 @@ function Navbar() {
         <div>
           {isLoggedIn && (
             <p className='text-center text-xs text-primaryYellow p-1'>
-              <b>{userName}</b>, tu est connecté !
+              <b>{userName}</b>, tu es connecté !
             </p>
           )}
         </div>
