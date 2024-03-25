@@ -146,12 +146,12 @@ function AddEvent(props: AddEventProps) {
           <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue w-full font-Exo flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white mb-3'>
+          <DialogTitle className='text-primaryYellow mb-3 text-2xl'>
             Créer un evènement
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -163,7 +163,11 @@ function AddEvent(props: AddEventProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Titre de l'évènement" {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder="Titre de l'évènement"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -176,7 +180,7 @@ function AddEvent(props: AddEventProps) {
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      className='h-48'
+                      className='h-48 bg-primaryInput'
                       placeholder="Description de l'évènement"
                       {...field}
                     />
@@ -196,7 +200,7 @@ function AddEvent(props: AddEventProps) {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
+                            'w-full pl-3 text-left font-normal bg-primaryInput ',
                             !field.value && 'text-muted-foreground w-full'
                           )}
                         >
@@ -209,9 +213,10 @@ function AddEvent(props: AddEventProps) {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className='p-0 w-max' align='center'>
+                    <PopoverContent className='p-0 w-full' align='center'>
                       <Calendar
                         mode='single'
+                        className='bg-primaryInput h-[90%] w-full'
                         selected={selectedDateRef.current}
                         onSelect={date => {
                           if (date instanceof Date) {
@@ -246,14 +251,18 @@ function AddEvent(props: AddEventProps) {
                 </FormItem>
               )}
             />
-            <div className='flex'>
+            <div className='flex w-full gap-2 justify-between'>
               <FormField
                 control={form.control}
                 name='hours'
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder='heure' {...field} />
+                      <Input
+                        className='bg-primaryInput w-40'
+                        placeholder='heure'
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -265,22 +274,31 @@ function AddEvent(props: AddEventProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder='minutes' {...field} />
+                      <Input
+                        className='bg-primaryInput w-40'
+                        placeholder='minutes'
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton text-black text-sm w-40'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black text-sm w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

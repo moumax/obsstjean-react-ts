@@ -23,8 +23,8 @@ function CardUser({
   if (!email) return null
   return (
     <div>
-      <Card className='bg-transparent flex flex-col mb-2'>
-        <CardHeader className='flex flex-row items-center justify-center gap-4 p-0'>
+      <Card className='bg-transparent flex flex-col mb-2 border-white/20'>
+        <CardHeader className='flex flex-row items-center justify-center gap-4 p-0 pt-2'>
           <CardTitle className='text-primaryYellow text-md flex items-center'>
             {email} <span className='text-red-400 ml-4 text-xs'>"{name}"</span>
           </CardTitle>

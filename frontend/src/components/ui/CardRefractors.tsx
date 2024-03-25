@@ -23,8 +23,8 @@ function CardRefractors({
   data: Data
 }) {
   return (
-    <Card className='mb-2 bg-transparent'>
-      <CardHeader className='m-0 mx-2 mb-4 mt-1 flex flex-row items-center justify-between p-0'>
+    <Card className='mb-2 bg-transparent border-white/20'>
+      <CardHeader className='m-0 mx-2 mb-4 mt-1 flex flex-row items-center justify-between p-0 pt-2'>
         <CardTitle className='text-sm text-primaryYellow'>{brand}</CardTitle>
         <div className='flex flex-row gap-2'>
           <EditRefractors
@@ -54,7 +54,6 @@ function CardRefractors({
           </p>
         </div>
       </CardContent>
-      <CardFooter className='flex justify-end p-0'></CardFooter>
     </Card>
   )
 }

@@ -34,9 +34,21 @@ import AddLocation from '@/components/modals/AddLocation'
 import PhotoUpload from '@/components/ui/PhotoUpload'
 import AdminPhotosDisplay from '@/components/ui/gallery/AdminPhotosDisplay'
 import { LoadingSpinner } from '@/components/ui/loader'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import { useState } from 'react'
 
 function Administration() {
   const { isLoggedIn, userRole, userName } = useAuth()
+  const [selectedRefractorBrand, setSelectedRefractorBrand] = useState(null)
+  const [selectedCameraBrand, setSelectedCameraBrand] = useState(null)
+
   const {
     data: dataEvents,
     error: errorEvents,
@@ -159,6 +171,24 @@ function Administration() {
   })
   const sortedMembers = [...actualMembers, ...oldMembers]
 
+  const uniqueRefractorBrands = [
+    ...new Set(
+      dataRefractors.map((refractor: RefractorData) => refractor.brand)
+    )
+  ]
+  uniqueRefractorBrands.sort((a, b) => a.localeCompare(b))
+  const handleRefractorChange = event => {
+    setSelectedRefractorBrand(event)
+  }
+
+  const uniqueCameraBrand = [
+    ...new Set(dataCameras.map((camera: CameraData) => camera.brand))
+  ]
+
+  uniqueCameraBrand.sort((a, b) => a.localeCompare(b))
+  const handleCameraChange = event => {
+    setSelectedCameraBrand(event)
+  }
   return (
     <Tabs defaultValue='utilisateurs' className='h-fit'>
       <TabsList className='flex w-full bg-transparent align-middle text-primaryYellow'>
@@ -188,7 +218,15 @@ function Administration() {
       <TabsContent value='utilisateurs' className='mt-10 h-screen'>
         {isLoggedIn &&
           (userRole === 'Administrateur' ? (
-            <div>
+            <div className='pb-10 min-h-screen'>
+              <Button
+                variant='destructive'
+                type='submit'
+                className='w-full mt-3 text-black bg-cancelButton/80'
+                onClick={() => navigate('/')}
+              >
+                Retour
+              </Button>
               <div className='text-white text-xl flex justify-around items-center my-10'>
                 Liste des utilisateurs
               </div>
@@ -197,14 +235,6 @@ function Administration() {
                   <CardUser data={user} />
                 </div>
               ))}
-              <Button
-                variant='destructive'
-                type='submit'
-                className='w-full mt-3'
-                onClick={() => navigate('/')}
-              >
-                Retour
-              </Button>
             </div>
           ) : (
             <div className='flex flex-col items-center justify-center text-xl text-white'>
@@ -212,7 +242,7 @@ function Administration() {
               <Button
                 variant='destructive'
                 type='submit'
-                className='w-full mt-3'
+                className='w-full mt-3 text-black bg-cancelButton/80'
                 onClick={() => navigate('/')}
               >
                 Retour à la page principale
@@ -220,10 +250,18 @@ function Administration() {
             </div>
           ))}
       </TabsContent>
-      <TabsContent value='membres'>
+      <TabsContent value='membres' className='mt-10 min-h-screen'>
         {isLoggedIn &&
           (userRole === 'Administrateur' ? (
-            <div>
+            <div className='pb-10 min-h-screen'>
+              <Button
+                variant='destructive'
+                type='submit'
+                className='rouded-4xl w-full mt-3 text-black bg-cancelButton/80'
+                onClick={() => navigate('/')}
+              >
+                Retour
+              </Button>
               <div className='text-white text-xl flex justify-around items-center my-10'>
                 Liste des membres
                 <AddMembers />
@@ -233,26 +271,34 @@ function Administration() {
                   <CardMember data={member} />
                 </div>
               ))}
+            </div>
+          ) : (
+            <div className='flex flex-col items-center justify-center text-xl text-white'>
+              Tu n'as pas accès à cette section
               <Button
                 variant='destructive'
                 type='submit'
-                className='w-full mt-3'
+                className='w-full mt-3 text-black bg-cancelButton/80'
                 onClick={() => navigate('/')}
               >
-                Retour
+                Retour à la page principale
               </Button>
-            </div>
-          ) : (
-            <div className='flex h-screen items-center justify-center text-2xl text-white'>
-              Tu n'as pas accès à cette section
             </div>
           ))}
       </TabsContent>
-      <TabsContent value='evènements'>
+      <TabsContent value='evènements' className='min-h-screen'>
         {isLoggedIn &&
         (userRole === 'Administrateur' ||
           userRole === 'Rédacteur-Photographe') ? (
-          <div>
+          <div className='pb-10 min-h-screen'>
+            <Button
+              variant='destructive'
+              type='submit'
+              className='w-full mt-3 text-black bg-cancelButton/80'
+              onClick={() => navigate('/')}
+            >
+              Retour
+            </Button>
             <div className='text-white text-xl flex justify-around items-center my-10'>
               Liste des évènements <AddEvent />
             </div>
@@ -269,110 +315,167 @@ function Administration() {
                 <CardLocations data={location} />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className='flex flex-col items-center justify-center text-xl text-white'>
+            Tu n'as pas accès à cette section
             <Button
               variant='destructive'
               type='submit'
-              className='w-full mt-3'
+              className='w-full mt-3 text-black bg-cancelButton/80'
               onClick={() => navigate('/')}
             >
-              Retour
+              Retour à la page principale
             </Button>
-          </div>
-        ) : (
-          <div className='flex h-screen items-center justify-center text-2xl text-white'>
-            Tu n'as pas accès à cette section
           </div>
         )}
       </TabsContent>{' '}
-      <TabsContent value='photos'>
+      <TabsContent value='photos' className='min-h-screen'>
+        <Button
+          variant='destructive'
+          type='submit'
+          className='w-full mt-3 text-black bg-cancelButton/80'
+          onClick={() => navigate('/')}
+        >
+          Retour
+        </Button>
         {isLoggedIn &&
         (userRole === 'Administrateur' ||
           userRole === 'Rédacteur-Photographe' ||
           userRole === 'Photographe') ? (
-          <div className='flex h-full flex-col items-center justify-center text-3xl text-white'>
+          <div className='flex min-h-screen flex-col items-center justify-center text-2xl text-white mt-5'>
             Gestionnaire de photos
             <div className='text-sm w-full'>
               <PhotoUpload username={userName} />
               <AdminPhotosDisplay username={userName} />
             </div>
+          </div>
+        ) : (
+          <div className='flex flex-col items-center justify-center text-xl text-white'>
+            Tu n'as pas accès à cette section
             <Button
               variant='destructive'
               type='submit'
-              className='w-full mt-3'
+              className='w-full mt-3 text-black bg-cancelButton/80'
               onClick={() => navigate('/')}
             >
-              Retour
+              Retour à la page principale
             </Button>
-          </div>
-        ) : (
-          <div className='flex h-screen items-center justify-center text-2xl text-white'>
-            Tu n'as pas accès à cette section
           </div>
         )}
       </TabsContent>
-      <TabsContent value='telescope'>
+      <TabsContent value='telescope' className='pb-5 min-h-screen'>
+        <Button
+          variant='destructive'
+          type='submit'
+          className='w-full mt-3 text-black bg-cancelButton/80'
+          onClick={() => navigate('/')}
+        >
+          Retour
+        </Button>
         {isLoggedIn &&
         (userRole === 'Administrateur' ||
           userRole === 'Rédacteur-Photographe') ? (
-          <div>
+          <div className='min-h-screen'>
             <div className='text-white text-xl flex justify-around items-center my-10'>
               Optiques échantillonnage
               <AddRefractor />
             </div>
-            {dataRefractors && dataRefractors.length > 0 ? (
-              dataRefractors.map((refractors: RefractorData) => (
-                <div key={refractors.id} className='w-full'>
-                  <CardRefractors data={refractors} />
-                </div>
-              ))
-            ) : (
-              <div>Aucun télescope trouvé</div>
-            )}
+            <Select onValueChange={handleRefractorChange}>
+              <SelectTrigger className='w-full bg-primaryInput mb-10'>
+                <SelectValue placeholder="Sélectionne une marque d'optique" />
+              </SelectTrigger>
+              <SelectGroup>
+                <SelectContent>
+                  {uniqueRefractorBrands.map(brand => (
+                    <SelectItem key={brand} value={brand}>
+                      {brand}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </SelectGroup>
+            </Select>
+            {selectedRefractorBrand
+              ? dataRefractors
+                  .filter(
+                    (refractor: RefractorData) =>
+                      refractor.brand === selectedRefractorBrand
+                  )
+                  .map((refractor: RefractorData) => (
+                    <div key={refractor.id} className='w-full'>
+                      <CardRefractors data={refractor} />
+                    </div>
+                  ))
+              : null}
+          </div>
+        ) : (
+          <div className='flex flex-col items-center justify-center text-xl text-white'>
+            Tu n'as pas accès à cette section
             <Button
               variant='destructive'
               type='submit'
-              className='w-full mt-3'
+              className='w-full mt-3 text-black bg-cancelButton/80'
               onClick={() => navigate('/')}
             >
-              Retour
+              Retour à la page principale
             </Button>
-          </div>
-        ) : (
-          <div className='flex h-screen items-center justify-center text-2xl text-white'>
-            Tu n'as pas accès à cette section
           </div>
         )}
       </TabsContent>
-      <TabsContent value='cameras'>
+      <TabsContent value='cameras' className='pb-5 min-h-screen'>
+        <Button
+          variant='destructive'
+          type='submit'
+          className='w-full mt-3 text-black bg-cancelButton/80'
+          onClick={() => navigate('/')}
+        >
+          Retour
+        </Button>
         {isLoggedIn &&
         (userRole === 'Administrateur' ||
           userRole === 'Rédacteur-Photographe') ? (
-          <div>
+          <div className='min-h-screen'>
             <div className='text-white text-xl flex justify-around items-center my-10'>
               Caméras échantillonnage
               <AddCamera />
             </div>
-            {dataCameras && dataCameras.length > 0 ? (
-              dataCameras.map((cameras: CameraData) => (
-                <div key={cameras.id} className='w-full'>
-                  <CardCameras data={cameras} />
-                </div>
-              ))
-            ) : (
-              <div>Aucune caméra trouvé</div>
-            )}
+            <Select onValueChange={handleCameraChange}>
+              <SelectTrigger className='w-full bg-primaryInput mb-10'>
+                <SelectValue placeholder='Sélectionne une marque de caméra' />
+              </SelectTrigger>
+              <SelectGroup>
+                <SelectContent>
+                  {uniqueCameraBrand.map(brand => (
+                    <SelectItem key={brand} value={brand}>
+                      {brand}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </SelectGroup>
+            </Select>
+            {selectedCameraBrand
+              ? dataCameras
+                  .filter(
+                    (camera: CameraData) => camera.brand === selectedCameraBrand
+                  )
+                  .map((camera: CameraData) => (
+                    <div key={camera.id} className='w-full'>
+                      <CardCameras data={camera} />
+                    </div>
+                  ))
+              : null}
+          </div>
+        ) : (
+          <div className='flex flex-col items-center justify-center text-xl text-white min-h-screen'>
+            Tu n'as pas accès à cette section
             <Button
               variant='destructive'
               type='submit'
-              className='w-full mt-3'
+              className='w-full mt-3 text-black bg-cancelButton/80'
               onClick={() => navigate('/')}
             >
-              Retour
+              Retour à la page principale
             </Button>
-          </div>
-        ) : (
-          <div className='flex h-screen items-center justify-center text-2xl text-white'>
-            Tu n'as pas accès à cette section
           </div>
         )}
       </TabsContent>

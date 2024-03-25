@@ -17,10 +17,12 @@ interface Location {
 
 interface LocationSelectorProps {
   onSelectLocation: (location: string) => void
+  defaultLocation?: string
 }
 
 const LocationSelector: React.FC<LocationSelectorProps> = ({
-  onSelectLocation
+  onSelectLocation,
+  defaultLocation
 }) => {
   const {
     data: locations,
@@ -41,10 +43,13 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
 
   return (
     <Select onValueChange={value => onSelectLocation(value)}>
-      <SelectTrigger>
-        <SelectValue placeholder="Lieu de l'évènement" />
+      <SelectTrigger className='bg-primaryInput'>
+        <SelectValue
+          defaultValue={defaultLocation}
+          placeholder="Lieu de l'évènement"
+        />
       </SelectTrigger>
-      <SelectContent className='w-min'>
+      <SelectContent className='w-min bg-primaryInput'>
         <SelectGroup>
           {locations.map(location => (
             <SelectItem

@@ -45,24 +45,23 @@ function DeleteCamera(props: DeleteCameraProps) {
       <AlertDialogTrigger className='text-red-600'>
         <Trash2 size={20} />
       </AlertDialogTrigger>
-      <AlertDialogContent className='bg-blue-800 text-white'>
+      <AlertDialogContent className='bg-primaryBlue font-Exo flex flex-col border-0'>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Etes vous certain de vouloir supprimer la caméra {props.brand},{' '}
-            {props.model}
+          <AlertDialogTitle className='text-primaryYellow text-xl'>
+            Supprimer la caméra {props.brand} {props.model}
           </AlertDialogTitle>
-          <AlertDialogDescription className='text-white-800'>
+          <AlertDialogDescription className='text-white/50'>
             Cette action est irréversible. Elle supprimera définitivement la
             caméra.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className='bg-green-600'>
+          <AlertDialogCancel className='bg-cancelButton/80 text-sm text-black mt-20'>
             Annuler
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => handleDelete(props.id)}
-            className='bg-red-600'
+            className='bg-validateButton text-sm text-black'
           >
             Supprimer
           </AlertDialogAction>

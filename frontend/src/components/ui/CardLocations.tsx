@@ -15,8 +15,8 @@ function CardLocations({ data: { id, location } }: { data: Data }) {
 
   return (
     <div className='mb-2'>
-      <Card className='bg-transparent'>
-        <CardContent className='p-0'>
+      <Card className='bg-transparent border-white/20'>
+        <CardContent className='p-0 pt-2'>
           <div className='flex flex-col justify-between my-1 mx-3'>
             <p className='text-white opacity-70 text-sm'>{location}</p>
           </div>

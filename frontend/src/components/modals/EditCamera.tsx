@@ -149,10 +149,12 @@ function EditCamera(props: EditCameraProps) {
           <FileEdit size={20} />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue font-Exo w-full flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white'>Modifier une caméra</DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogTitle className='text-primaryYellow text-2xl'>
+            Modifier une caméra
+          </DialogTitle>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -164,7 +166,11 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.brand} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.brand}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -176,7 +182,11 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.model} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.model}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -188,7 +198,11 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.sensor} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.sensor}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -200,7 +214,11 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.sensor_type} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.sensor_type}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -212,7 +230,11 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.sensor_width_mm} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.sensor_width_mm}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -225,6 +247,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.sensor_height_mm}
                       {...field}
@@ -241,6 +264,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.sensor_width_pixel}
                       {...field}
@@ -257,6 +281,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.sensor_height_pixel}
                       {...field}
@@ -274,6 +299,7 @@ function EditCamera(props: EditCameraProps) {
                   <FormControl>
                     <Input
                       type='number'
+                      className='bg-primaryInput'
                       placeholder={props.photosites}
                       {...field}
                     />
@@ -289,6 +315,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.megapixels}
                       {...field}
@@ -304,7 +331,12 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type='number' placeholder={props.fps} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      type='number'
+                      placeholder={props.fps}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -317,6 +349,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.dynamic}
                       {...field}
@@ -332,7 +365,12 @@ function EditCamera(props: EditCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type='number' placeholder={props.bits} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      type='number'
+                      placeholder={props.bits}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -345,6 +383,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.pixel_capacity}
                       {...field}
@@ -361,6 +400,7 @@ function EditCamera(props: EditCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.cooler}
                       {...field}
@@ -370,15 +410,20 @@ function EditCamera(props: EditCameraProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton text-sm text-black w-40'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black text-sm w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

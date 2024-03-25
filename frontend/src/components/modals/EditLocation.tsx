@@ -75,10 +75,12 @@ function EditLocation(props: EditLocationProps) {
           <FileEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue font-Exo w-full flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white'>Modifier un lieu</DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogTitle className='text-primaryYellow text-2xl'>
+            Modifier un lieu
+          </DialogTitle>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -90,21 +92,30 @@ function EditLocation(props: EditLocationProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea placeholder={props.location} {...field} />
+                    <Textarea
+                      className='bg-primaryInput'
+                      placeholder={props.location}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton w-40 text-black text-sm'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black w-40 text-sm'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

@@ -85,12 +85,12 @@ function EditUsers(props: EditUsersProps) {
           <FileEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue w-full font-Exo flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white'>
+          <DialogTitle className='text-2xl text-primaryYellow mb-3'>
             Modifier un utilisateur
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50 mb-3'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -102,7 +102,11 @@ function EditUsers(props: EditUsersProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.email} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.email}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,7 +118,11 @@ function EditUsers(props: EditUsersProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.name} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.name}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,11 +138,11 @@ function EditUsers(props: EditUsersProps) {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className='bg-primaryInput'>
                         <SelectValue placeholder='Sélectionnez votre role' />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className='bg-primaryInput'>
                       <SelectItem value='Administrateur'>
                         Administrateur
                       </SelectItem>
@@ -149,15 +157,21 @@ function EditUsers(props: EditUsersProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <DialogFooter>
+            <Button
+              className='bg-validateButton text-black text-sm w-40'
+              type='submit'
+            >
+              Sauvegarder
+            </Button>
+          </DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black text-sm w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

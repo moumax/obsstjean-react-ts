@@ -13,9 +13,9 @@ function App() {
   const navigate = useNavigate()
 
   return (
-    <main className='h-fit bg-[#072449]'>
+    <main className='h-fit bg-primaryBlue font-Exo'>
       <Toaster position='bottom-right' expand />
-      <div className='container'>
+      <div className='container font-Exo'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />

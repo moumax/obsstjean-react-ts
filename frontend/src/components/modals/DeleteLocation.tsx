@@ -41,23 +41,23 @@ function DeleteLocation(props: DeleteLocationProps) {
       <AlertDialogTrigger className='text-red-600'>
         <Trash2 />
       </AlertDialogTrigger>
-      <AlertDialogContent className='bg-blue-800 text-white'>
+      <AlertDialogContent className='bg-primaryBlue font-Exo'>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Etes vous certain de vouloir supprimer le lieu {props.location} ?`
+          <AlertDialogTitle className='text-primaryYellow text-xl'>
+            Supprimer le lieu {props.location} ?
           </AlertDialogTitle>
-          <AlertDialogDescription className='text-white-800'>
+          <AlertDialogDescription className='text-white/50'>
             Cette action est irréversible. Elle supprimera définitivement le
             lieu.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className='bg-green-600'>
+          <AlertDialogCancel className='bg-cancelButton/80 text-sm text-black mt-20'>
             Annuler
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => handleDelete(props.id)}
-            className='bg-red-600'
+            className='bg-validateButton text-black text-sm'
           >
             Supprimer
           </AlertDialogAction>

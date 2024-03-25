@@ -94,12 +94,12 @@ function EditRefractors(props: EditRefractorsProps) {
       <DialogTrigger asChild className='bg-transparent text-green-600'>
         <FileEdit size={20} />
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue font-Exo w-full flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white'>
+          <DialogTitle className='text-primaryYellow text-2xl'>
             Modifier un téléscope
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -111,7 +111,11 @@ function EditRefractors(props: EditRefractorsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.brand} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.brand}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +127,11 @@ function EditRefractors(props: EditRefractorsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.model} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.model}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,6 +144,7 @@ function EditRefractors(props: EditRefractorsProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder={props.diameter}
                       {...field}
@@ -151,7 +160,12 @@ function EditRefractors(props: EditRefractorsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type='number' placeholder={props.focal} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      type='number'
+                      placeholder={props.focal}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -165,6 +179,7 @@ function EditRefractors(props: EditRefractorsProps) {
                   <FormControl>
                     <Input
                       type='number'
+                      className='bg-primaryInput'
                       placeholder={props.focal_ratio}
                       {...field}
                     />
@@ -173,15 +188,20 @@ function EditRefractors(props: EditRefractorsProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton text-sm text-black w-40'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-sm text-black w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

@@ -100,10 +100,12 @@ function AddMembers(props: AddMembersProps) {
           <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue font-Exo w-full flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white'>Créer un membre</DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogTitle className='text-primaryYellow text-2xl'>
+            Créer un membre
+          </DialogTitle>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -115,7 +117,11 @@ function AddMembers(props: AddMembersProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Prénom et nom du membre' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='Prénom et nom du membre'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -127,7 +133,11 @@ function AddMembers(props: AddMembersProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Email du membre' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='Email du membre'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,7 +149,11 @@ function AddMembers(props: AddMembersProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='1er janvier 1900' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='1er janvier 1900'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -155,16 +169,27 @@ function AddMembers(props: AddMembersProps) {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Type de membre ?' />
+                      <SelectTrigger className='bg-primaryInput'>
+                        <SelectValue
+                          className='bg-primaryInput'
+                          placeholder='Type de membre ?'
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value='Membre'>Membre</SelectItem>
-                      <SelectItem value='Membre bienfaiteur'>
+                      <SelectItem className='bg-primaryInput' value='Membre'>
+                        Membre
+                      </SelectItem>
+                      <SelectItem
+                        className='bg-primaryInput'
+                        value='Membre bienfaiteur'
+                      >
                         Membre bienfaiteur
                       </SelectItem>
-                      <SelectItem value='Ancien membre'>
+                      <SelectItem
+                        className='bg-primaryInput'
+                        value='Ancien membre'
+                      >
                         Ancien membre
                       </SelectItem>
                     </SelectContent>
@@ -172,15 +197,21 @@ function AddMembers(props: AddMembersProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <DialogFooter>
+            <Button
+              className='bg-validateButton text-sm w-40 text-black'
+              type='submit'
+            >
+              Sauvegarder
+            </Button>
+          </DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton text-black text-sm w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

@@ -51,7 +51,7 @@ function CardCameras({
 }) {
   return (
     <div>
-      <Card className='mb-2 bg-transparent'>
+      <Card className='mb-2 bg-transparent border-white/20'>
         <CardHeader className='m-0 mx-2 mb-4 mt-1 flex flex-row items-center justify-between p-0'>
           <CardTitle className='text-sm text-primaryYellow'>{brand}</CardTitle>
           <div className='self-end'>

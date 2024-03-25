@@ -40,23 +40,23 @@ function DeleteUsers(props: DeleteUsersProps) {
           <Trash2 />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className='bg-blue-800 text-white'>
+      <AlertDialogContent className='bg-primaryBlue font-Exo flex flex-col border-0'>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Etes vous certain de vouloir supprimer l'utilisateur {props.name} ?`
+          <AlertDialogTitle className='text-primaryYellow'>
+            Supprimer l'utilisateur {props.name} ?
           </AlertDialogTitle>
-          <AlertDialogDescription className='text-white-800'>
+          <AlertDialogDescription className='text-white/50'>
             Cette action est irréversible. Elle supprimera définitivement
             l'utilisateur.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className='bg-green-600'>
+          <AlertDialogCancel className='bg-cancelButton/80 mt-20'>
             Annuler
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => handleDelete(props.id)}
-            className='bg-red-600'
+            className='bg-validateButton text-black'
           >
             Supprimer
           </AlertDialogAction>

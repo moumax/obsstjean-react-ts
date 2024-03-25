@@ -88,12 +88,12 @@ function AddRefractor(props: AddRefractorProps) {
           <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue w-full font-Exo flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white mb-3'>
+          <DialogTitle className='text-primaryYellow mb-3 text-2xl'>
             Créer une nouvelle optique
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -105,7 +105,11 @@ function AddRefractor(props: AddRefractorProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Marque de l\'optique" {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder="Marque de l'optique"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,7 +121,11 @@ function AddRefractor(props: AddRefractorProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Modèle de l\optique' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder="Modèle de l'optique"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,6 +138,7 @@ function AddRefractor(props: AddRefractorProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder='Diamètre du téléscope'
                       {...field}
@@ -146,6 +155,7 @@ function AddRefractor(props: AddRefractorProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder='Focale du téléscope'
                       {...field}
@@ -162,6 +172,7 @@ function AddRefractor(props: AddRefractorProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       type='number'
                       placeholder='Rapport F/D du téléscope'
                       {...field}
@@ -171,14 +182,19 @@ function AddRefractor(props: AddRefractorProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton w-40 text-black text-sm'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-sm text-black w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

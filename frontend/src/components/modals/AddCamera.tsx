@@ -143,12 +143,12 @@ function AddCamera(props: AddCameraProps) {
           <PlusCircle size={40} />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue font-Exo w-full flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white mb-3'>
+          <DialogTitle className='text-primaryYellow text-2xl mb-3'>
             Créer une caméra
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -160,7 +160,11 @@ function AddCamera(props: AddCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Marque de la caméra' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='Marque de la caméra'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -172,7 +176,11 @@ function AddCamera(props: AddCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Modèle de la caméra' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='Modèle de la caméra'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -184,7 +192,11 @@ function AddCamera(props: AddCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Capteur de la caméra' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='Capteur de la caméra'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -197,6 +209,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Type de capteur de la caméra'
                       {...field}
                     />
@@ -212,6 +225,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Largeur du capteur de la caméra (mm)'
                       {...field}
                     />
@@ -227,6 +241,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Hauteur du capteur de la caméra (mm)'
                       {...field}
                     />
@@ -242,6 +257,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Largeur du capteur de la caméra (pixel)'
                       {...field}
                     />
@@ -257,6 +273,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Largeur du capteur de la caméra (pixel)'
                       {...field}
                     />
@@ -272,6 +289,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Photosites de la caméra (mm)'
                       {...field}
                     />
@@ -287,6 +305,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Megapixel de la caméra (mm)'
                       {...field}
                     />
@@ -302,6 +321,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Images par seconde de la caméra (mm)'
                       {...field}
                     />
@@ -317,6 +337,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Dynamique de la caméra (mm)'
                       {...field}
                     />
@@ -331,7 +352,11 @@ function AddCamera(props: AddCameraProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder='Bits de la caméra (mm)' {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder='Bits de la caméra (mm)'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -344,6 +369,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Capacité pixel de la caméra (mm)'
                       {...field}
                     />
@@ -359,6 +385,7 @@ function AddCamera(props: AddCameraProps) {
                 <FormItem>
                   <FormControl>
                     <Input
+                      className='bg-primaryInput'
                       placeholder='Refroidissement de la caméra (mm)'
                       {...field}
                     />
@@ -367,15 +394,20 @@ function AddCamera(props: AddCameraProps) {
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton text-sm text-black w-40'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton w-40 text-sm text-black'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

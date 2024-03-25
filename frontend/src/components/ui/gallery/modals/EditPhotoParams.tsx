@@ -85,12 +85,12 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
       <DialogTrigger className='bg-transparent text-green-600'>
         <FileEdit />
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue font-Exo flex flex-col border-0 w-full'>
         <DialogHeader>
-          <DialogTitle className='text-white'>
+          <DialogTitle className='text-primaryYellow text-xl'>
             Modifier les paramètres de la photo
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -102,7 +102,11 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.title} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.title}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,21 +118,30 @@ function EditPhotoParams(props: EditPhotoParamsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.description} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.description}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className='bg-green-400' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button
+            className='bg-validateButton w-40 text-black text-sm'
+            type='submit'
+          >
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black w-40 text-sm'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )

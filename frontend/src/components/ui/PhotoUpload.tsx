@@ -15,6 +15,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { mutate } from 'swr'
 import { toast } from 'sonner'
+import { Textarea } from './textarea'
 
 registerPlugin(
   FilePondPluginImageExifOrientation,
@@ -56,13 +57,15 @@ function PhotoUpload() {
   }
 
   return (
-    <div className='mt-4'>
-      <h2 className='text-xl text-center mb-7'>Poste tes photos !</h2>
+    <div className='mt-4 font-Exo'>
+      <h2 className='text-xl text-center mb-7 text-primaryYellow'>
+        Poste tes photos !
+      </h2>
       <div>
         <Label>Titre de la photo</Label>
         <Input
           type='text'
-          className='text-black'
+          className='text-black bg-primaryInput mb-5'
           value={title}
           onChange={e => {
             setTitle(e.target.value)
@@ -70,9 +73,8 @@ function PhotoUpload() {
           placeholder='Titre obligatoire'
         />
         <Label>Description de la photo</Label>
-        <Input
-          type='text'
-          className='text-black'
+        <Textarea
+          className='text-black bg-primaryInput'
           value={description}
           onChange={e => {
             setDescription(e.target.value)
@@ -80,7 +82,7 @@ function PhotoUpload() {
           placeholder='Description obligatoire'
         />
       </div>
-      <div className='flex flex-col border border-yellow-400 rounded-md mt-12 mb-12'>
+      <div className='flex flex-col border border-validateButton rounded-md mt-12 mb-12'>
         <FilePond
           labelIdle={`
           <div style="width:100%;height:100%">
@@ -128,7 +130,7 @@ function PhotoUpload() {
         {filesSelected && title && description && (
           <Button
             onClick={handleUpload}
-            className=' bg-green-500 mt-4 w-[90%] mb-5 self-center'
+            className=' bg-validateButton text-black mt-4 w-[90%] mb-5 self-center'
           >
             Envoyer ta photo sur le serveur
           </Button>

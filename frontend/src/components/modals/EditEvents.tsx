@@ -84,7 +84,7 @@ function EditEvents(props: EditEventsProps) {
     title: props.title || '',
     description: props.description || '',
     date: props.date ? new Date(props.date) : undefined,
-    location: props.location || '',
+    location: props.location || undefined,
     hours: props.hours || 0,
     minutes: props.minutes || 0
   }
@@ -142,7 +142,6 @@ function EditEvents(props: EditEventsProps) {
       console.error('La date sélectionnée est indéfinie')
     }
   }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className='bg-transparent text-green-600'>
@@ -150,12 +149,12 @@ function EditEvents(props: EditEventsProps) {
           <FileEdit />
         </Button>
       </DialogTrigger>
-      <DialogContent className='bg-blue-900 w-full'>
+      <DialogContent className='bg-primaryBlue w-full font-Exo flex flex-col border-0'>
         <DialogHeader>
-          <DialogTitle className='text-white'>
+          <DialogTitle className='text-primaryYellow text-2xl'>
             Modifier un évènement
           </DialogTitle>
-          <DialogDescription className='text-white'>
+          <DialogDescription className='text-white/50'>
             Cliquez sur sauvegarder une fois les modifications effectuées.
           </DialogDescription>
         </DialogHeader>
@@ -167,7 +166,11 @@ function EditEvents(props: EditEventsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={props.title} {...field} />
+                    <Input
+                      className='bg-primaryInput'
+                      placeholder={props.title}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -179,7 +182,11 @@ function EditEvents(props: EditEventsProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea placeholder={props.description} {...field} />
+                    <Textarea
+                      className='bg-primaryInput'
+                      placeholder={props.description}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -192,6 +199,7 @@ function EditEvents(props: EditEventsProps) {
                 <FormItem>
                   <FormControl>
                     <LocationSelector
+                      defaultLocation={props.location}
                       onSelectLocation={locationId =>
                         field.onChange({
                           target: { value: locationId.toString() }
@@ -214,7 +222,7 @@ function EditEvents(props: EditEventsProps) {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
+                            'w-ful pl-3 text-left font-normal bg-primaryInput',
                             !field.value && 'text-muted-foreground'
                           )}
                         >
@@ -227,7 +235,10 @@ function EditEvents(props: EditEventsProps) {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0' align='start'>
+                    <PopoverContent
+                      className='w-full p-0 bg-primaryInput'
+                      align='start'
+                    >
                       <Calendar
                         mode='single'
                         locale={fr}
@@ -255,7 +266,7 @@ function EditEvents(props: EditEventsProps) {
                   <FormItem>
                     <FormControl>
                       <Input
-                        className='w-1/2'
+                        className='w-20 bg-primaryInput'
                         type='number'
                         placeholder={props.hours}
                         {...field}
@@ -273,7 +284,7 @@ function EditEvents(props: EditEventsProps) {
                   <FormItem>
                     <FormControl>
                       <Input
-                        className='w-1/2'
+                        className='w-20 bg-primaryInput'
                         type='number'
                         placeholder={props.minutes}
                         {...field}
@@ -284,15 +295,17 @@ function EditEvents(props: EditEventsProps) {
                 )}
               />
             </div>
-            <Button className='bg-green-400 w-full' type='submit'>
-              Sauvegarder
-            </Button>
           </form>
         </Form>
-        <DialogFooter></DialogFooter>
-        <DialogClose className='h-10 rounded-md bg-red-400 text-white'>
-          Annuler
-        </DialogClose>
+        <div className='flex w-full gap-2 justify-center'>
+          <Button className='bg-validateButton w-40 text-black' type='submit'>
+            Sauvegarder
+          </Button>
+          <DialogFooter></DialogFooter>
+          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black w-40'>
+            Annuler
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   )
