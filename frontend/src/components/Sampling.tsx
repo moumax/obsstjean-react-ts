@@ -264,7 +264,7 @@ function Sampling() {
           Calcule ton échantillonnage
         </span>
       </DialogTrigger>
-      <DialogContent className='z-50 bg-[#072449]'>
+      <DialogContent className='z-50 bg-primaryBlue w-full font-Exo flex flex-col border-0'>
         <DialogHeader>
           <DialogTitle className='text-center text-primaryYellow'>
             Calculateur d'échantillonnage
@@ -284,7 +284,7 @@ function Sampling() {
               barlowSize={barlowSize}
               resolution={resolution}
             />
-            <div className='mb-5 flex justify-between gap-1'>
+            <div className='mt-5 mb-5 flex justify-between gap-1'>
               <div className='flex flex-col items-center gap-y-2'>
                 <WavelengthSelector
                   dataWavelength={dataWavelength}

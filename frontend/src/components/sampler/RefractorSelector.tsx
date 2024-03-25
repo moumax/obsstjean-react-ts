@@ -52,12 +52,12 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
 
   return (
     <>
-      <div className='flex'>
+      <div className='flex gap-2'>
         <Select onValueChange={value => handleBrandSelection(value as string)}>
-          <SelectTrigger className='mt-6 w-1/2'>
-            <SelectValue placeholder='Marque du tube' />
+          <SelectTrigger className='mt-6 bg-primaryInput text-xs'>
+            <SelectValue placeholder='Marque tube' className='text-xs' />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className='bg-primaryInput'>
             <SelectGroup>
               {uniqueBrands.map((brand: string) => (
                 <SelectItem key={brand} value={brand}>
@@ -72,10 +72,10 @@ export const RefractorSelector: React.FC<RefractorSelectorProps> = ({
           <Select
             onValueChange={value => handleModelSelection(value as string)}
           >
-            <SelectTrigger className='mt-6 w-1/2'>
-              <SelectValue placeholder='Modèle du tube' />
+            <SelectTrigger className='mt-6 bg-primaryInput text-xs'>
+              <SelectValue placeholder='Modèle tube' />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className='bg-primaryInput'>
               <SelectGroup>
                 {modelsForSelectedBrand.map((model: string) => (
                   <SelectItem key={model} value={model}>

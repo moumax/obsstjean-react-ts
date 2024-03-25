@@ -47,12 +47,12 @@ export const CameraSelector: React.FC<CameraSelectorProps> = ({
 
   return (
     <>
-      <div className='flex'>
+      <div className='flex gap-2'>
         <Select onValueChange={value => handleBrandSelection(value as string)}>
-          <SelectTrigger className='mt-6 w-1/2'>
-            <SelectValue placeholder='Marque de la caméra' />
+          <SelectTrigger className='mt-6 bg-primaryInput text-xs'>
+            <SelectValue placeholder='Marque caméra' />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className='bg-primaryInput'>
             <SelectGroup>
               {uniqueBrands.map((brand: string) => (
                 <SelectItem key={brand} value={brand}>
@@ -67,10 +67,10 @@ export const CameraSelector: React.FC<CameraSelectorProps> = ({
           <Select
             onValueChange={value => handleModelSelection(value as string)}
           >
-            <SelectTrigger className='mt-6 w-1/2'>
-              <SelectValue placeholder='Modèle de la caméra' />
+            <SelectTrigger className='mt-6 bg-primaryInput text-xs'>
+              <SelectValue placeholder='Modèle caméra' />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className='bg-primaryInput'>
               <SelectGroup>
                 {modelsForSelectedBrand.map((model: string) => (
                   <SelectItem key={model} value={model}>
@@ -85,14 +85,10 @@ export const CameraSelector: React.FC<CameraSelectorProps> = ({
 
       {selectedCamera && (
         <div className='pb-6 pt-6 text-gray-400'>
-          <p>
-            Capteur : {selectedCamera.sensor} Type de capteur :{' '}
-            {selectedCamera.sensor_type}
-          </p>
-          <p>
-            Fps : {selectedCamera.fps} Taille des pixels:{' '}
-            {selectedCamera.photosites}
-          </p>
+          <p>Capteur: {selectedCamera.sensor} </p>
+          <p>Type de capteur: {selectedCamera.sensor_type}</p>
+          <p>Fps: {selectedCamera.fps}</p>
+          <p>Taille des pixels: {selectedCamera.photosites}</p>
         </div>
       )}
     </>

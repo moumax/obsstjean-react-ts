@@ -30,10 +30,10 @@ export const WavelengthSelector: React.FC<WavelengthSelectorProps> = ({
         }
         defaultValue={() => setSelectedWavelength(dataWavelength[3])}
       >
-        <SelectTrigger className='w-[180px]'>
+        <SelectTrigger className='bg-primaryInput text-xs'>
           <SelectValue placeholder='vert - 550' />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className='bg-primaryInput'>
           <SelectGroup>
             {dataWavelength.map((wavelength: WavelengthData) => (
               <>

@@ -29,10 +29,10 @@ export const SkyObjectsSelector: React.FC<SkyObjectsSelectorProps> = ({
           handleSkyObjectsSelection(value as unknown as SkyObjectData)
         }
       >
-        <SelectTrigger>
+        <SelectTrigger className='bg-primaryInput'>
           <SelectValue placeholder='Sélectionnez un objet du ciel' />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className='bg-primaryInput'>
           <SelectGroup>
             {dataSkyObjects.map((objects: SkyObjectData) => (
               <>

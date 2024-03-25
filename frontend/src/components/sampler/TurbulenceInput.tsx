@@ -13,7 +13,7 @@ export const TurbulenceInput: React.FC<TurbulenceInputProps> = ({
     <div className='flex flex-col items-center gap-y-2'>
       <Label className='text-black-400'>Turbulence</Label>
       <Input
-        className='w-[90px] placeholder:text-center'
+        className='w-[90px] placeholder:text-center bg-primaryInput'
         onChange={handleTurbulence}
         type='text'
         id='turbulence'

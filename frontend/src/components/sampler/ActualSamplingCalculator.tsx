@@ -18,10 +18,8 @@ export const ActualSamplingCalculator: React.FC<
   return (
     <Table className='mb-10 mt-10 flex justify-around rounded-md bg-white/20'>
       <TableHeader>
-        <TableRow>
-          <TableHead className='text-center text-primaryYellow'>
-            Echantillonage actuel
-          </TableHead>
+        <TableRow className='text-center text-primaryYellow'>
+          <TableCell>{`Echant. actuel =====>`}</TableCell>
         </TableRow>
       </TableHeader>
       <TableBody>
