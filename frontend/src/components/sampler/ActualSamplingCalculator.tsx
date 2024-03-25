@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '../ui/table'
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
 
 interface ActualSamplingCalculatorProps {
   resultSampling: () => number
