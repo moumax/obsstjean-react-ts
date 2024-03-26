@@ -1,6 +1,6 @@
 import React from 'react'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
+import { Label } from '../ui/shad/label'
+import { Input } from '../ui/shad/input'
 
 interface TurbulenceInputProps {
   handleTurbulence: (e: React.ChangeEvent<HTMLInputElement>) => void

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Select,
   SelectContent,
@@ -6,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select.tsx'
+} from '@/components/ui/shad/select'
 import { SkyObjectData } from '@/types/types'
 
 interface SkyObjectsSelectorProps {
@@ -25,8 +24,8 @@ export const SkyObjectsSelector: React.FC<SkyObjectsSelectorProps> = ({
   return (
     <>
       <Select
-        onValueChange={value =>
-          handleSkyObjectsSelection(value as unknown as SkyObjectData)
+        onValueChange={(value: SkyObjectData) =>
+          handleSkyObjectsSelection(value)
         }
       >
         <SelectTrigger className='bg-primaryInput'>
@@ -34,10 +33,10 @@ export const SkyObjectsSelector: React.FC<SkyObjectsSelectorProps> = ({
         </SelectTrigger>
         <SelectContent className='bg-primaryInput'>
           <SelectGroup>
-            {dataSkyObjects.map((objects: SkyObjectData) => (
+            {dataSkyObjects.map((object: SkyObjectData) => (
               <>
-                <SelectItem key={objects.id} value={objects}>
-                  {objects.object} - {objects.size}
+                <SelectItem key={object.id} value={object}>
+                  {object.object} - {object.size}
                 </SelectItem>
               </>
             ))}

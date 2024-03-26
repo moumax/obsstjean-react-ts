@@ -1,4 +1,5 @@
-import React from 'react'
+import { WavelengthData } from '@/types/types'
+import { Label } from '@/components/ui/shad/label'
 import {
   Select,
   SelectContent,
@@ -6,13 +7,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select.tsx'
-import { WavelengthData } from '@/types/types'
-import { Label } from '../ui/label'
+} from '@/components/ui/shad/select'
 
 interface WavelengthSelectorProps {
   dataWavelength: WavelengthData[]
-  setSelectedWavelength: WavelengthData
+  setSelectedWavelength: React.Dispatch<
+    React.SetStateAction<WavelengthData | null>
+  >
   handleWavelengthSelection: (wavelength: WavelengthData) => void
 }
 
@@ -25,9 +26,11 @@ export const WavelengthSelector: React.FC<WavelengthSelectorProps> = ({
     <>
       <Label className='text-black-400'>Filtre</Label>
       <Select
-        onValueChange={value =>
-          handleWavelengthSelection(value as unknown as WavelengthData)
-        }
+        onValueChange={(value: unknown) => {
+          if (value && typeof value !== 'string') {
+            handleWavelengthSelection(value as WavelengthData)
+          }
+        }}
         defaultValue={() => setSelectedWavelength(dataWavelength[3])}
       >
         <SelectTrigger className='bg-primaryInput text-xs'>
@@ -36,11 +39,9 @@ export const WavelengthSelector: React.FC<WavelengthSelectorProps> = ({
         <SelectContent className='bg-primaryInput'>
           <SelectGroup>
             {dataWavelength.map((wavelength: WavelengthData) => (
-              <>
-                <SelectItem key={wavelength.id} value={wavelength}>
-                  {wavelength.color} - {wavelength.value}
-                </SelectItem>
-              </>
+              <SelectItem key={wavelength.id} value={wavelength}>
+                {wavelength.color} - {wavelength.value}
+              </SelectItem>
             ))}
           </SelectGroup>
         </SelectContent>

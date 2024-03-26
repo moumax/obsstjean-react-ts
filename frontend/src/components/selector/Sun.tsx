@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LoadingSpinner } from '@/components/ui/loader'
+import { LoadingSpinner } from '@/components/ui/shad/loader'
 
 function Sun() {
   const [isLoading, setIsLoading] = useState([true, true])

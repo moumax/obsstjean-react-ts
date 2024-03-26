@@ -1,13 +1,13 @@
+import DisplaySelectorGallery from './DisplaySelectorGallery'
+import Sampling from '../sampler/Sampling'
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger
-} from '@/components/ui/tabs.tsx'
+} from '@/components/ui/shad/tabs'
 import Events from '@/components/selector/Events'
 import Sun from '@/components/selector/Sun'
-import DisplaySelectorGallery from '../ui/gallery/DisplaySelectorGallery'
-import Sampling from '../Sampling'
 
 function Selector() {
   return (

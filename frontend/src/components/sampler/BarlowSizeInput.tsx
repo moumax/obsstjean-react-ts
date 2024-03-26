@@ -1,6 +1,5 @@
-import React from 'react'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
+import { Label } from '@/components/ui/shad/label'
+import { Input } from '@/components/ui/shad/input'
 
 interface BarlowSizeInputProps {
   handleBarlowSize: (e: React.ChangeEvent<HTMLInputElement>) => void

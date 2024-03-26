@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Table,
   TableBody,
@@ -6,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '../ui/table'
+} from '@/components/ui/shad/table'
 
 interface MinuteCalculatorProps {
   widthMinuteCalculationResult: number

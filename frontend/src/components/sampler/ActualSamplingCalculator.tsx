@@ -1,8 +1,13 @@
-import React from 'react'
-import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow
+} from '@/components//ui/shad/table'
 
 interface ActualSamplingCalculatorProps {
-  resultSampling: () => number
+  resultSampling: () => JSX.Element | null
 }
 
 export const ActualSamplingCalculator: React.FC<

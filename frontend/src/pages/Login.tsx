@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button.tsx'
+import { Button } from '@/components/ui/shad/button'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input.tsx'
+} from '@/components/ui/shad/form'
+import { Input } from '@/components/ui/shad/input'
 import loginSchema from '@/datas/validationLoginSchema.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'

@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+import { Button } from '@/components/ui/shad/button'
+import { Checkbox } from '@/components/ui/shad/checkbox'
 import {
   Form,
   FormControl,
@@ -7,15 +7,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/components/ui/shad/form'
+import { Input } from '@/components/ui/shad/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select.tsx'
+} from '@/components/ui/shad/select'
 import { toast } from 'sonner'
 import signUpSchema from '@/datas/validationUsersSchema.ts'
 import { zodResolver } from '@hookform/resolvers/zod'

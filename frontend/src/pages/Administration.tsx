@@ -1,20 +1,23 @@
+import { useState } from 'react'
 import callAPI from '@/api/callAPI'
-import AddEvent from '@/components/modals/AddEvent'
-import AddRefractor from '@/components/modals/AddRefractors'
-import AddMembers from '@/components/modals/AddMember.tsx'
-import AddCamera from '@/components/modals/AddCamera'
-import CardEvent from '@/components/ui/CardEvent.tsx'
-import CardMember from '@/components/ui/CardMember.tsx'
-import CardUser from '@/components/ui/CardUser.tsx'
-import CardRefractors from '@/components/ui/CardRefractors.tsx'
-import CardLocations from '@/components/ui/CardLocations'
-import { Button } from '@/components/ui/button.tsx'
+import AddEvent from '@/components/events/AddEvent'
+import AddRefractor from '@/components/refractors/AddRefractor'
+import AddMember from '@/components/members/AddMember'
+import AddCamera from '@/components/cameras/AddCamera'
+import AddLocation from '@/components/locations/AddLocation'
+import CardEvent from '@/components/events/CardEvent'
+import CardMember from '@/components/members/CardMember'
+import CardUser from '@/components/users/CardUser'
+import CardRefractor from '@/components/refractors/CardRefractor'
+import CardLocation from '@/components/locations/CardLocation'
+import CardCamera from '@/components/cameras/CardCamera'
+import { Button } from '@/components/ui/shad/button'
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger
-} from '@/components/ui/tabs.tsx'
+} from '@/components/ui/shad/tabs'
 import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { useAuth } from '@/contexts/AuthContext'
@@ -29,11 +32,9 @@ import {
   CameraData,
   LocationData
 } from '@/types/types'
-import CardCameras from '@/components/ui/CardCamera'
-import AddLocation from '@/components/modals/AddLocation'
-import PhotoUpload from '@/components/ui/PhotoUpload'
-import AdminPhotosDisplay from '@/components/ui/gallery/AdminPhotosDisplay'
-import { LoadingSpinner } from '@/components/ui/loader'
+import PhotoUpload from '@/components/photos/PhotoUpload'
+import AdminPhotosDisplay from '@/components/photos/AdminPhotosDisplay'
+import { LoadingSpinner } from '@/components/ui/shad/loader'
 import {
   Select,
   SelectContent,
@@ -41,8 +42,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select'
-import { useState } from 'react'
+} from '@/components/ui/shad/select'
 
 function Administration() {
   const { isLoggedIn, userRole, userName } = useAuth()
@@ -264,7 +264,7 @@ function Administration() {
               </Button>
               <div className='text-white text-xl flex justify-around items-center my-10'>
                 Liste des membres
-                <AddMembers />
+                <AddMember />
               </div>
               {sortedMembers.map((member: MemberData) => (
                 <div key={member.id}>
@@ -312,7 +312,7 @@ function Administration() {
             </div>
             {dataLocations.map((location: LocationData) => (
               <div key={location.id}>
-                <CardLocations data={location} />
+                <CardLocation data={location} />
               </div>
             ))}
           </div>
@@ -403,7 +403,7 @@ function Administration() {
                   )
                   .map((refractor: RefractorData) => (
                     <div key={refractor.id} className='w-full'>
-                      <CardRefractors data={refractor} />
+                      <CardRefractor data={refractor} />
                     </div>
                   ))
               : null}
@@ -460,7 +460,7 @@ function Administration() {
                   )
                   .map((camera: CameraData) => (
                     <div key={camera.id} className='w-full'>
-                      <CardCameras data={camera} />
+                      <CardCamera data={camera} />
                     </div>
                   ))
               : null}

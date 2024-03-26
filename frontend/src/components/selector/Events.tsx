@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import callAPI from '@/api/callAPI'
-import CardEvent from '@/components/ui/CardEvent.tsx'
-import { LoadingSpinner } from '../ui/loader'
+import CardEvent from '@/components/events/CardEvent'
+import { LoadingSpinner } from '@/components/ui/shad/loader'
 
 interface Event {
   id: number
@@ -9,6 +9,8 @@ interface Event {
   description: string
   date: Date
   location: string
+  hours: number
+  minutes: number
 }
 
 function Events() {

@@ -3,9 +3,9 @@ import Home from '@/pages/Home.tsx'
 import Login from '@/pages/Login.tsx'
 import Administration from '@/pages/Administration.tsx'
 import Signup from '@/pages/Signup.tsx'
-import { Button } from './components/ui/button'
+import { Button } from '@/components/ui/shad/button'
 import { useAuth } from '@/contexts/AuthContext'
-import { Toaster } from './components/ui/sonner'
+import { Toaster } from '@/components/ui/shad/sonner'
 
 function App() {
   const { isLoggedIn } = useAuth()

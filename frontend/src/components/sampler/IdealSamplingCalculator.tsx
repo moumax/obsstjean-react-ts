@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Table,
   TableBody,
@@ -6,11 +5,11 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '../ui/table'
+} from '@/components/ui/shad/table'
 
 interface IdealSamplingCalculatorProps {
   sampleCalculationResult: number
-  idealSample: () => number
+  idealSample: () => JSX.Element
 }
 
 export const IdealSamplingCalculator: React.FC<

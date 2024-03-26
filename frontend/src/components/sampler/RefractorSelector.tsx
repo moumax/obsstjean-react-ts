@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select.tsx'
+} from '@/components/ui/shad/select'
 import { RefractorData } from '@/types/types'
 
 interface RefractorSelectorProps {
