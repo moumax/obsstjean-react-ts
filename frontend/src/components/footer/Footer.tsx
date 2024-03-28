@@ -14,7 +14,7 @@ function Footer() {
           <img
             className='w-8'
             src='src/assets/footer/logo_st_jean_le_blanc.png'
-            alt='Ville de Saint Jean Le Blancé'
+            alt='Ville de Saint Jean Le Blanc'
           />
         </div>
       </div>

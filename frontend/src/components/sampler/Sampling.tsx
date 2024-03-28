@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import useSWR from 'swr'
 import callAPI from '@/api/callAPI'
-import { sampleCalculation } from '@/utils/sampleCalculation'
+import { sampleCalculation } from '@/utils/sampler/sampleCalculation'
 import {
   widthMinuteCalculation,
   heightMinuteCalculation,
   diagonalMinuteCalculation
-} from '@/utils/minuteCalculation'
+} from '@/utils/sampler/minuteCalculation'
 import {
   widthSecondCalculation,
   heightSecondCalculation,
   diagonalSecondCalculation
-} from '@/utils/secondCalculation'
-import { resolutionCalculation } from '@/utils/resolutionCalculation'
+} from '@/utils/sampler/secondCalculation'
+import { resolutionCalculation } from '@/utils/sampler/resolutionCalculation'
 import { CameraSelector } from './CameraSelector'
 import { RefractorSelector } from './RefractorSelector'
 import { MinuteCalculator } from './MinuteCalculator'
