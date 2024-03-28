@@ -55,6 +55,7 @@ interface EditEventProps {
 
 function EditEvent(props: EditEventProps) {
   const [open, setOpen] = useState(false)
+  const [showCalendar, setShowCalendar] = useState(false)
 
   const formSchema = z.object({
     title: z.string().min(5).max(75, {
@@ -222,7 +223,7 @@ function EditEvent(props: EditEventProps) {
               name='date'
               render={({ field }) => (
                 <FormItem className='flex flex-col'>
-                  <Popover>
+                  <Popover open={showCalendar} onOpenChange={setShowCalendar}>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
@@ -253,6 +254,7 @@ function EditEvent(props: EditEventProps) {
                           if (date instanceof Date) {
                             selectedDateRef.current = date
                             form.setValue('date', date)
+                            setShowCalendar(false)
                           }
                         }}
                         disabled={date => date < new Date('1900-01-01')}
