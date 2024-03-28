@@ -35,6 +35,13 @@ import {
 import { Calendar } from '@/components/ui/shad/calendar'
 import LocationSelector from '@/components/locations/LocationSelector'
 import { Textarea } from '@/components/ui/shad/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/shad/select'
 
 interface EditEventProps {
   id?: number
@@ -85,8 +92,8 @@ function EditEvent(props: EditEventProps) {
     description: props.description || '',
     date: props.date ? new Date(props.date) : undefined,
     location: props.location || undefined,
-    hours: props.hours || undefined,
-    minutes: props.minutes || 0
+    hours: typeof props.hours === 'number' ? props.hours : undefined,
+    minutes: typeof props.minutes === 'number' ? props.minutes : undefined
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -115,7 +122,6 @@ function EditEvent(props: EditEventProps) {
         seconds
       )
 
-      // Convertissez la date locale en ISO format
       const isoDate = localDate.toISOString().slice(0, 19).replace('T', ' ')
 
       const requestData = { ...values, date: isoDate }
@@ -263,34 +269,58 @@ function EditEvent(props: EditEventProps) {
                 control={form.control}
                 name='hours'
                 render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='w-20 bg-primaryInput'
-                        type='number'
-                        placeholder={props.hours?.toString() ?? ''}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
+                  <FormItem className='w-full'>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='bg-primaryInput'>
+                          <SelectValue
+                            className='bg-primaryInput'
+                            placeholder={props.hours}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='bg-primaryInput'>
+                        {Array.from({ length: 24 }, (_, index) => (
+                          <SelectItem
+                            className='bg-primaryInput'
+                            key={index}
+                            value={String(index)}
+                          >
+                            {index}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />
-              <div className='relative pr-20 text-white'>heure</div>
               <FormField
                 control={form.control}
                 name='minutes'
                 render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='w-20 bg-primaryInput'
-                        type='number'
-                        placeholder={props.minutes?.toString() ?? ''}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
+                  <FormItem className='w-full'>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='bg-primaryInput'>
+                          <SelectValue
+                            className='bg-primaryInput'
+                            placeholder={props.minutes}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='bg-primaryInput'>
+                        <SelectItem value='00'>00</SelectItem>
+                        <SelectItem value='15'>15</SelectItem>
+                        <SelectItem value='30'>30</SelectItem>
+                        <SelectItem value='45'>45</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />

@@ -18,7 +18,7 @@ interface DeleteEventprops {
   title: string
 }
 
-function DeleteEvent(props: DeleteEventProps) {
+function DeleteEvent(props: DeleteEventprops) {
   const handleDelete = async (eventId: number) => {
     try {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/${eventId}`, {

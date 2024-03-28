@@ -34,6 +34,13 @@ import { format } from 'date-fns'
 import { Textarea } from '../ui/shad/textarea'
 import LocationSelector from '../locations/LocationSelector'
 import { toast } from 'sonner'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/shad/select'
 
 interface AddEventProps {
   id?: number
@@ -84,8 +91,8 @@ function AddEvent(props: AddEventProps) {
     description: props.description || '',
     date: props.date ? new Date(props.date) : undefined,
     location: props.location || '',
-    hours: props.hours,
-    minutes: props.minutes
+    hours: typeof props.hours === 'number' ? props.hours : undefined,
+    minutes: typeof props.minutes === 'number' ? props.minutes : undefined
   }
 
   const selectedDateRef = useRef(props.date ? new Date(props.date) : undefined)
@@ -256,15 +263,30 @@ function AddEvent(props: AddEventProps) {
                 control={form.control}
                 name='hours'
                 render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='bg-primaryInput w-40'
-                        placeholder='heure'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
+                  <FormItem className='w-full'>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={String(field.value)}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='bg-primaryInput'>
+                          <SelectValue className='bg-primaryInput'>
+                            {field.value ? field.value : 'Heures'}
+                          </SelectValue>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='bg-primaryInput'>
+                        {Array.from({ length: 24 }, (_, index) => (
+                          <SelectItem
+                            className='bg-primaryInput'
+                            key={index}
+                            value={String(index)}
+                          >
+                            {index}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />
@@ -272,33 +294,43 @@ function AddEvent(props: AddEventProps) {
                 control={form.control}
                 name='minutes'
                 render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='bg-primaryInput w-40'
-                        placeholder='minutes'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
+                  <FormItem className='w-full'>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={String(field.value)}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='bg-primaryInput'>
+                          <SelectValue className='bg-primaryInput'>
+                            {field.value ? field.value : 'Minutes'}
+                          </SelectValue>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='bg-primaryInput'>
+                        <SelectItem value='00'>00</SelectItem>
+                        <SelectItem value='15'>15</SelectItem>
+                        <SelectItem value='30'>30</SelectItem>
+                        <SelectItem value='45'>45</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />
             </div>
+            <div className='flex w-full gap-2 justify-center'>
+              <Button
+                className='bg-validateButton text-black text-sm w-40'
+                type='submit'
+              >
+                Sauvegarder
+              </Button>
+              <DialogFooter></DialogFooter>
+              <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black text-sm w-40'>
+                Annuler
+              </DialogClose>
+            </div>
           </form>
         </Form>
-        <div className='flex w-full gap-2 justify-center'>
-          <Button
-            className='bg-validateButton text-black text-sm w-40'
-            type='submit'
-          >
-            Sauvegarder
-          </Button>
-          <DialogFooter></DialogFooter>
-          <DialogClose className='h-10 rounded-md bg-cancelButton/80 text-black text-sm w-40'>
-            Annuler
-          </DialogClose>
-        </div>
       </DialogContent>
     </Dialog>
   )
