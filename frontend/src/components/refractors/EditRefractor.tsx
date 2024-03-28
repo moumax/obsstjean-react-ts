@@ -115,6 +115,10 @@ function EditRefractor(props: EditRefractorProps) {
                       className='bg-primaryInput'
                       placeholder={props.brand}
                       {...field}
+                      onChange={e => {
+                        const upperCaseValue = e.target.value.toUpperCase()
+                        field.onChange(upperCaseValue)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

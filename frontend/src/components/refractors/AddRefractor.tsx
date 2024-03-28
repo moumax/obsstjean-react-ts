@@ -110,6 +110,10 @@ function AddRefractor(props: AddRefractorProps) {
                       className='bg-primaryInput'
                       placeholder="Marque de l'optique"
                       {...field}
+                      onChange={e => {
+                        const upperCaseValue = e.target.value.toUpperCase()
+                        field.onChange(upperCaseValue)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

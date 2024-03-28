@@ -164,6 +164,10 @@ function AddCamera(props: AddCameraProps) {
                       className='bg-primaryInput'
                       placeholder='Marque de la caméra'
                       {...field}
+                      onChange={e => {
+                        const upperCaseValue = e.target.value.toUpperCase()
+                        field.onChange(upperCaseValue)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
