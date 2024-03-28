@@ -52,10 +52,10 @@ function AddRefractor(props: AddRefractorProps) {
   const defaultValues: AddRefractorProps = {
     brand: props.brand || '',
     model: props.model || '',
-    diameter: typeof props.diameter !== 'undefined' ? props.diameter : 0,
-    focal: typeof props.focal !== 'undefined' ? props.focal : 0,
+    diameter: typeof props.diameter !== 'undefined' ? props.diameter : '',
+    focal: typeof props.focal !== 'undefined' ? props.focal : '',
     focal_ratio:
-      typeof props.focal_ratio !== 'undefined' ? props.focal_ratio : 0
+      typeof props.focal_ratio !== 'undefined' ? props.focal_ratio : ''
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
